@@ -46,3 +46,6 @@ next-env.d.ts
 
 # IDE - VS Code
 .vscode/
+
+# env files
+.env*.local
