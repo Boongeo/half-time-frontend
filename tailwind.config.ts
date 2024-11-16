@@ -11,7 +11,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        themeColor: '#344468'
       },
+      fontFamily: {
+        'arial-black' : ['"Arial Black"', 'Arial', 'sans-serif']
+      }
     },
   },
   plugins: [],

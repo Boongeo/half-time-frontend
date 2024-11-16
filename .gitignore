@@ -49,3 +49,4 @@ next-env.d.ts
 
 # env files
 .env*.local
+*storybook.log
