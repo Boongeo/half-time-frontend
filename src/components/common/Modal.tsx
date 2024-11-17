@@ -50,27 +50,29 @@ export function Modal({
                                 'w-full max-w-lg rounded-lg bg-white p-6 shadow-xl',
                                 className
                             )}>
-                                <div className="flex items-start justify-between text-gray-600">
-                                    <div className="space-y-1">
-                                        {title && (
-                                            <Dialog.Title className="text-lg font-medium">
-                                                {title}
-                                            </Dialog.Title>
-                                        )}
-                                        {description && (
-                                            <Dialog.Description className="text-sm text-gray-500">
-                                                {description}
-                                            </Dialog.Description>
-                                        )}
-                                    </div>
+                                <div className="relative mb-4">
                                     <button
                                         onClick={onClose}
-                                        className="rounded-full p-1.5 hover:bg-gray-100"
+                                        className="absolute -right-2 -top-2 rounded-full p-1.5 hover:bg-gray-100"
                                     >
-                                        <X className="h-4 w-4" />
+                                        <X className="h-4 w-4 text-gray-600" />
                                     </button>
+                                    {(title || description) && (
+                                        <div className="w-full text-gray-600">
+                                            {title && (
+                                                <Dialog.Title className="text-lg font-medium leading-6">
+                                                    {title}
+                                                </Dialog.Title>
+                                            )}
+                                            {description && (
+                                                <Dialog.Description className="mt-1 text-sm text-gray-500">
+                                                    {description}
+                                                </Dialog.Description>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="mt-4">
+                                <div className="w-full">
                                     {children}
                                 </div>
                             </Dialog.Panel>

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Modal } from './Modal';
 import { Button } from './Button';
+import { useState } from 'react';
 
 const meta = {
     title: 'Components/Modal',
@@ -9,6 +10,24 @@ const meta = {
         layout: 'centered',
     },
     tags: ['autodocs'],
+    decorators: [
+        (Story, context) => {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <div>
+                    <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
+                    <Story
+                        {...context}
+                        args={{
+                            ...context.args,
+                            isOpen,
+                            onClose: () => setIsOpen(false)
+                        }}
+                    />
+                </div>
+            );
+        }
+    ]
 } satisfies Meta<typeof Modal>;
 
 export default meta;
@@ -16,8 +35,6 @@ type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
     args: {
-        isOpen: true,
-        onClose: () => {},
         title: 'Example Modal',
         description: 'This is a description of the modal content.',
         children: (
@@ -34,8 +51,6 @@ export const Default: Story = {
 
 export const WithoutDescription: Story = {
     args: {
-        isOpen: true,
-        onClose: () => {},
         title: 'Simple Modal',
         children: (
             <div className="space-y-4">
@@ -50,8 +65,6 @@ export const WithoutDescription: Story = {
 
 export const LongContent: Story = {
     args: {
-        isOpen: true,
-        onClose: () => {},
         title: 'Scrollable Modal',
         children: (
             <div className="space-y-4">
