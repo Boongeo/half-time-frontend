@@ -1,6 +1,6 @@
 // components/common/Header.tsx
 import Image from "next/image";
-import { Button } from "../common/Button"; // Button 컴포넌트 import
+import { Button } from "../common/Button";
 
 export const Header = () => {
     return (

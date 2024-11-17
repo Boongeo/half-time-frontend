@@ -11,16 +11,13 @@ interface LayoutProps {
 export const Layout = ({ children }: LayoutProps) => {
     return (
         <div className="flex flex-col min-h-screen">
-            {/* Header */}
             <Header />
 
-            {/* Main Content with Sidebar */}
             <div className="flex flex-1">
                 <Sidebar />
                 <main className="flex-1 p-4">{children}</main>
             </div>
 
-            {/* Footer */}
             <Footer />
         </div>
     );
