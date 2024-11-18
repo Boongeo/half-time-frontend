@@ -3,8 +3,8 @@ import {Footer} from "@/components/layout/Footer";
 
 export default function AuthLayout({ children, }: { children: React.ReactNode; }) {
     return (
-        <div className="flex min-h-screen flex-col">
-            <Header/>
+        <div className="flex min-h-screen flex-col bg-white">
+            <Header showLoginButton={false} />
             <main className="flex-1">
                 <div className="container mx-auto px-4 py-8">
                     {children}
