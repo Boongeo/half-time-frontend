@@ -1,8 +1,11 @@
-// components/common/Header.tsx
 import Image from "next/image";
 import { Button } from "../common/Button";
 
-export const Header = () => {
+interface HeaderProps {
+    showLoginButton?: boolean;
+}
+
+const Header = ({ showLoginButton = true }: HeaderProps) => {
     return (
         <header className="flex items-center justify-between p-8 bg-white">
             <Image
@@ -12,11 +15,13 @@ export const Header = () => {
                 height={50}
                 priority
             />
-            <Button
-                variant="primary"
-                size="md"
-            > Login
-            </Button>
+            {showLoginButton && (
+                <Button variant="primary" size="md">
+                    Login
+                </Button>
+            )}
         </header>
     );
 };
+
+export { Header, type HeaderProps };

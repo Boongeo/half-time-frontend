@@ -14,7 +14,14 @@ export default {
         themeColor: '#344468'
       },
       fontFamily: {
-        'arial-black' : ['"Arial Black"', 'Arial', 'sans-serif']
+        'arial-black' : ['"Arial Black"', 'Arial', 'sans-serif'],
+        'sans': [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Apple SD Gothic Neo',
+          'Pretendard Variable',
+          'sans-serif'
+        ]
       }
     },
   },
