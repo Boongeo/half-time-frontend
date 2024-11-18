@@ -1,4 +1,4 @@
-export interface SideVarItem {
+export interface SideBarItem {
     id: string;
     name: string;
     href: string;
