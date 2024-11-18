@@ -14,11 +14,15 @@ export const Layout = ({ children }: LayoutProps) => {
             <Header />
 
             <div className="flex flex-1">
+                {/* Sidebar */}
                 <Sidebar />
-                <main className="flex-1 p-4">{children}</main>
+
+                {/* Main content */}
+                <main className="ml-[112px] flex-1 p-4">{children}</main>
             </div>
 
             <Footer />
         </div>
     );
 };
+
