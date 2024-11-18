@@ -4,8 +4,25 @@ import Image from "next/image";
 import {socialLogin} from "@/config/login";
 import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
+import {useLogin} from "@/lib/hooks/useLogin";
 
 export default function LoginPage() {
+    const {
+        form,
+        errors,
+        isEmailVerified,
+        isLoading,
+        handleEmailChange,
+        handlePasswordChange,
+        handleVerifyEmail,
+        handleSubmit
+    } = useLogin();
+
+    const getErrorProps = (field: keyof typeof errors) => ({
+        error: !!errors[field],
+        helperText: errors[field]
+    });
+
     return (
         <div className="flex flex-col items-center justify-center space-y-8">
             <div className="text-center space-y-2 mb-4 text-themeColor">
@@ -22,8 +39,7 @@ export default function LoginPage() {
                         key={social.id}
                         className="flex items-center justify-center gap-2"
                         variant="secondary"
-                        onClick={() => {
-                        }}
+                        onClick={() => {}}
                     >
                         {typeof social.icon === "string" ? (
                             <Image src={social.icon} alt={social.name} width={20} height={20}/>
@@ -41,37 +57,50 @@ export default function LoginPage() {
                     <span className="w-full border-t"/>
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-muted-foreground">
+                    <span className="bg-white px-2 text-muted-foreground text-gray-500">
                        Or continue with
                     </span>
                 </div>
             </div>
 
             {/* 로컬 로그인 섹션 */}
-            <form className="flex flex-col w-full max-w-sm gap-4">
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+            }} className="flex flex-col w-full max-w-sm gap-4">
+
+                {/*Email Input*/}
                 <div className="flex gap-2">
                     <div className="w-[70%]">
                         <Input
                             type="email"
                             placeholder="Enter your email"
                             className="w-full"
+                            value={form.email}
+                            onChange={(e) => handleEmailChange(e.target.value)}
+                            {...getErrorProps('email')}
                         />
                     </div>
                     <Button
                         type="button"
-                        variant="outline"
+                        variant={isEmailVerified ? "primary" : "outline"}
                         className="w-[30%] whitespace-nowrap"
-                        onClick={() => {
-                        }}
+                        onClick={handleVerifyEmail}
+                        disabled={isEmailVerified || isLoading}
                     >
-                        Verify email
+                        {isEmailVerified ? "Verified" : "Verify email"}
                     </Button>
                 </div>
+
+                {/*Password Input*/}
                 <Input
                     type="password"
                     placeholder="Enter password"
+                    value={form.password}
+                    onChange={(e) => handlePasswordChange(e.target.value)}
+                    {...getErrorProps('password')}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isLoading}>
                     Sign in / Sign up
                 </Button>
             </form>
