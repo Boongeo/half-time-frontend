@@ -73,7 +73,7 @@ export const Disabled: Story = {
         disabled: true,
         placeholder: "비활성화된 입력창",
     },
-};
+}
 
 export const FullWidth: Story = {
     args: {

@@ -13,6 +13,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.1.5",
+    "@storybook/addon-links": "^8.4.4",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -28,8 +29,10 @@
     "@storybook/addon-essentials": "^8.4.4",
     "@storybook/addon-interactions": "^8.4.4",
     "@storybook/addon-onboarding": "^8.4.4",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
     "@storybook/blocks": "^8.4.4",
     "@storybook/nextjs": "^8.4.4",
+    "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^8.4.4",
     "@storybook/test": "^8.4.4",
     "@types/node": "^20",
