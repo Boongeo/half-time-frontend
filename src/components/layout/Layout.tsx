@@ -1,4 +1,3 @@
-// Layout.tsx
 import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
@@ -17,7 +16,6 @@ export const Layout = ({ children }: LayoutProps) => {
 
             <div className="flex pt-[90px]">
                 <Sidebar />
-
                 <main className="flex-1 ml-[80px] p-4 min-h-[calc(100vh-90px)]">
                     {children}
                 </main>

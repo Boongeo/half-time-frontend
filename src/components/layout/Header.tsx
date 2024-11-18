@@ -1,4 +1,3 @@
-// components/common/Header.tsx
 import Image from "next/image";
 import { Button } from "../common/Button";
 
