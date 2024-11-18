@@ -10,19 +10,20 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
     return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
+        <div className="min-h-screen">
+            <div className="fixed top-0 w-full z-50 h-[90px]">
+                <Header />
+            </div>
 
-            <div className="flex flex-1">
-                {/* Sidebar */}
+            <div className="flex pt-[90px]">
                 <Sidebar />
 
-                {/* Main content */}
-                <main className="ml-[112px] flex-1 p-4">{children}</main>
+                <main className="flex-1 ml-[80px] p-4 min-h-[calc(100vh-90px)]">
+                    {children}
+                </main>
             </div>
 
             <Footer />
         </div>
     );
 };
-
