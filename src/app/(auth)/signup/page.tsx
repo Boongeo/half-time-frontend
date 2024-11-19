@@ -6,8 +6,9 @@ import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useSignup} from "@/lib/hooks/useSignup";
 import {CheckCircle, Mail} from "lucide-react";
+import {withAuth} from "@/lib/auth/withAuth";
 
-export default function SignupPage() {
+function SignupPage() {
     const {
         form,
         errors,
@@ -173,3 +174,5 @@ export default function SignupPage() {
         </div>
     );
 }
+
+export default withAuth(SignupPage, { requireUnauth: true });

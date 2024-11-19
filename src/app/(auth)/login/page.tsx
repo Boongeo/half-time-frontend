@@ -5,8 +5,9 @@ import {socialLogin} from "@/config/login";
 import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useLogin} from "@/lib/hooks/useLogin";
+import {withAuth} from "@/lib/auth/withAuth";
 
-export default function LoginPage() {
+function LoginPage() {
     const {
         form,
         errors,
@@ -106,3 +107,5 @@ export default function LoginPage() {
         </div>
     );
 }
+
+export default withAuth(LoginPage, { requireUnauth: true });
