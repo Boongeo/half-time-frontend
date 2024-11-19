@@ -3,6 +3,7 @@
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {authApi} from "@/lib/api/auth";
+import {useAuthStore} from "@/store/auth";
 
 interface LoginForm {
     email: string;
@@ -11,6 +12,7 @@ interface LoginForm {
 
 export function useLogin() {
     const router = useRouter();
+    const { signIn } = useAuthStore();
     const [form, setForm] = useState<LoginForm>({
         email: '',
         password: ''
@@ -65,7 +67,8 @@ export function useLogin() {
 
         setIsLoading(true);
         try {
-            await authApi.signIn(form);
+            const response = await authApi.signIn(form);
+            signIn(response.token, response.user);
             router.push('/');
         } catch {
             setErrors({ password: '로그인에 실패했습니다.' });

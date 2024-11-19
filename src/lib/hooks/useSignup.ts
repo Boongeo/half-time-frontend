@@ -3,6 +3,7 @@
 import {useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import {authApi} from "@/lib/api/auth";
+import {useAuthStore} from "@/store/auth";
 
 interface SignupForm {
     email: string;
@@ -20,6 +21,8 @@ interface VerificationState {
 export function useSignup() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const { signIn } = useAuthStore();
+
     const [form, setForm] = useState<SignupForm>({
        email: '',
        verificationCode: '',
@@ -125,7 +128,7 @@ export function useSignup() {
         if (!verification.isVerified) {
             errors.verificationCode = '이메일 인증이 필요합니다.';
         }
-        
+
         const passwordError = validatePassword(form.password);
         if (passwordError) {
             errors.password = passwordError;
@@ -142,10 +145,12 @@ export function useSignup() {
 
         setIsLoading(true);
         try {
-            await authApi.signUp({
+            const response = await authApi.signUp({
                 email: form.email,
                 password: form.password
             });
+
+            signIn(response.token, response.user);
             router.push('/register');
         } catch {
             setErrors({
