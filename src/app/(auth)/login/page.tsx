@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import Image from "next/image";
 import {socialLogin} from "@/config/login";
@@ -10,12 +10,12 @@ export default function LoginPage() {
     const {
         form,
         errors,
-        isEmailVerified,
+        showPassword,
         isLoading,
         handleEmailChange,
         handlePasswordChange,
-        handleVerifyEmail,
-        handleSubmit
+        handleCheckEmail,
+        handleLogin
     } = useLogin();
 
     const getErrorProps = (field: keyof typeof errors) => ({
@@ -66,42 +66,41 @@ export default function LoginPage() {
             {/* 로컬 로그인 섹션 */}
             <form onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmit();
+                if (showPassword) {
+                    handleLogin();
+                } else {
+                    handleCheckEmail();
+                }
             }} className="flex flex-col w-full max-w-sm gap-4">
 
-                {/*Email Input*/}
-                <div className="flex gap-2">
-                    <div className="w-[70%]">
-                        <Input
-                            type="email"
-                            placeholder="Enter your email"
-                            className="w-full"
-                            value={form.email}
-                            onChange={(e) => handleEmailChange(e.target.value)}
-                            {...getErrorProps('email')}
-                        />
-                    </div>
-                    <Button
-                        type="button"
-                        variant={isEmailVerified ? "primary" : "outline"}
-                        className="w-[30%] whitespace-nowrap"
-                        onClick={handleVerifyEmail}
-                        disabled={isEmailVerified || isLoading}
-                    >
-                        {isEmailVerified ? "Verified" : "Verify email"}
-                    </Button>
-                </div>
-
-                {/*Password Input*/}
+                {/* Email Input */}
                 <Input
-                    type="password"
-                    placeholder="Enter password"
-                    value={form.password}
-                    onChange={(e) => handlePasswordChange(e.target.value)}
-                    {...getErrorProps('password')}
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full"
+                    value={form.email}
+                    onChange={(e) => handleEmailChange(e.target.value)}
+                    disabled={showPassword}
+                    {...getErrorProps('email')}
                 />
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                    Sign in / Sign up
+
+                {/* Password Input (조건부 렌더링) */}
+                {showPassword && (
+                    <Input
+                        type="password"
+                        placeholder="Enter password"
+                        value={form.password}
+                        onChange={(e) => handlePasswordChange(e.target.value)}
+                        {...getErrorProps('password')}
+                    />
+                )}
+
+                <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isLoading}
+                >
+                    {showPassword ? "Sign in" : "Continue"}
                 </Button>
             </form>
         </div>

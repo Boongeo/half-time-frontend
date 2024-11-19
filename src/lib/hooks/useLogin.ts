@@ -5,8 +5,8 @@ import {useRouter} from "next/navigation";
 import {authApi} from "@/lib/api/auth";
 
 interface LoginForm {
-    password: string;
     email: string;
+    password: string;
 }
 
 export function useLogin() {
@@ -15,11 +15,8 @@ export function useLogin() {
         email: '',
         password: ''
     });
-    const [errors, setErrors] = useState<Record<keyof LoginForm, string>>({
-        email: '',
-        password: ''
-    });
-    const [isEmailVerified, setIsEmailVerified] = useState(false);
+    const [errors, setErrors] = useState<Partial<Record<keyof LoginForm, string>>>({});
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const validateEmail = (email: string) => {
@@ -27,62 +24,51 @@ export function useLogin() {
         return emailRegex.test(email);
     };
 
-    const validatePassword = (password: string) => {
-        return password.length >= 8;
-    };
-
     const handleEmailChange = (email: string) => {
         setForm(prev => ({ ...prev, email }));
-        setErrors(prev => ({ ...prev, email: '' }));
-        setIsEmailVerified(false);
+        setErrors({});
+        setShowPassword(false);
     };
 
     const handlePasswordChange = (password: string) => {
         setForm(prev => ({ ...prev, password }));
-        setErrors(prev => ({ ...prev, password: '' }));
+        setErrors({});
     };
 
-    const handleVerifyEmail = async () => {
+    const handleCheckEmail = async () => {
         if (!validateEmail(form.email)) {
-            setErrors(prev => ({ ...prev, email: '유효한 이메일을 입력해주세요.' }));
+            setErrors({ email: '유효한 이메일을 입력해주세요.' });
             return;
         }
 
         setIsLoading(true);
         try {
-            await authApi.verifyEmail(form.email);
-            setIsEmailVerified(true);
+            const {exists} = await authApi.checkEmail(form.email);
+
+            if (exists) {
+                setShowPassword(true);
+            } else {
+                router.push(`/signup?email=${encodeURIComponent(form.email)}`);
+            }
         } catch {
-            setErrors(prev => ({ ...prev, email: '이메일 인증에 실패했습니다.' }));
+            setErrors({ email: '이메일 확인에 실패했습니다.' });
         } finally {
             setIsLoading(false);
         }
     };
 
-    const handleSubmit = async () => {
-        if (!isEmailVerified) {
-            setErrors(prev => ({ ...prev, email: '이메일 인증이 필요합니다.' }));
-            return;
-        }
-
-        if (!validatePassword(form.password)) {
-            setErrors(prev => ({ ...prev, password: '비밀번호는 8자 이상이어야 합니다.' }));
+    const handleLogin = async () => {
+        if (!form.password) {
+            setErrors({ password: '비밀번호를 입력해주세요.' });
             return;
         }
 
         setIsLoading(true);
         try {
-            const response = await authApi.signInOrSignUp(form);
-            if (response.user.isNewUser) {
-                router.push('/auth/register');
-            } else {
-                router.push('/');
-            }
+            await authApi.signIn(form);
+            router.push('/');
         } catch {
-            setErrors(prev => ({
-                ...prev,
-                password: '로그인에 실패했습니다.'
-            }));
+            setErrors({ password: '로그인에 실패했습니다.' });
         } finally {
             setIsLoading(false);
         }
@@ -91,11 +77,11 @@ export function useLogin() {
     return {
         form,
         errors,
-        isEmailVerified,
+        showPassword,
         isLoading,
         handleEmailChange,
         handlePasswordChange,
-        handleVerifyEmail,
-        handleSubmit
+        handleCheckEmail,
+        handleLogin
     };
 }
