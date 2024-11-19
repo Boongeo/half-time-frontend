@@ -6,7 +6,7 @@ export interface AuthResponseUser {
 
 export interface User extends AuthResponseUser {
     name?: string;
-    role?: 'mentor' | 'mentee';
+    role?: 'user' | 'mentor' | 'admin';
     profileImage?: string;
 }
 
