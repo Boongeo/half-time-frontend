@@ -28,7 +28,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
     const variants = {
         primary: 'bg-themeColor text-white hover:bg-gray-800 focus-visible:ring-gray-950',
         secondary: 'bg-gray-100 text-themeColor hover:bg-gray-200 focus-visible:ring-gray-300',
-        outline: 'border border-gray-200 bg-white hover:text-themeColor focus-visible:ring-gray-300',
+        outline: 'border border-gray-200 bg-white text-gray-400 hover:text-themeColor focus-visible:ring-gray-300',
         ghost: 'hover:bg-gray-100 hover:text-themeColor focus-visible:ring-gray-300'
     };
 
