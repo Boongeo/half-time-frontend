@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
 import {SignupForm, VerificationState} from "@/types/auth";
+import {validatePassword, validatePasswordConfirm} from "@/lib/auth/validators";
 
 export function useSignup() {
     const router = useRouter();
@@ -33,19 +34,6 @@ export function useSignup() {
             setForm(prev => ({ ...prev, email }));
         }
     }, [searchParams]);
-
-    const validatePassword = (password: string) => {
-        const hasMinLength = password.length >= 8;
-        const hasUpperCase = /[A-Z]/.test(password);
-        const hasLowerCase = /[a-z]/.test(password);
-        const hasNumber = /\d/.test(password);
-
-        if (!hasMinLength) return '비밀번호는 8자 이상이어야 합니다.';
-        if (!hasUpperCase || !hasLowerCase || !hasNumber) {
-            return '비밀번호는 대문자, 소문자, 숫자를 포함해야 합니다.';
-        }
-        return null;
-    };
 
     // 인증 코드 요청
     const handleRequestVerification = async () => {
@@ -110,6 +98,7 @@ export function useSignup() {
         setErrors(prev => ({ ...prev, passwordConfirm: '' }));
     };
 
+    // 회원가입
     const handleSignup = async () => {
         const errors: Partial<Record<keyof SignupForm, string>> = {};
 
@@ -117,13 +106,14 @@ export function useSignup() {
             errors.verificationCode = '이메일 인증이 필요합니다.';
         }
 
-        const passwordError = validatePassword(form.password);
-        if (passwordError) {
-            errors.password = passwordError;
+        const passwordValidation = validatePassword(form.password);
+        if (!passwordValidation.isValid) {
+            errors.password = passwordValidation.error!;
         }
 
-        if (form.password !== form.passwordConfirm) {
-            errors.passwordConfirm = '비밀번호가 일치하지 않습니다.';
+        const passwordConfirmValidation = validatePasswordConfirm(form.password, form.passwordConfirm);
+        if (!passwordConfirmValidation.isValid) {
+            errors.passwordConfirm = passwordConfirmValidation.error!;
         }
 
         if (Object.keys(errors).length > 0) {
@@ -137,7 +127,6 @@ export function useSignup() {
                 email: form.email,
                 password: form.password
             });
-
             signIn(response.token, response.user);
             router.push('/register');
         } catch {

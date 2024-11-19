@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
 import {LoginForm} from "@/types/auth";
+import {validateEmail} from "@/lib/auth/validators";
 
 export function useLogin() {
     const router = useRouter();
@@ -16,11 +17,6 @@ export function useLogin() {
     const [errors, setErrors] = useState<Partial<Record<keyof LoginForm, string>>>({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const validateEmail = (email: string) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
 
     const handleEmailChange = (email: string) => {
         setForm(prev => ({ ...prev, email }));
