@@ -4,11 +4,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
-
-interface LoginForm {
-    email: string;
-    password: string;
-}
+import {LoginForm} from "@/types/auth";
 
 export function useLogin() {
     const router = useRouter();

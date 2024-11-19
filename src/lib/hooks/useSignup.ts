@@ -4,19 +4,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
-
-interface SignupForm {
-    email: string;
-    verificationCode: string;
-    password: string;
-    passwordConfirm: string;
-}
-
-interface VerificationState {
-    verificationId: string | null;
-    isCodeSent: boolean;
-    isVerified: boolean;
-}
+import {SignupForm, VerificationState} from "@/types/auth";
 
 export function useSignup() {
     const router = useRouter();

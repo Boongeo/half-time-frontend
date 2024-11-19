@@ -1,28 +1,6 @@
 import {create} from "zustand";
 import {createJSONStorage, persist} from "zustand/middleware/persist";
-
-interface User {
-    id: string;
-    email: string;
-    name?: string;
-    role?: 'mentor' | 'mentee';
-    profileImage?: string;
-}
-
-interface AuthState {
-    user: User | null;
-    token: string | null;
-    isAuthenticated: boolean;
-    isLoading: boolean;
-    error: string | null;
-
-    setUser: (user: User | null) => void;
-    setToken: (token: string | null) => void;
-    signIn: (token: string, user: User) => void;
-    signOut: () => void;
-    updateUser: (userData: Partial<User>) => void;
-    clearError: () => void;
-}
+import {AuthResponseUser, AuthState} from "@/types/auth";
 
 export const useAuthStore = create<AuthState>()(
     persist(
@@ -42,10 +20,15 @@ export const useAuthStore = create<AuthState>()(
             setToken: (token) =>
                 set({ token }),
 
-            signIn: (token, user) =>
+            signIn: (token: string, apiUser: AuthResponseUser) =>
                 set({
                     token,
-                    user,
+                    user: {
+                        ...apiUser,
+                        name: undefined,
+                        role: undefined,
+                        profileImage: undefined
+                    },
                     isAuthenticated: true,
                     error: null
                 }),

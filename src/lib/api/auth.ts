@@ -1,23 +1,4 @@
-interface AuthResponse {
-    token: string;
-    user: {
-        id: string;
-        email: string;
-    }
-}
-
-interface CheckEmailResponse {
-    exists: boolean;
-}
-
-interface VerifyEmailResponse {
-    success: boolean;
-    verificationId: string;
-}
-
-interface VerifyCodeResponse {
-    success: boolean;
-}
+import {AuthResponse, CheckEmailResponse, VerifyCodeResponse, VerifyEmailResponse} from "@/types/auth";
 
 export const authApi = {
     // 이메일 존재 여부 확인

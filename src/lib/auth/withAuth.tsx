@@ -3,11 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
-
-interface WithAuthProps {
-    requireAuth?: boolean;
-    requireUnauth?: boolean;
-}
+import {WithAuthProps} from "@/types/auth";
 
 export function withAuth<P extends object>(
     WrappedComponent: React.ComponentType<P>,
