@@ -63,6 +63,7 @@ export type VerifyCodeResponse = ApiResponse<{ verified: boolean }>
 export interface WithAuthProps {
     requireAuth?: boolean;
     requireUnauth?: boolean;
+    requireRegistration?: boolean;
 }
 
 /** JWT Payload 타입 */
