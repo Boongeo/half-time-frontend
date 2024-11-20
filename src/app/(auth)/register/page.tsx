@@ -118,7 +118,7 @@ function RegisterPage() {
                 className="w-40 mt-10"
                 size="lg"
                 variant={isFormComplete ? "primary" : "secondary"}
-                onClick={(e) => submitForm()}
+                onClick={() => submitForm()}
             >
                 Complete
             </Button>
