@@ -37,9 +37,9 @@ export function useLogin() {
 
         setIsLoading(true);
         try {
-            const {exists} = await authApi.checkEmail(form.email);
+            const response = await authApi.checkEmail(form.email);
 
-            if (exists) {
+            if (response.success && response.data.exists) {
                 setShowPassword(true);
             } else {
                 router.push(`/signup?email=${encodeURIComponent(form.email)}`);
@@ -60,7 +60,10 @@ export function useLogin() {
         setIsLoading(true);
         try {
             const response = await authApi.signIn(form);
-            signIn(response.token, response.user);
+            signIn({
+                accessToken: response.data.accessToken,
+                refreshToken: response.data.refreshToken
+            });
             router.push('/');
         } catch {
             setErrors({ password: '로그인에 실패했습니다.' });

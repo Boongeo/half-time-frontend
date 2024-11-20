@@ -1,60 +1,41 @@
 import {create} from "zustand";
 import {createJSONStorage, persist} from "zustand/middleware";
-import {AuthResponseUser, AuthState} from "@/types/auth";
+import {AuthState} from "@/types/auth";
 
 export const useAuthStore = create<AuthState>()(
     persist(
         (set) => ({
-            user: null,
-            token: null,
+            accessToken: null,
+            refreshToken: null,
             isAuthenticated: false,
-            isLoading: false,
-            error: null,
 
-            setUser: (user) =>
+            setTokens: (accessToken: string, refreshToken: string) =>
                 set({
-                    user,
-                    isAuthenticated: !!user
+                    accessToken,
+                    refreshToken,
+                    isAuthenticated: true
                 }),
 
-            setToken: (token) =>
-                set({ token }),
-
-            signIn: (token: string, apiUser: AuthResponseUser) =>
+            signIn: (tokens: { accessToken: string, refreshToken: string }) =>
                 set({
-                    token,
-                    user: {
-                        ...apiUser,
-                        name: undefined,
-                        role: undefined,
-                        profileImage: undefined
-                    },
+                    accessToken: tokens.accessToken,
+                    refreshToken: tokens.refreshToken,
                     isAuthenticated: true,
-                    error: null
                 }),
 
             signOut: () =>
                 set({
-                    user: null,
-                    token: null,
-                    isAuthenticated: false,
-                    error: null
+                    accessToken: null,
+                    refreshToken: null,
+                    isAuthenticated: false
                 }),
-
-            updateUser: (userData) =>
-                set((state) => ({
-                    user: state.user ? { ...state.user, ...userData } : null,
-                })),
-
-            clearError: () =>
-                set({ error: null })
         }),
         {
             name: 'auth_storage',
             storage: createJSONStorage(() => localStorage),
             partialize: (state) => ({
-                user: state.user,
-                token: state.token,
+                accessToken: state.accessToken,
+                refreshToken: state.refreshToken,
                 isAuthenticated: state.isAuthenticated
             })
         }

@@ -10,30 +10,29 @@ export interface User extends AuthResponseUser {
     profileImage?: string;
 }
 
-/** 인증 상태 스토어 타입 */
+/** 상태 타입 */
 export interface AuthState {
-    user: User | null;
-    token: string | null;
+    accessToken: string | null;
+    refreshToken: string | null;
     isAuthenticated: boolean;
-    isLoading: boolean;
-    error: string | null;
 
-    // Actions
-    setUser: (user: User | null) => void;
-    setToken: (token: string | null) => void;
-    signIn: (token: string, user: User) => void;
+    setTokens: (accessToken: string, refreshToken: string) => void;
+    signIn: (tokens: { accessToken: string, refreshToken: string }) => void;
     signOut: () => void;
-    updateUser: (userData: Partial<User>) => void;
-    clearError: () => void;
 }
 
-/** 로그인 폼 데이터 */
+export interface VerificationState {
+    verificationToken: string | null;
+    isCodeSent: boolean;
+    isVerified: boolean;
+}
+
+/** 폼 데이터 타입 */
 export interface LoginForm {
     email: string;
     password: string;
 }
 
-/** 회원가입 폼 데이터 */
 export interface SignupForm {
     email: string;
     verificationCode: string;
@@ -41,31 +40,21 @@ export interface SignupForm {
     passwordConfirm: string;
 }
 
-/** 이메일 인증 상태 */
-export interface VerificationState {
-    verificationId: string | null;
-    isCodeSent: boolean;
-    isVerified: boolean;
+/** API 응답 타입 */
+export interface ApiResponse<T> {
+    success: boolean;
+    data: T;
+    error?: string;
 }
 
-/** API 응답 타입들 */
 export interface AuthResponse {
-    token: string;
-    user: AuthResponseUser;
+    accessToken: string;
+    refreshToken: string;
 }
 
-export interface CheckEmailResponse {
-    exists: boolean;
-}
-
-export interface VerifyEmailResponse {
-    success: boolean;
-    verificationId: string;
-}
-
-export interface VerifyCodeResponse {
-    success: boolean;
-}
+export type CheckEmailResponse = ApiResponse<{ exists: boolean }>
+export type VerifyEmailResponse = ApiResponse<{ email: string; }>
+export type VerifyCodeResponse = ApiResponse<{ verified: boolean }>
 
 /** HOC props */
 export interface WithAuthProps {

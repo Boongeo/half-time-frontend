@@ -1,4 +1,4 @@
-import {AuthResponse, CheckEmailResponse, VerifyCodeResponse, VerifyEmailResponse} from "@/types/auth";
+import {AuthResponse, ApiResponse, CheckEmailResponse, VerifyCodeResponse, VerifyEmailResponse} from "@/types/auth";
 
 export const authApi = {
     // 이메일 존재 여부 확인
@@ -24,18 +24,21 @@ export const authApi = {
     },
 
     // 인증 코드 확인
-    verifyCode: async (verificationId: string, code: string): Promise<VerifyCodeResponse> => {
-        const response = await fetch('/api/auth/verify-code', {
-            method: 'POST',
+    verifyCode: async (params: { email: string; verificationToken: string; code: string; }): Promise<VerifyCodeResponse> => {
+        const response = await fetch(`/api/auth/verify-code/${params.verificationToken}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ verificationId, code })
+            body: JSON.stringify({
+                email: params.email,
+                code: params.code
+            })
         });
         if (!response.ok) throw new Error('Failed to verify code');
         return response.json();
     },
 
     // 로그인
-    signIn: async (data: {email: string, password: string}): Promise<AuthResponse> => {
+    signIn: async (data: {email: string, password: string}): Promise<ApiResponse<AuthResponse>> => {
         const response = await fetch('/api/auth/signin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -46,7 +49,7 @@ export const authApi = {
     },
 
     // 회원가입
-    signUp: async (data: {email: string, password: string}): Promise<AuthResponse> => {
+    signUp: async (data: {email: string, password: string, verificationToken: string}): Promise<ApiResponse<AuthResponse>> => {
         const response = await fetch('/api/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

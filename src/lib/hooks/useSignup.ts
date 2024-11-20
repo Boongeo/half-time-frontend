@@ -13,14 +13,14 @@ export function useSignup() {
     const { signIn } = useAuthStore();
 
     const [form, setForm] = useState<SignupForm>({
-       email: '',
-       verificationCode: '',
-       password: '',
-       passwordConfirm: ''
+        email: '',
+        verificationCode: '',
+        password: '',
+        passwordConfirm: '',
     });
 
     const [verification, setVerification] = useState<VerificationState>({
-        verificationId: null,
+        verificationToken: null,
         isCodeSent: false,
         isVerified: false
     });
@@ -40,11 +40,12 @@ export function useSignup() {
         setIsLoading(true);
         try {
             const response = await authApi.requestVerification(form.email);
-            setVerification(prev => ({
-                ...prev,
-                verificationId: response.verificationId,
-                isCodeSent: true
-            }));
+            if (response.success) {
+                setVerification(prev => ({
+                    ...prev,
+                    isCodeSent: true
+                }));
+            }
         } catch {
             setErrors(prev => ({
                 ...prev,
@@ -57,7 +58,7 @@ export function useSignup() {
 
     // 인증 코드 확인
     const handleVerifyCode = async () => {
-        if (!verification.verificationId || !form.verificationCode) {
+        if (!verification.verificationToken || !form.verificationCode) {
             setErrors(prev => ({
                 ...prev,
                 verificationCode: '인증 코드를 입력해주세요.'
@@ -67,12 +68,19 @@ export function useSignup() {
 
         setIsLoading(true);
         try {
-            await authApi.verifyCode(verification.verificationId, form.verificationCode);
-            setVerification(prev => ({
-                ...prev,
-                isVerified: true,
-            }));
-            setErrors(prev => ({ ...prev, verificationCode: '' }));
+            const response = await authApi.verifyCode({
+                email: form.email,
+                verificationToken: verification.verificationToken,
+                code: form.verificationCode
+            });
+
+            if (response.success && response.data.verified) {
+                setVerification(prev => ({
+                    ...prev,
+                    isVerified: true,
+                }));
+                setErrors(prev => ({ ...prev, verificationCode: '' }));
+            }
         } catch {
             setErrors(prev => ({
                 ...prev,
@@ -125,10 +133,17 @@ export function useSignup() {
         try {
             const response = await authApi.signUp({
                 email: form.email,
-                password: form.password
+                password: form.password,
+                verificationToken: verification.verificationToken!
             });
-            signIn(response.token, response.user);
-            router.push('/register');
+
+            if (response.success) {
+                signIn({
+                    accessToken: response.data.accessToken,
+                    refreshToken: response.data.refreshToken
+                });
+                router.push('/register');
+            }
         } catch {
             setErrors({
                 password: '회원가입에 실패했습니다.'
