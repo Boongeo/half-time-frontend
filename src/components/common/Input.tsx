@@ -3,19 +3,19 @@ import { cn } from "@/lib/utils/cn";
 import { InputProps } from "@/types/props";
 
 export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(({
-                                                                                         className,
-                                                                                         error,
-                                                                                         fullWidth,
-                                                                                         helperText,
-                                                                                         label,
-                                                                                         variant = 'default',
-                                                                                         rounded = 'md',
-                                                                                         inputSize = 'md',
-                                                                                         disabled,
-                                                                                         multiline = false,
-                                                                                         rows = 4,
-                                                                                         ...props
-                                                                                     }, ref) => {
+     className,
+     error,
+     fullWidth,
+     helperText,
+     label,
+     variant = 'default',
+     rounded = 'md',
+     inputSize = 'md',
+     disabled,
+     multiline = false,
+     rows = 4,
+     ...props
+}, ref) => {
     const baseStyles = cn(
         'w-full border',
         'transition-colors duration-200',
