@@ -19,7 +19,7 @@ function RegisterPage() {
     const isFormComplete = form.nickname && form.interest && form.introduction;
 
     return (
-        <div className="flex flex-col items-center min-h-screen">
+        <div className="flex flex-col items-center">
             <div className="flex text-center flex-col items-center text-4xl font-extrabold mt-10 mb-10">
                 <div>
                     Hello, {form["nickname"] ? <span className="text-blue-900">{form["nickname"]}</span> : "______"}
@@ -83,7 +83,7 @@ function RegisterPage() {
                 </div>
 
                 {/* 관심사 선택 */}
-                <Card hasLogo={false} hasMainTitle={false} className="w-[450px] gap-4">
+                <Card hasLogo={false} hasMainTitle={false} className="w-[450px] h-[300px] gap-4">
                     <h3 className="text-xl font-medium mb-4">Select your interest</h3>
                     <form className="flex flex-col gap-4">
                         <Select
@@ -118,7 +118,7 @@ function RegisterPage() {
                 className="w-40 mt-10"
                 size="lg"
                 variant={isFormComplete ? "primary" : "secondary"}
-                onClick={(e) => submitForm()}
+                onClick={() => submitForm()}
             >
                 Complete
             </Button>
