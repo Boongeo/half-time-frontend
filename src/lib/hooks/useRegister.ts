@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { registerAPI } from "@/lib/api/register";
+import { authApi } from "@/lib/api/auth";
 
 interface RegisterForm {
     nickname: string;
@@ -63,7 +63,7 @@ export function useRegister() {
             }
 
             try {
-                const response = await registerAPI.signUp(formData);
+                await authApi.register(formData);
                 alert("프로필이 정상적으로 등록되었습니다.");
                 router.push('/');
             } catch (error) {
