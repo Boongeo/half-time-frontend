@@ -54,5 +54,17 @@ export const authApi = {
         });
         if (!response.ok) throw new Error('Failed to sign up');
         return response.json();
-    }
+    },
+
+    // 최초 정보 등록
+    register: async (formData: FormData) => {
+        const response = await fetch("/api/auth/sign-in", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: formData,
+        });
+
+        if (!response.ok) throw new Error("Failed to submit profile.");
+        return response.json();
+    },
 };
