@@ -1,12 +1,13 @@
 'use client';
 
-import {useRegister} from "@/lib/hooks/useRegister";
-import Card from "@/components/common/Card";
-import {Button} from "@/components/common/Button";
+import { useRegister } from "@/lib/hooks/useRegister";
+import { withAuth } from "@/lib/auth/withAuth";
+import { Card } from "@/components/common/Card";
+import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 import { Select } from "@/components/common/Select";
 
-export default function Register() {
+function RegisterPage() {
     const {
         form,
         updateField,
@@ -28,7 +29,7 @@ export default function Register() {
             <div className="flex flex-row gap-8">
                 {/* Nickname 입력 */}
                 <div>
-                    <Card hasLogo={false} hasMainTitle={false} className="w-[400px] gap-4">
+                    <Card hasLogo={false} hasMainTitle={false} className="w-[450px] h-[300px] gap-4">
                         <h3 className="text-xl font-medium mb-4">Enter your nickname</h3>
                         <form className="flex flex-col gap-4">
                             <Input
@@ -82,7 +83,7 @@ export default function Register() {
                 </div>
 
                 {/* 관심사 선택 */}
-                <Card hasLogo={false} hasMainTitle={false} className="w-[400px] gap-4">
+                <Card hasLogo={false} hasMainTitle={false} className="w-[450px] gap-4">
                     <h3 className="text-xl font-medium mb-4">Select your interest</h3>
                     <form className="flex flex-col gap-4">
                         <Select
@@ -99,6 +100,9 @@ export default function Register() {
                     <h3 className="text-xl font-medium mb-4 mt-10">Write Your Introduction</h3>
                     <form className="flex flex-col gap-4">
                         <Input
+                            multiline={true}    // 멀티라인 사용
+                            rows={4}            // 행 수 지정
+                            inputSize="xl"      // 크기 지정 (sm, md, lg, xl 등)
                             type="text"
                             placeholder="Introduce yourself"
                             className="w-full"
@@ -121,3 +125,6 @@ export default function Register() {
         </div>
     );
 }
+
+export default withAuth(RegisterPage, { requireRegistration: true })
+// export default RegisterPage;
