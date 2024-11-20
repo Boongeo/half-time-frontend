@@ -6,6 +6,7 @@ import { Card } from "@/components/common/Card";
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 import { Select } from "@/components/common/Select";
+import Image from "next/image";
 
 function RegisterPage() {
     const {
@@ -21,18 +22,18 @@ function RegisterPage() {
     return (
         <div className="flex flex-col items-center">
             {/* 상단 헤더 */}
-            <div className="flex text-center flex-col items-center text-4xl font-extrabold mt-10 mb-10 text-gray-900">
+            <div className="flex text-center flex-col items-center text-4xl font-extrabold mt-6 mb-10 text-gray-700">
                 <div>
-                    Hello, {form["nickname"] ? <span className="text-blue-900 ">{form["nickname"]}</span> : "______"}
+                    Hello, {form["nickname"] ? <span className="text-themeColor ">{form["nickname"]}</span> : "______"}
                 </div>
-                <div>What's Your Profile?</div>
+                <div>What&#39;s Your Profile?</div>
             </div>
 
             {/* 카드 레이아웃 */}
-            <div className="flex flex-wrap justify-between gap-8 max-w-[90%]">
+            <div className="flex flex-wrap justify-center gap-8 max-w-[90%]">
                 {/* Nickname 입력 */}
-                <Card hasLogo={false} hasMainTitle={false} className="flex-1 min-w-[300px] max-w-[450px] h-auto gap-4">
-                    <h3 className="text-xl font-medium mb-4 text-gray-900">Enter your nickname</h3>
+                <Card hasLogo={false} hasMainTitle={false} className="flex-1 min-w-[400px] max-w-[450px] h-auto gap-4">
+                    <h3 className="text-xl font-medium mb-4">Enter your nickname</h3>
                     <form className="flex flex-col gap-4">
                         <Input
                             type="text"
@@ -44,14 +45,16 @@ function RegisterPage() {
                     </form>
 
                     {/* 프로필 사진 업로드 */}
-                    <h3 className="text-xl font-medium mb-4 mt-10 text-gray-900">Upload profile photo</h3>
+                    <h3 className="text-xl font-medium mb-4 mt-10">Upload profile photo</h3>
                     <div className="flex items-center gap-4">
                         {/* 기본 이미지 */}
                         {form.profileImage ? (
-                            <img
+                            <Image
                                 src={form.profileImage}
                                 alt="Profile"
-                                className="w-16 h-16 object-cover rounded-full"
+                                width={64}
+                                height={64}
+                                className="object-cover rounded-full"
                             />
                         ) : (
                             <div className="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center">
@@ -84,8 +87,8 @@ function RegisterPage() {
                 </Card>
 
                 {/* 관심사 선택 */}
-                <Card hasLogo={false} hasMainTitle={false} className="flex-1 min-w-[300px] max-w-[450px] h-auto gap-4">
-                    <h3 className="text-xl font-medium mb-4 text-gray-900">Select your interest</h3>
+                <Card hasLogo={false} hasMainTitle={false} className="flex-1 min-w-[400px] max-w-[450px] h-auto gap-4">
+                    <h3 className="text-xl font-medium mb-4">Select your interest</h3>
                     <form className="flex flex-col gap-4">
                         <Select
                             options={[
@@ -100,11 +103,11 @@ function RegisterPage() {
                     </form>
 
                     {/* 자기소개 입력 */}
-                    <h3 className="text-xl font-medium mb-4 mt-10 text-gray-900 ">Write Your Introduction</h3>
+                    <h3 className="text-xl font-medium mb-4 mt-10">Write Your Introduction</h3>
                     <form className="flex flex-col gap-4">
                         <Input
                             multiline={true}
-                            rows={6} // textarea 높이 증가
+                            rows={3} // textarea 높이 증가
                             inputSize="xl"
                             type="text"
                             placeholder="Introduce yourself"
@@ -129,5 +132,5 @@ function RegisterPage() {
     );
 }
 
-// export default withAuth(RegisterPage, { requireRegistration: true })
-export default RegisterPage;
+export default withAuth(RegisterPage, { requireRegistration: true })
+// export default RegisterPage;
