@@ -1,6 +1,6 @@
-import { SideBarItem } from "@/types/sidebar";
+import { SideBarProps } from "@/types/props";
 
-export const sideItems: SideBarItem[] = [
+export const sideItems: SideBarProps[] = [
     {
         id: "home",
         name: "Home",

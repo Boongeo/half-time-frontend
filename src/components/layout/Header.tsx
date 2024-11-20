@@ -1,11 +1,14 @@
+'use client'
+
 import Image from "next/image";
 import { Button } from "../common/Button";
+import { useAuthStore } from "@/store/auth";
+import Link from "next/link";
+import { HeaderProps } from "@/types/props";
 
-interface HeaderProps {
-    showLoginButton?: boolean;
-}
+export const Header = ({ showLoginButton = true }: HeaderProps) => {
+    const { user, isAuthenticated, signOut } = useAuthStore();
 
-const Header = ({ showLoginButton = true }: HeaderProps) => {
     return (
         <header className="flex items-center justify-between p-8 bg-white">
             <Image
@@ -16,12 +19,29 @@ const Header = ({ showLoginButton = true }: HeaderProps) => {
                 priority
             />
             {showLoginButton && (
-                <Button variant="primary" size="md">
-                    Login
-                </Button>
+                <>
+                    {isAuthenticated ? (
+                        <div className="flex items-center gap-4">
+                            <span className="text-sm text-gray-600">
+                                {user?.email}
+                            </span>
+                            <Button
+                                variant="outline"
+                                size="md"
+                                onClick={signOut}
+                            >
+                                Logout
+                            </Button>
+                        </div>
+                    ) : (
+                        <Link href="/login">
+                            <Button variant="primary" size="md">
+                                Login
+                            </Button>
+                        </Link>
+                    )}
+                </>
             )}
         </header>
     );
 };
-
-export { Header, type HeaderProps };

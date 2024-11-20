@@ -1,17 +1,8 @@
-import { forwardRef, InputHTMLAttributes } from "react";
+import { forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
+import { InputProps } from "@/types/props";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    error?: boolean;
-    fullWidth?: boolean;
-    helperText?: string;
-    label?: string;
-    variant?: 'default' | 'filled';
-    rounded?: 'md' | 'xl';
-    inputSize?: 'sm' | 'md' | 'lg';
-}
-
-const Input = forwardRef<HTMLInputElement, InputProps>(({
+export const Input = forwardRef<HTMLInputElement, InputProps>(({
     className,
     error,
     fullWidth,
@@ -80,5 +71,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
 });
 
 Input.displayName = 'Input';
-
-export { Input, type InputProps };

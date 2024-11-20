@@ -1,19 +1,8 @@
-import { forwardRef, SelectHTMLAttributes } from "react";
+import { forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
+import { SelectProps } from "@/types/props";
 
-interface SelectOption {
-    value: string;
-    label: string;
-}
-
-interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
-    fullWidth?: boolean;
-    label?: string;
-    options: SelectOption[];
-    inputSize?: 'sm' | 'md';
-}
-
-const Select = forwardRef<HTMLSelectElement, SelectProps>(({
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
    className,
    fullWidth,
    label,
@@ -87,5 +76,3 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(({
 });
 
 Select.displayName = 'Select';
-
-export { Select, type SelectProps };
