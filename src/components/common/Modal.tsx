@@ -2,15 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-
-interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    title?: string;
-    description?: string;
-    children: React.ReactNode;
-    className?: string;
-}
+import { ModalProps } from "@/types/props";
 
 export function Modal({
   isOpen,

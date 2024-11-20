@@ -2,14 +2,11 @@
 
 import Image from "next/image";
 import { Button } from "../common/Button";
-import {useAuthStore} from "@/store/auth";
+import { useAuthStore } from "@/store/auth";
 import Link from "next/link";
+import { HeaderProps } from "@/types/props";
 
-interface HeaderProps {
-    showLoginButton?: boolean;
-}
-
-const Header = ({ showLoginButton = true }: HeaderProps) => {
+export const Header = ({ showLoginButton = true }: HeaderProps) => {
     const { user, isAuthenticated, signOut } = useAuthStore();
 
     return (
@@ -48,5 +45,3 @@ const Header = ({ showLoginButton = true }: HeaderProps) => {
         </header>
     );
 };
-
-export { Header, type HeaderProps };
