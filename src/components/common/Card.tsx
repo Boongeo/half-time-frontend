@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
-import {BoxProps} from "@/types/props";
+import { BoxProps } from "@/types/props";
+import Image from 'next/image';
 
 export const Card = forwardRef<HTMLDivElement, BoxProps>(({
   className,
@@ -25,9 +26,12 @@ export const Card = forwardRef<HTMLDivElement, BoxProps>(({
             {hasLogo ? (
                 <div className="flex flex-col justify-items-center">
                     <div className="flex items-center mb-7">
-                        <img
+                        <Image
                             src="/images/BookingListImg.png"
-                            className="mr-4 rounded size-12"
+                            alt="Booking list thumbnail"
+                            fill
+                            className="rounded object-cover"
+                            sizes="48px"
                         />
                         <div>
                             {title && <h3 className="text-lg font-bold">{title}</h3>}
