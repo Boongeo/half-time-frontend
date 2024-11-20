@@ -43,9 +43,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                     )}
                     ref={ref}
                     disabled={disabled}
+                    defaultValue=""
                     {...props}
                 >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                         Select One
                     </option>
                     {options.map((option) => (

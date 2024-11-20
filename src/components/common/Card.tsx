@@ -16,7 +16,7 @@ export const Card = forwardRef<HTMLDivElement, BoxProps>(({
     return (
         <div
             ref={ref}
-            className={`p-8 border border-gray-300 bg-gray-100 rounded-md ${fullWidth ? 'w-full' : 'w-fit'} ${className || ''}`}
+            className={`p-8 border border-gray-300 bg-gray-100 text-gray-600 rounded-md ${fullWidth ? 'w-full' : 'w-fit'} ${className || ''}`}
             {...props}
         >
             {hasMainTitle && mainTitle && (
