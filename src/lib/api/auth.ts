@@ -56,9 +56,9 @@ export const authApi = {
         return response.json();
     },
 
-    // 최초 정보 등록
+    // 사용자 정보 등록
     register: async (formData: FormData) => {
-        const response = await fetch("/api/auth/sign-in", {
+        const response = await fetch("/api/auth/register", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: formData,
