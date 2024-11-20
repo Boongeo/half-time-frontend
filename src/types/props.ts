@@ -34,14 +34,18 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+    label?: string;
     error?: boolean;
     fullWidth?: boolean;
     helperText?: string;
-    label?: string;
     variant?: 'default' | 'filled';
     rounded?: 'md' | 'xl';
-    inputSize?: 'sm' | 'md' | 'lg';
+    inputSize?: 'sm' | 'md' | 'lg' | 'xl';
+    disabled?: boolean;
+    multiline?: boolean;
+    rows?: number;
 }
+
 
 export interface ModalProps {
     isOpen: boolean;
