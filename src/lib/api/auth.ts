@@ -24,14 +24,11 @@ export const authApi = {
     },
 
     // 인증 코드 확인
-    verifyCode: async (params: { email: string; verificationToken: string; code: string; }): Promise<VerifyCodeResponse> => {
+    verifyCode: async (params: { email: string; verificationToken: number; }): Promise<VerifyCodeResponse> => {
         const response = await fetch(`/api/auth/verify-code/${params.verificationToken}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: params.email,
-                code: params.code
-            })
+            body: JSON.stringify({ email: params.email })
         });
         if (!response.ok) throw new Error('Failed to verify code');
         return response.json();
@@ -49,7 +46,7 @@ export const authApi = {
     },
 
     // 회원가입
-    signUp: async (data: {email: string, password: string, verificationToken: string}): Promise<ApiResponse<AuthResponse>> => {
+    signUp: async (data: {email: string, password: string, verificationToken: number}): Promise<ApiResponse<AuthResponse>> => {
         const response = await fetch('/api/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

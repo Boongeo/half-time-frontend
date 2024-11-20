@@ -60,10 +60,7 @@ export function useLogin() {
         setIsLoading(true);
         try {
             const response = await authApi.signIn(form);
-            signIn({
-                accessToken: response.data.accessToken,
-                refreshToken: response.data.refreshToken
-            });
+            signIn(response.data);
             router.push('/');
         } catch {
             setErrors({ password: '로그인에 실패했습니다.' });

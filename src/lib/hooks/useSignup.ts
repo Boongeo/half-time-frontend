@@ -70,8 +70,7 @@ export function useSignup() {
         try {
             const response = await authApi.verifyCode({
                 email: form.email,
-                verificationToken: verification.verificationToken,
-                code: form.verificationCode
+                verificationToken: verification.verificationToken
             });
 
             if (response.success && response.data.verified) {

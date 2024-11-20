@@ -1,4 +1,6 @@
 /** 사용자 기본 정보 */
+export type UserRole = 'user' | 'mentor' | 'admin';
+
 export interface AuthResponseUser {
     id: string;
     email: string;
@@ -6,12 +8,13 @@ export interface AuthResponseUser {
 
 export interface User extends AuthResponseUser {
     name?: string;
-    role?: 'user' | 'mentor' | 'admin';
+    role?: UserRole;
     profileImage?: string;
 }
 
 /** 상태 타입 */
 export interface AuthState {
+    user: User | null;
     accessToken: string | null;
     refreshToken: string | null;
     isAuthenticated: boolean;
@@ -22,7 +25,7 @@ export interface AuthState {
 }
 
 export interface VerificationState {
-    verificationToken: string | null;
+    verificationToken: number | null;
     isCodeSent: boolean;
     isVerified: boolean;
 }
@@ -60,4 +63,12 @@ export type VerifyCodeResponse = ApiResponse<{ verified: boolean }>
 export interface WithAuthProps {
     requireAuth?: boolean;
     requireUnauth?: boolean;
+}
+
+/** JWT Payload 타입 */
+export interface JwtPayload {
+    sub: string;
+    email: string;
+    role?: UserRole;
+    exp: number;
 }
