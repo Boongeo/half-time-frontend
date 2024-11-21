@@ -4,6 +4,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
+import {useUserStore} from "@/store/user";
 import {PasswordValidation, SignupForm, VerificationState} from "@/types/auth";
 import {doPasswordsMatch, isPasswordValid, validatePassword} from "@/lib/auth/validators";
 
@@ -11,6 +12,7 @@ export function useSignup() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { signIn } = useAuthStore();
+    const { fetchUser } = useUserStore();
 
     const [form, setForm] = useState<SignupForm>({
         email: '',
@@ -151,10 +153,8 @@ export function useSignup() {
             });
 
             if (response.success) {
-                signIn({
-                    accessToken: response.data.accessToken,
-                    refreshToken: response.data.refreshToken
-                });
+                signIn(response.data);
+                await fetchUser();
                 router.push('/register');
             }
         } catch {

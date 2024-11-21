@@ -6,10 +6,12 @@ import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
 import {LoginForm} from "@/types/auth";
 import {validateEmail} from "@/lib/auth/validators";
+import {useUserStore} from "@/store/user";
 
 export function useLogin() {
     const router = useRouter();
     const { signIn } = useAuthStore();
+    const { fetchUser } = useUserStore();
     const [form, setForm] = useState<LoginForm>({
         email: '',
         password: ''
@@ -60,8 +62,12 @@ export function useLogin() {
         setIsLoading(true);
         try {
             const response = await authApi.signIn(form);
-            signIn(response.data);
-            router.push('/');
+
+            if (response.success) {
+                signIn(response.data);
+                await fetchUser();
+                router.push('/');
+            }
         } catch {
             setErrors({ password: '로그인에 실패했습니다.' });
         } finally {

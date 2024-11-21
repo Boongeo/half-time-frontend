@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
 import { WithAuthProps } from "@/types/auth";
+import {useUserStore} from "@/store/user";
 
 export function withAuth<P extends object>(
     WrappedComponent: React.ComponentType<P>,
@@ -11,7 +12,14 @@ export function withAuth<P extends object>(
 ) {
     return function WithAuthComponent(props: P) {
         const router = useRouter();
-        const { isAuthenticated, user } = useAuthStore();
+        const { isAuthenticated } = useAuthStore();
+        const { user, isLoading, fetchUser } = useUserStore();
+
+        useEffect(() => {
+            if (isAuthenticated && !user && !isLoading) {
+                fetchUser();
+            }
+        }, [isAuthenticated, user, isLoading, fetchUser]);
 
         useEffect(() => {
             // 미인증 사용자 처리
@@ -26,23 +34,26 @@ export function withAuth<P extends object>(
                 return;
             }
 
-            // 추가 정보 입력 페이지 처리 (최초 가입 시에만 접근)
-            if (requireRegistration) {
-                if (!isAuthenticated) {
-                    router.push('/login');
-                    return;
+            // 인증 완료 & 로딩 완료 -> 추가 검사
+            if (isAuthenticated && !isLoading) {
+                // 추가 정보 입력 페이지 처리 (최초 가입 시에만 접근)
+                if (requireRegistration) {
+                    if (user?.name) {
+                        router.push('/');
+                        return;
+                    }
                 }
-                if (user?.name) {
-                    router.push('/');
+                // 추가 정보 입력이 필요한데 아직 입력하지 않은 경우
+                else if (!user?.name && !requireRegistration) {
+                    router.push('/register');
                     return;
                 }
             }
+        }, [isAuthenticated, user, isLoading, router]);
 
-            if (isAuthenticated && !user?.name && !requireRegistration) {
-                router.push('/register');
-                return;
-            }
-        }, [isAuthenticated, user, router]);
+        if (requireAuth && isAuthenticated && isLoading) {
+            return <div>Loading...</div>;
+        }
 
         if (requireAuth && !isAuthenticated) {
             return null;
