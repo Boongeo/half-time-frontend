@@ -44,6 +44,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     disabled?: boolean;
     multiline?: boolean;
     rows?: number;
+    showSearchIcon?: boolean;
+    options?: { label: string; value: string }[];
 }
 
 
