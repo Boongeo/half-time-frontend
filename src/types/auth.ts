@@ -10,18 +10,32 @@ export interface User extends AuthResponseUser {
     name?: string;
     role?: UserRole;
     profileImage?: string;
+    isProfileComplete?: boolean;
 }
 
 /** 상태 타입 */
 export interface AuthState {
-    user: User | null;
     accessToken: string | null;
     refreshToken: string | null;
     isAuthenticated: boolean;
+    userId: string | null;
+    email: string | null;
 
     setTokens: (accessToken: string, refreshToken: string) => void;
-    signIn: (tokens: { accessToken: string, refreshToken: string }) => void;
+    signIn: (tokens: AuthResponse) => void;
     signOut: () => void;
+}
+
+export interface UserState {
+    user: User | null;
+    isLoading: boolean;
+    error: string | null;
+
+    fetchUser: () => Promise<void>;
+    updateProfile: (data: Partial<User>) => Promise<void>;
+    uploadProfileImage: (file: File) => Promise<void>;
+    setUser: (user: User | null) => void;
+    reset: () => void;
 }
 
 export interface VerificationState {
@@ -77,7 +91,5 @@ export interface WithAuthProps {
 /** JWT Payload 타입 */
 export interface JwtPayload {
     sub: string;
-    email: string;
-    role?: UserRole;
     exp: number;
 }
