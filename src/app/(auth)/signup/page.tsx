@@ -7,6 +7,8 @@ import {useSignup} from "@/lib/hooks/useSignup";
 import {CheckCircle, Mail} from "lucide-react";
 import {withAuth} from "@/lib/auth/withAuth";
 import {SocialLoginButton} from "@/components/auth/SocialLoginButton";
+import {AuthDivider} from "@/components/auth/AuthDivider";
+import {AuthHeader} from "@/components/auth/AuthHeader";
 
 function SignupPage() {
     const {
@@ -29,12 +31,7 @@ function SignupPage() {
 
     return (
         <div className="flex flex-col items-center justify-center space-y-8">
-            <div className="text-center space-y-2 mb-4 text-themeColor">
-                <h2 className="text-2xl font-semibold">Welcome to Half Time</h2>
-                <p className="text-muted-foreground">
-                    Connect, learn, and grow with developers
-                </p>
-            </div>
+            <AuthHeader />
 
             {/* 소셜 로그인 섹션 */}
             <div className="flex flex-col w-full max-w-sm gap-4">
@@ -50,16 +47,7 @@ function SignupPage() {
             </div>
 
             {/* 구분선 */}
-            <div className="relative w-full max-w-sm">
-                <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t"/>
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-muted-foreground text-gray-500">
-                       Or continue with
-                    </span>
-                </div>
-            </div>
+            <AuthDivider />
 
             {/* 회원가입 폼 */}
             <form onSubmit={(e) => {
