@@ -1,12 +1,16 @@
 'use client'
 
-import Image from "next/image";
 import {socialLogin} from "@/config/login";
 import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useSignup} from "@/lib/hooks/useSignup";
 import {CheckCircle, Mail} from "lucide-react";
 import {withAuth} from "@/lib/auth/withAuth";
+import {SocialLoginButton} from "@/components/auth/SocialLoginButton";
+import {AuthDivider} from "@/components/auth/AuthDivider";
+import {AuthHeader} from "@/components/auth/AuthHeader";
+import {PasswordRequirements} from "@/components/auth/PasswordRequirements";
+import {PasswordMatch} from "@/components/auth/PasswordMatch";
 
 function SignupPage() {
     const {
@@ -14,6 +18,9 @@ function SignupPage() {
         errors,
         verification,
         isLoading,
+        validation,
+        isPasswordMatching,
+        showPasswordMatch,
         handleRequestVerification,
         handleVerificationCodeChange,
         handleVerifyCode,
@@ -29,43 +36,23 @@ function SignupPage() {
 
     return (
         <div className="flex flex-col items-center justify-center space-y-8">
-            <div className="text-center space-y-2 mb-4 text-themeColor">
-                <h2 className="text-2xl font-semibold">Welcome to Half Time</h2>
-                <p className="text-muted-foreground">
-                    Connect, learn, and grow with developers
-                </p>
-            </div>
+            <AuthHeader />
 
             {/* 소셜 로그인 섹션 */}
             <div className="flex flex-col w-full max-w-sm gap-4">
                 {socialLogin.map((social) => (
-                    <Button
+                    <SocialLoginButton
                         key={social.id}
-                        className="flex items-center justify-center gap-2"
-                        variant="secondary"
-                        onClick={() => {}}
+                        provider={social.id}
+                        icon={social.icon}
                     >
-                        {typeof social.icon === "string" ? (
-                            <Image src={social.icon} alt={social.name} width={20} height={20}/>
-                        ) : (
-                            <social.icon size={20}/>
-                        )}
                         Continue with {social.name}
-                    </Button>
+                    </SocialLoginButton>
                 ))}
             </div>
 
             {/* 구분선 */}
-            <div className="relative w-full max-w-sm">
-                <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t"/>
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-muted-foreground text-gray-500">
-                       Or continue with
-                    </span>
-                </div>
-            </div>
+            <AuthDivider />
 
             {/* 회원가입 폼 */}
             <form onSubmit={(e) => {
@@ -94,7 +81,7 @@ function SignupPage() {
                         >
                             {verification.isCodeSent ? (
                                 <span className="flex items-center gap-1">
-                                    <Mail className="w-4 h-4" />
+                                    <Mail className="w-4 h-4"/>
                                     Resend
                                 </span>
                             ) : "Send Code"}
@@ -122,7 +109,7 @@ function SignupPage() {
                             >
                                 {verification.isVerified ? (
                                     <span className="flex items-center gap-1">
-                                        <CheckCircle className="w-4 h-4" />
+                                        <CheckCircle className="w-4 h-4"/>
                                         Verified
                                     </span>
                                 ) : "Verify"}
@@ -134,31 +121,29 @@ function SignupPage() {
                 {/* Password Input (이메일 인증 완료 후에만 표시) */}
                 {verification.isVerified && (
                     <>
-                        <Input
-                            type="password"
-                            placeholder="Create password"
-                            value={form.password}
-                            onChange={(e) => handlePasswordChange(e.target.value)}
-                            {...getErrorProps('password')}
-                        />
+                        <div className="space-y-2">
+                            <Input
+                                type="password"
+                                placeholder="Create password"
+                                value={form.password}
+                                onChange={(e) => handlePasswordChange(e.target.value)}
+                                {...getErrorProps('password')}
+                            />
+                            <PasswordRequirements validation={validation} />
+                        </div>
 
-                        <Input
-                            type="password"
-                            placeholder="Confirm password"
-                            value={form.passwordConfirm}
-                            onChange={(e) => handlePasswordConfirmChange(e.target.value)}
-                            {...getErrorProps('passwordConfirm')}
-                        />
-
-                        {/* Password Requirements */}
-                        <div className="text-xs text-gray-500 space-y-1">
-                            <p>비밀번호는 다음을 포함해야 합니다:</p>
-                            <ul className="list-disc pl-4 space-y-0.5">
-                                <li>최소 8자 이상</li>
-                                <li>대문자 1개 이상</li>
-                                <li>소문자 1개 이상</li>
-                                <li>숫자 1개 이상</li>
-                            </ul>
+                        <div className="space-y-2">
+                            <Input
+                                type="password"
+                                placeholder="Confirm password"
+                                value={form.passwordConfirm}
+                                onChange={(e) => handlePasswordConfirmChange(e.target.value)}
+                                {...getErrorProps('passwordConfirm')}
+                            />
+                            <PasswordMatch
+                                isMatching={isPasswordMatching}
+                                show={showPasswordMatch}
+                            />
                         </div>
                     </>
                 )}
@@ -175,4 +160,4 @@ function SignupPage() {
     );
 }
 
-export default withAuth(SignupPage, { requireUnauth: true });
+export default withAuth(SignupPage, {requireUnauth: true});

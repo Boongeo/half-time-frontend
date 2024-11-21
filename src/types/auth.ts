@@ -43,6 +43,14 @@ export interface SignupForm {
     passwordConfirm: string;
 }
 
+/** Password 검증 */
+export interface PasswordValidation {
+    hasMinLength: boolean;
+    hasUpperCase: boolean;
+    hasLowerCase: boolean;
+    hasNumber: boolean;
+}
+
 /** API 응답 타입 */
 export interface ApiResponse<T> {
     success: boolean;

@@ -1,11 +1,13 @@
 'use client'
 
-import Image from "next/image";
 import {socialLogin} from "@/config/login";
 import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useLogin} from "@/lib/hooks/useLogin";
 import {withAuth} from "@/lib/auth/withAuth";
+import { SocialLoginButton } from "@/components/auth/SocialLoginButton";
+import {AuthHeader} from "@/components/auth/AuthHeader";
+import {AuthDivider} from "@/components/auth/AuthDivider";
 
 function LoginPage() {
     const {
@@ -26,43 +28,23 @@ function LoginPage() {
 
     return (
         <div className="flex flex-col items-center justify-center space-y-8">
-            <div className="text-center space-y-2 mb-4 text-themeColor">
-                <h2 className="text-2xl font-semibold">Welcome to Half Time</h2>
-                <p className="text-muted-foreground">
-                    Connect, learn, and grow with developers
-                </p>
-            </div>
+            <AuthHeader />
 
             {/* 소셜 로그인 섹션 */}
             <div className="flex flex-col w-full max-w-sm gap-4">
                 {socialLogin.map((social) => (
-                    <Button
+                    <SocialLoginButton
                         key={social.id}
-                        className="flex items-center justify-center gap-2"
-                        variant="secondary"
-                        onClick={() => {}}
+                        provider={social.id}
+                        icon={social.icon}
                     >
-                        {typeof social.icon === "string" ? (
-                            <Image src={social.icon} alt={social.name} width={20} height={20}/>
-                        ) : (
-                            <social.icon size={20}/>
-                        )}
                         Continue with {social.name}
-                    </Button>
+                    </SocialLoginButton>
                 ))}
             </div>
 
             {/* 구분선 */}
-            <div className="relative w-full max-w-sm">
-                <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t"/>
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-muted-foreground text-gray-500">
-                       Or continue with
-                    </span>
-                </div>
-            </div>
+            <AuthDivider />
 
             {/* 로컬 로그인 섹션 */}
             <form onSubmit={(e) => {
