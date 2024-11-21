@@ -67,4 +67,17 @@ export const authApi = {
         if (!response.ok) throw new Error("Failed to submit profile.");
         return response.json();
     },
+
+    // 소셜 로그인
+    initialOAuth: async (provider: string): Promise<string> => {
+        const response = await fetch(`/api/auth/${provider}`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to initiate OAuth');
+
+        const { url } = await response.json();
+        return url;
+    }
 };

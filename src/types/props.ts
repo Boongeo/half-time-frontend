@@ -1,4 +1,5 @@
 import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes} from "react";
+import {LucideIcon} from "lucide-react";
 
 /** Layout Props */
 export interface LayoutProps {
@@ -66,4 +67,11 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
     label?: string;
     options: SelectOption[];
     inputSize?: 'sm' | 'md';
+}
+
+/** Auth Props */
+export interface SocialLoginButtonProps {
+    provider: string;
+    icon: LucideIcon | string;
+    children: React.ReactNode;
 }

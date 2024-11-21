@@ -1,12 +1,12 @@
 'use client'
 
-import Image from "next/image";
 import {socialLogin} from "@/config/login";
 import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useSignup} from "@/lib/hooks/useSignup";
 import {CheckCircle, Mail} from "lucide-react";
 import {withAuth} from "@/lib/auth/withAuth";
+import {SocialLoginButton} from "@/components/auth/SocialLoginButton";
 
 function SignupPage() {
     const {
@@ -39,19 +39,13 @@ function SignupPage() {
             {/* 소셜 로그인 섹션 */}
             <div className="flex flex-col w-full max-w-sm gap-4">
                 {socialLogin.map((social) => (
-                    <Button
+                    <SocialLoginButton
                         key={social.id}
-                        className="flex items-center justify-center gap-2"
-                        variant="secondary"
-                        onClick={() => {}}
+                        provider={social.id}
+                        icon={social.icon}
                     >
-                        {typeof social.icon === "string" ? (
-                            <Image src={social.icon} alt={social.name} width={20} height={20}/>
-                        ) : (
-                            <social.icon size={20}/>
-                        )}
                         Continue with {social.name}
-                    </Button>
+                    </SocialLoginButton>
                 ))}
             </div>
 
@@ -94,7 +88,7 @@ function SignupPage() {
                         >
                             {verification.isCodeSent ? (
                                 <span className="flex items-center gap-1">
-                                    <Mail className="w-4 h-4" />
+                                    <Mail className="w-4 h-4"/>
                                     Resend
                                 </span>
                             ) : "Send Code"}
@@ -122,7 +116,7 @@ function SignupPage() {
                             >
                                 {verification.isVerified ? (
                                     <span className="flex items-center gap-1">
-                                        <CheckCircle className="w-4 h-4" />
+                                        <CheckCircle className="w-4 h-4"/>
                                         Verified
                                     </span>
                                 ) : "Verify"}
@@ -175,4 +169,4 @@ function SignupPage() {
     );
 }
 
-export default withAuth(SignupPage, { requireUnauth: true });
+export default withAuth(SignupPage, {requireUnauth: true});
