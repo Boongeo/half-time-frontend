@@ -1,5 +1,6 @@
 import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes} from "react";
 import {LucideIcon} from "lucide-react";
+import {PasswordValidation} from "@/types/auth";
 
 /** Layout Props */
 export interface LayoutProps {
@@ -47,7 +48,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     rows?: number;
 }
 
-
 export interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -74,4 +74,13 @@ export interface SocialLoginButtonProps {
     provider: string;
     icon: LucideIcon | string;
     children: React.ReactNode;
+}
+
+export interface PasswordRequirementsProps {
+    validation: PasswordValidation;
+}
+
+export interface PasswordMatchProps {
+    isMatching: boolean;
+    show: boolean;
 }

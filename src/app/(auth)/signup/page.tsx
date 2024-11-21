@@ -9,6 +9,8 @@ import {withAuth} from "@/lib/auth/withAuth";
 import {SocialLoginButton} from "@/components/auth/SocialLoginButton";
 import {AuthDivider} from "@/components/auth/AuthDivider";
 import {AuthHeader} from "@/components/auth/AuthHeader";
+import {PasswordRequirements} from "@/components/auth/PasswordRequirements";
+import {PasswordMatch} from "@/components/auth/PasswordMatch";
 
 function SignupPage() {
     const {
@@ -16,6 +18,9 @@ function SignupPage() {
         errors,
         verification,
         isLoading,
+        validation,
+        isPasswordMatching,
+        showPasswordMatch,
         handleRequestVerification,
         handleVerificationCodeChange,
         handleVerifyCode,
@@ -116,31 +121,29 @@ function SignupPage() {
                 {/* Password Input (이메일 인증 완료 후에만 표시) */}
                 {verification.isVerified && (
                     <>
-                        <Input
-                            type="password"
-                            placeholder="Create password"
-                            value={form.password}
-                            onChange={(e) => handlePasswordChange(e.target.value)}
-                            {...getErrorProps('password')}
-                        />
+                        <div className="space-y-2">
+                            <Input
+                                type="password"
+                                placeholder="Create password"
+                                value={form.password}
+                                onChange={(e) => handlePasswordChange(e.target.value)}
+                                {...getErrorProps('password')}
+                            />
+                            <PasswordRequirements validation={validation} />
+                        </div>
 
-                        <Input
-                            type="password"
-                            placeholder="Confirm password"
-                            value={form.passwordConfirm}
-                            onChange={(e) => handlePasswordConfirmChange(e.target.value)}
-                            {...getErrorProps('passwordConfirm')}
-                        />
-
-                        {/* Password Requirements */}
-                        <div className="text-xs text-gray-500 space-y-1">
-                            <p>비밀번호는 다음을 포함해야 합니다:</p>
-                            <ul className="list-disc pl-4 space-y-0.5">
-                                <li>최소 8자 이상</li>
-                                <li>대문자 1개 이상</li>
-                                <li>소문자 1개 이상</li>
-                                <li>숫자 1개 이상</li>
-                            </ul>
+                        <div className="space-y-2">
+                            <Input
+                                type="password"
+                                placeholder="Confirm password"
+                                value={form.passwordConfirm}
+                                onChange={(e) => handlePasswordConfirmChange(e.target.value)}
+                                {...getErrorProps('passwordConfirm')}
+                            />
+                            <PasswordMatch
+                                isMatching={isPasswordMatching}
+                                show={showPasswordMatch}
+                            />
                         </div>
                     </>
                 )}
