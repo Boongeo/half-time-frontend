@@ -6,6 +6,7 @@ import { Card } from "@/components/common/Card";
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 import { Select } from "@/components/common/Select";
+import { Category } from "@/config/category";
 import Image from "next/image";
 
 function RegisterPage() {
@@ -91,13 +92,7 @@ function RegisterPage() {
                     <h3 className="text-xl font-medium mb-4">Select your interest</h3>
                     <form className="flex flex-col gap-4">
                         <Select
-                            options={[
-                                { value: "frontEnd", label: "FrontEnd" },
-                                { value: "backEnd", label: "BackEnd" },
-                                { value: "ai", label: "AI" },
-                                { value: "devOps", label: "DevOps" },
-                                { value: "ui/ux", label: "UI/UX" }
-                            ]}
+                            options={ Category }
                             onChange={(e) => updateField("interest", e.target.value)}
                         />
                     </form>
@@ -132,5 +127,5 @@ function RegisterPage() {
     );
 }
 
-export default withAuth(RegisterPage, { requireRegistration: true })
-// export default RegisterPage;
+// export default withAuth(RegisterPage, { requireRegistration: true })
+export default RegisterPage;
