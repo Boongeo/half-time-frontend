@@ -1,7 +1,7 @@
 import { useState, forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
 import { InputProps } from "@/types/props";
-import Image from "next/image";
+import { Search } from "lucide-react";
 
 export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(({
          className,
@@ -105,12 +105,8 @@ export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputPro
             <div className="relative">
                 {showSearchIcon && !multiline && (
                     <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <Image
-                            src="/icons/search-icon.png"
-                            alt="Search Icon"
-                            width={15}
-                            height={15}
-                            className="text-gray-400"
+                        <Search
+                            className="w-4 h-4 text-gray-500"
                         />
                     </div>
                 )}
