@@ -4,8 +4,8 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
-import {SignupForm, VerificationState} from "@/types/auth";
-import {validatePassword, validatePasswordConfirm} from "@/lib/auth/validators";
+import {PasswordValidation, SignupForm, VerificationState} from "@/types/auth";
+import {doPasswordsMatch, isPasswordValid, validatePassword} from "@/lib/auth/validators";
 
 export function useSignup() {
     const router = useRouter();
@@ -23,6 +23,13 @@ export function useSignup() {
         verificationToken: null,
         isCodeSent: false,
         isVerified: false
+    });
+
+    const [validation, setValidation] = useState<PasswordValidation>({
+        hasMinLength: false,
+        hasUpperCase: false,
+        hasLowerCase: false,
+        hasNumber: false
     });
 
     const [errors, setErrors] = useState<Partial<Record<keyof SignupForm, string>>>({});
@@ -97,12 +104,21 @@ export function useSignup() {
 
     const handlePasswordChange = (password: string) => {
         setForm(prev => ({ ...prev, password }));
-        setErrors(prev => ({ ...prev, password: '' }));
+        setValidation(validatePassword(password));
+
+        setErrors(prev => ({
+            ...prev,
+            password: '',
+            passwordConfirm: ''
+        }));
     };
 
     const handlePasswordConfirmChange = (passwordConfirm: string) => {
         setForm(prev => ({ ...prev, passwordConfirm }));
-        setErrors(prev => ({ ...prev, passwordConfirm: '' }));
+        setErrors(prev => ({
+            ...prev,
+            passwordConfirm: ''
+        }));
     };
 
     // 회원가입
@@ -113,14 +129,12 @@ export function useSignup() {
             errors.verificationCode = '이메일 인증이 필요합니다.';
         }
 
-        const passwordValidation = validatePassword(form.password);
-        if (!passwordValidation.isValid) {
-            errors.password = passwordValidation.error!;
+        if (!isPasswordValid(validation)) {
+            errors.password = '비밀번호 조건을 모두 만족해주세요.';
         }
 
-        const passwordConfirmValidation = validatePasswordConfirm(form.password, form.passwordConfirm);
-        if (!passwordConfirmValidation.isValid) {
-            errors.passwordConfirm = passwordConfirmValidation.error!;
+        if (!doPasswordsMatch(form.password, form.passwordConfirm)) {
+            errors.passwordConfirm = '비밀번호가 일치하지 않습니다.';
         }
 
         if (Object.keys(errors).length > 0) {
@@ -155,6 +169,9 @@ export function useSignup() {
     return {
         form,
         errors,
+        validation,
+        isPasswordMatching: form.passwordConfirm ? doPasswordsMatch(form.password, form.passwordConfirm) : false,
+        showPasswordMatch: !!form.passwordConfirm,
         verification,
         isLoading,
         handleRequestVerification,
