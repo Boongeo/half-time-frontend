@@ -9,6 +9,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
    options,
    inputSize = 'md',
    disabled,
+   placeholder,
    ...props
 }, ref) => {
     const baseStyles = cn(
@@ -43,12 +44,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                     )}
                     ref={ref}
                     disabled={disabled}
-                    defaultValue=""
                     {...props}
                 >
-                    <option value="" disabled>
-                        Select One
-                    </option>
+                    {placeholder && (
+                        <option value="" disabled>
+                            {placeholder}
+                        </option>
+                    )}
                     {options.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}
