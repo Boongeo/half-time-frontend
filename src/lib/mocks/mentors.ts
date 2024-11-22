@@ -15,15 +15,15 @@ export const mockMentors = [
     {
         id: 2,
         name: "이혜린",
-        role: "Frontend Developer",
+        role: "Senior Frontend Developer",
         company: "Naver",
         profileImage: "/images/Mock.jpg",
-        techStack: ["Node.js", "Python", "AWS"],
+        techStack: ["React", "TypeScript", "Next.js", "Python"],
         experience: 17,
         rating: 4.8,
         reviewCount: 28,
         hourlyRate: 60000,
-        intro: "서버 개발과 클라우드 아키텍처에 대한 경험을 공유하고 싶습니다."
+        intro: "안녕 친구들아? 나 내일 저녁은 감자탕 먹을거임. 할 말이 많아서 소개글이 길어지면 어떻게 되나 볼까여"
     },
     {
         id: 3,
@@ -37,6 +37,19 @@ export const mockMentors = [
         reviewCount: 15,
         hourlyRate: 45000,
         intro: "풀스택 개발 경험을 바탕으로 실무에서 필요한 기술들을 알려드립니다."
+    },
+    {
+        id: 4,
+        name: "빌게이츠",
+        role: "Senior Backend Developer",
+        company: "Microsoft",
+        profileImage: "/images/Mock.jpg",
+        techStack: ["React", "Node.js", "MongoDB"],
+        experience: 32,
+        rating: 5.0,
+        reviewCount: 115,
+        hourlyRate: 450000,
+        intro: "나 ㄹㅇ 빌게이츠임"
     }
 ] as const;
 
