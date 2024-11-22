@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from "react";
-import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 import { Category } from "@/config/category";
+import {SearchInput} from "@/components/common/SearchInput";
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState<"mentor" | "mentee">("mentee");
@@ -64,13 +64,12 @@ export default function Home() {
                 <p className="text-xl text-gray-600 mt-4 mb-8">
                     개발자들의 성장을 위한 맞춤형 멘토·멘티 매칭 플랫폼
                 </p>
-                <Input
-                    showSearchIcon={true}
-                    placeholder="What Do You Want To Level Up?"
-                    fullWidth={false}
-                    options={ Category }
-                    className="w-[300px] rounded-lg"
-                />
+                  <SearchInput
+                      placeholder="What Do You Want To Level Up?"
+                      options={Category}
+                      onOptionSelect={(option) => console.log(option)}
+                      className="w-[300px] rounded-lg"
+                  />
               </div>
           )}
         </div>
