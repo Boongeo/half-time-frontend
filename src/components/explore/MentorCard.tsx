@@ -3,6 +3,8 @@ import {Card} from "@/components/common/Card";
 import Image from "next/image";
 
 export function MentorCard({ mentor }: MentorCardProps) {
+    const displayedTechStack = mentor.techStack.slice(0, 3);
+
     return (
         <Card className="p-0 overflow-hidden hover:shadow-lg transition-shadow duration-300 w-full">
             {/* 멘토 프로필 이미지 */}
@@ -20,7 +22,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
                 <div className="flex justify-between items-center mb-1">
                     <h3 className="text-base font-semibold text-gray-900">{mentor.name}</h3>
                     <div className="text-xs font-medium text-gray-900 whitespace-nowrap">
-                        ₩{mentor.hourlyRate.toLocaleString()}/시간
+                        ₩{mentor.hourlyRate.toLocaleString()}/1h
                     </div>
                 </div>
 
@@ -32,7 +34,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
 
                 {/* 기술 배지 */}
                 <div className="flex gap-1.5 my-2">
-                    {mentor.techStack.map((tech) => (
+                    {displayedTechStack.map((tech) => (
                         <span
                             key={tech}
                             className="px-2 py-0.5 bg-themeColor text-xs rounded-full text-white"
@@ -42,7 +44,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
                     ))}
                 </div>
 
-                {/* 멘토 소개글 */}
+                {/* 소개 텍스트 */}
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                     {mentor.intro}
                 </p>
