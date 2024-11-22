@@ -56,18 +56,6 @@ export const authApi = {
         return response.json();
     },
 
-    // 사용자 정보 등록
-    register: async (formData: FormData) => {
-        const response = await fetch("/api/auth/register", {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: formData,
-        });
-
-        if (!response.ok) throw new Error("Failed to submit profile.");
-        return response.json();
-    },
-
     // 소셜 로그인
     initialOAuth: async (provider: string): Promise<string> => {
         const response = await fetch(`/api/auth/${provider}`, {
