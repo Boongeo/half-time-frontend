@@ -11,14 +11,20 @@ export default function MainLayout({ children, }: { children: React.ReactNode })
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
-            <Header />
-            <div className="flex-1 flex">
-                {showSidebar && <Sidebar />}
-                <main className={`flex-1 ${showSidebar ? 'ml-[240px]' : ''}`}>
+            <div className="fixed top-0 left-0 right-0 z-50">
+                <Header/>
+            </div>
+            <div className="flex-1 flex pt-[90px]">
+                {showSidebar && (
+                    <aside className="fixed left-0 w-[80px] h-full -mt-[2px]">
+                        <Sidebar/>
+                    </aside>
+                )}
+                <main className={`flex-1 ${showSidebar ? 'pl-[80px]' : ''}`}>
                     {children}
                 </main>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     )
 }
