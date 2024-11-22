@@ -6,10 +6,10 @@ import { Button } from "@/components/common/Button";
 import { Category } from "@/config/category";
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState<"mentor" | "mentee">("mentor");
+  const [selectedTab, setSelectedTab] = useState<"mentor" | "mentee">("mentee");
 
   return (
-      <div className="flex flex-col items-center px-4 md:px-10 mt-14">
+      <div className="flex flex-col items-center px-4 md:px-10 mt-20">
         <div className="flex gap-8 w-full max-w-4xl justify-center">
             {/* 멘티 탭 */}
             <div
