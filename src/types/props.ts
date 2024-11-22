@@ -105,11 +105,30 @@ export interface SearchSectionProps {
     onChange: (value: string) => void;
 }
 
+export type FilterKey = 'techStack' | 'experience' | 'rating';
+
+export type FilterOption = {
+    value: string;
+    label: string;
+};
+
+export interface FilterValues {
+    techStack: string[];
+    experience: string[];
+    rating: string[];
+}
+
 export interface FilterSectionProps {
-    filters: {
-        techStack: string;
-        experience: string;
-        rating: string;
-    };
-    onFilterChange: (field: string, value: string) => void;
+    filters: FilterValues;
+    onFilterChange: (field: FilterKey, value: string[]) => void;
+}
+
+export interface CheckboxGroupProps {
+    label: string;
+    options: FilterOption[];
+    selectedValues: string[];
+    onChange: (values: string[]) => void;
+    scrollable?: boolean;
+    maxHeight?: string;
+    gridLayout?: boolean;
 }
