@@ -5,19 +5,20 @@ import {SearchSection} from "@/components/explore/SearchSection";
 import {FilterSection} from "@/components/explore/FilterSection";
 import {mockMentors} from "@/lib/mocks/mentors";
 import {MentorCard} from "@/components/explore/MentorCard";
+import {FilterKey, FilterValues} from "@/types/props";
 
 export default function MentorExplorePage() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filters, setFilters] = useState({
-        techStack: '',
-        experience: '',
-        rating: ''
+    const [filters, setFilters] = useState<FilterValues>({
+        techStack: [],
+        experience: [],
+        rating: []
     });
 
-    const handleFilterChange = (field: string, value: string) => {
+    const handleFilterChange = (key: FilterKey, values: string[]) => {
         setFilters(prev => ({
             ...prev,
-            [field]: value
+            [key]: values
         }));
     };
 
