@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { BoxProps } from "@/types/props";
+import { BoxProps } from "@/types/commonProps";
 import Image from 'next/image';
 
 export const Card = forwardRef<HTMLDivElement, BoxProps>(({
@@ -16,7 +16,7 @@ export const Card = forwardRef<HTMLDivElement, BoxProps>(({
     return (
         <div
             ref={ref}
-            className={`p-8 border border-gray-300 bg-gray-100 text-gray-600 rounded-md ${fullWidth ? 'w-full' : 'w-fit'} ${className || ''}`}
+            className={`p-6 border border-gray-300 bg-gray-100 text-gray-600 rounded-md ${fullWidth ? 'w-full' : 'w-fit'} ${className || ''}`}
             {...props}
         >
             {hasMainTitle && mainTitle && (

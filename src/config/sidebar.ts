@@ -1,34 +1,35 @@
-import { SideBarProps } from "@/types/props";
+import { SideBarProps } from "@/types/commonProps";
+import {Compass, Home, MessageSquare, User, CalendarCheck2} from "lucide-react";
 
 export const sideItems: SideBarProps[] = [
     {
         id: "home",
         name: "Home",
-        href: "#",
-        icon: "/images/Home.png"
+        href: "/",
+        icon: Home
     },
     {
         id: "message",
         name: "Message",
-        href: "#",
-        icon: "/images/Message.png"
+        href: "/chat",
+        icon: MessageSquare
     },
     {
         id: "explore",
         name: "Explore",
-        href: "#",
-        icon: "/images/Explore.png"
+        href: "/explore",
+        icon: Compass
     },
     {
         id: "booking",
         name: "Booking",
-        href: "#",
-        icon: "/images/Booking.png"
+        href: "/booking",
+        icon: CalendarCheck2
     },
     {
         id: "mypage",
         name: "MyPage",
-        href: "#",
-        icon: "/images/Mypage.png"
+        href: "/mypage",
+        icon: User
     },
 ];

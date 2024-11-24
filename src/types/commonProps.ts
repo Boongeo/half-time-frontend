@@ -1,21 +1,15 @@
 import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes} from "react";
-import {LucideIcon} from "lucide-react";
-import {PasswordValidation} from "@/types/auth";
 
 /** Layout Props */
 export interface LayoutProps {
     children: ReactNode;
 }
 
-export interface HeaderProps {
-    showLoginButton?: boolean;
-}
-
 export interface SideBarProps {
     id: string;
     name: string;
     href: string;
-    icon: string; // 이미지 경로
+    icon: React.ComponentType<{ className?: string }>;
 }
 
 /** Components Props */
@@ -59,7 +53,7 @@ export interface ModalProps {
     className?: string;
 }
 
-interface SelectOption {
+export interface SelectOption {
     value: string;
     label: string;
 }
@@ -69,20 +63,15 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
     label?: string;
     options: SelectOption[];
     inputSize?: 'sm' | 'md';
+    placeholder?: string;
 }
 
-/** Auth Props */
-export interface SocialLoginButtonProps {
-    provider: string;
-    icon: LucideIcon | string;
-    children: React.ReactNode;
-}
-
-export interface PasswordRequirementsProps {
-    validation: PasswordValidation;
-}
-
-export interface PasswordMatchProps {
-    isMatching: boolean;
-    show: boolean;
+export interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+    inputSize?: 'sm' | 'md' | 'lg' | 'xl';
+    rounded?: 'md' | 'xl';
+    fullWidth?: boolean;
+    error?: boolean;
+    helperText?: string;
+    options?: SelectOption[];
+    onOptionSelect?: (option: SelectOption) => void;
 }

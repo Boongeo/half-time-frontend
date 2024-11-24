@@ -11,7 +11,7 @@ export const Header = () => {
     const { user } = useUserStore();
 
     return (
-        <header className="flex items-center justify-between p-8 bg-white">
+        <header className="flex items-center justify-between p-6 bg-white border-b">
             <Link href="/">
                 <Image
                     src="/images/Logo.png"

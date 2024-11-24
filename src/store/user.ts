@@ -1,4 +1,4 @@
-import {UserState} from "@/types/auth";
+import {User, UserState} from "@/types/user";
 import {create} from "zustand";
 import {userApi} from "@/lib/api/user";
 
@@ -20,38 +20,28 @@ export const useUserStore = create<UserState>((set) => ({
         }
     },
 
-    updateProfile: async (data) => {
+    updateProfile: async (data: FormData | Partial<User>) => {
         try {
             set({ isLoading: true, error: null });
-            const response = await userApi.updateProfile(data);
 
+            let formData: FormData;
+            if (data instanceof FormData) {
+                formData = data;
+            } else {
+                formData = new FormData();
+                Object.entries(data).forEach(([key, value]) => {
+                    if (value !== null) {
+                        formData.append(key, value as string | Blob);
+                    }
+                });
+            }
+
+            const response = await userApi.updateProfile(formData);
             if (response.success) {
                 set({
                     user: response.data,
                     isLoading: false
                 });
-            }
-        } catch (error) {
-            set({ error: (error as Error).message, isLoading: false });
-        }
-    },
-
-    uploadProfileImage: async (file) => {
-        try {
-            set({ isLoading: true, error: null });
-            const formData = new FormData();
-            formData.append('image', file);
-
-            const response = await userApi.uploadProfileImage(formData);
-
-            if (response.success) {
-                set(state => ({
-                    user: state.user ? {
-                        ...state.user,
-                        profileImage: response.data.imageUrl
-                    } : null,
-                    isLoading: false
-                }));
             }
         } catch (error) {
             set({ error: (error as Error).message, isLoading: false });

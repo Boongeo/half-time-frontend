@@ -1,4 +1,4 @@
-import {PasswordMatchProps} from "@/types/props";
+import {PasswordMatchProps} from "@/types/featureProps";
 import {Check, X} from "lucide-react";
 
 export function PasswordMatch({ isMatching, show }: PasswordMatchProps) {

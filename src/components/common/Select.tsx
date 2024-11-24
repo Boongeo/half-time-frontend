@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
-import { SelectProps } from "@/types/props";
+import { SelectProps } from "@/types/commonProps";
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
    className,
@@ -9,6 +9,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
    options,
    inputSize = 'md',
    disabled,
+   placeholder,
    ...props
 }, ref) => {
     const baseStyles = cn(
@@ -43,12 +44,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
                     )}
                     ref={ref}
                     disabled={disabled}
-                    defaultValue=""
                     {...props}
                 >
-                    <option value="" disabled>
-                        Select One
-                    </option>
+                    {placeholder && (
+                        <option value="" disabled>
+                            {placeholder}
+                        </option>
+                    )}
                     {options.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}
