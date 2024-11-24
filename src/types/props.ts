@@ -128,7 +128,6 @@ export interface CheckboxGroupProps {
     options: FilterOption[];
     selectedValues: string[];
     onChange: (values: string[]) => void;
-    scrollable?: boolean;
     maxHeight?: string;
     gridLayout?: boolean;
 }

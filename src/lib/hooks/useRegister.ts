@@ -3,14 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { userApi } from "@/lib/api/user";
-
-interface RegisterForm {
-    nickname: string;
-    interest: string;
-    introduction: string;
-    profileImage: string|null,
-    profileFile?: File | null,
-}
+import {RegisterForm} from "@/types/user";
 
 export function useRegister() {
     const router = useRouter();
@@ -42,7 +35,7 @@ export function useRegister() {
                     setForm((prev) => ({
                         ...prev,
                         profileImage: reader.result as string,
-                        profileFile: file// 이미지 파일을 상태에 저장
+                        profileFile: file  // 이미지 파일을 상태에 저장
                     }));
                 };
                 reader.readAsDataURL(file); // 파일을 Base64 URL로 변환
@@ -50,7 +43,7 @@ export function useRegister() {
         }
     };
 
-    // FormData로 서버로 전송하는 함수
+    // FormData로 서버에 전송하는 함수
     const submitForm = async () => {
         if (form.nickname && form.interest && form.introduction) {
             const formData = new FormData();

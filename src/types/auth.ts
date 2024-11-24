@@ -1,16 +1,7 @@
 /** 사용자 기본 정보 */
-export type UserRole = 'user' | 'mentor' | 'admin';
-
 export interface AuthResponseUser {
     id: string;
     email: string;
-}
-
-export interface User extends AuthResponseUser {
-    name?: string;
-    role?: UserRole;
-    profileImage?: string;
-    isProfileComplete?: boolean;
 }
 
 /** 상태 타입 */
@@ -24,18 +15,6 @@ export interface AuthState {
     setTokens: (accessToken: string, refreshToken: string) => void;
     signIn: (tokens: AuthResponse) => void;
     signOut: () => void;
-}
-
-export interface UserState {
-    user: User | null;
-    isLoading: boolean;
-    error: string | null;
-
-    fetchUser: () => Promise<void>;
-    updateProfile: (data: Partial<User>) => Promise<void>;
-    uploadProfileImage: (file: File) => Promise<void>;
-    setUser: (user: User | null) => void;
-    reset: () => void;
 }
 
 export interface VerificationState {
