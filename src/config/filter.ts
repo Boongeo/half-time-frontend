@@ -9,6 +9,10 @@ export const techStackOptions: FilterOption[] = [
     { value: 'nodejs', label: 'Node.js' },
     { value: 'python', label: 'Python' },
     { value: 'java', label: 'Java' },
+    { value: 'cpp', label: 'C++' },
+    { value: 'c', label: 'C' },
+    { value: 'spring', label: 'Spring' },
+    { value: 'unity', label: 'Unity' },
 ];
 
 export const experienceOptions: FilterOption[] = [

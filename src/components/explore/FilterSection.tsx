@@ -82,6 +82,7 @@ export function FilterSection({ filters, onFilterChange }: FilterSectionProps) {
                             selectedValues={filters.techStack}
                             onChange={(values) => onFilterChange('techStack', values)}
                             gridLayout={true}
+                            maxHeight="120px"
                         />
                         <CheckboxGroup
                             label="경력"
