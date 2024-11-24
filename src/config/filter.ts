@@ -1,4 +1,4 @@
-import {FilterKey, FilterOption} from "@/types/props";
+import {FilterKey, FilterOption} from "@/types/commonProps";
 
 export const techStackOptions: FilterOption[] = [
     { value: 'react', label: 'React' },

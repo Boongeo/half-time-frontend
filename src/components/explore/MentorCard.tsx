@@ -1,4 +1,4 @@
-import {MentorCardProps} from "@/types/props";
+import {MentorCardProps} from "@/types/featureProps";
 import {Card} from "@/components/common/Card";
 import Image from "next/image";
 

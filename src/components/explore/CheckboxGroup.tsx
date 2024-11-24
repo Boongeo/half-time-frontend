@@ -1,4 +1,4 @@
-import {CheckboxGroupProps} from "@/types/props";
+import {CheckboxGroupProps} from "@/types/featureProps";
 import {cn} from "@/lib/utils/cn";
 
 export function CheckboxGroup({

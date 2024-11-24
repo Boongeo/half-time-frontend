@@ -1,4 +1,4 @@
-import { SideBarProps } from "@/types/props";
+import { SideBarProps } from "@/types/commonProps";
 import {Compass, Home, MessageSquare, User, CalendarCheck2} from "lucide-react";
 
 export const sideItems: SideBarProps[] = [

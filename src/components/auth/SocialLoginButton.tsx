@@ -1,8 +1,7 @@
-import {SocialLoginButtonProps} from "@/types/props";
+import {SocialLoginButtonProps} from "@/types/featureProps";
 import {useSocialAuth} from "@/lib/hooks/useSocialAuth";
 import {Button} from "@/components/common/Button";
 import Image from "next/image";
-
 
 export function SocialLoginButton({
     provider,

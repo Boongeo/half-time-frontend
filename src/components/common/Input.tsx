@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
-import { InputProps } from "@/types/props";
+import { InputProps } from "@/types/commonProps";
 
 export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(({
          className,

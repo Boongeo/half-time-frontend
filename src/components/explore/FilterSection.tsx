@@ -1,4 +1,4 @@
-import { FilterKey, FilterSectionProps } from "@/types/props";
+import { FilterKey, FilterSectionProps } from "@/types/featureProps";
 import { Button } from "../common/Button";
 import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
