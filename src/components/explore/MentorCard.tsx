@@ -18,7 +18,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
             </div>
 
             {/* 멘토 상세 정보 */}
-            <div className="p-4 relative h-[calc(440px-192px)]">
+            <div className="py-2 px-1 relative h-[calc(200px)]">
                 <div className="space-y-2">
                     {/* 이름 & 가격 */}
                     <div className="flex justify-between items-center">
@@ -53,7 +53,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
                 </div>
 
                 {/* 평점 및 경력 */}
-                <div className="absolute bottom-12 left-4 right-4 pt-2">
+                <div className="absolute bottom-1 left-1 right-1 pt-2">
                     <div className="flex items-center justify-between text-sm text-gray-600">
                         <span>⭐ {mentor.rating} · {mentor.reviewCount}개의 리뷰</span>
                         <span>경력 {mentor.experience}년</span>

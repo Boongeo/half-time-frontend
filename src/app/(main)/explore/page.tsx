@@ -5,7 +5,7 @@ import {SearchSection} from "@/components/explore/SearchSection";
 import {FilterSection} from "@/components/explore/FilterSection";
 import {mockMentors} from "@/lib/mocks/mentors";
 import {MentorCard} from "@/components/explore/MentorCard";
-import {FilterKey, FilterValues} from "@/types/commonProps";
+import {FilterKey, FilterValues} from "@/types/featureProps";
 
 export default function MentorExplorePage() {
     const [searchTerm, setSearchTerm] = useState('');
