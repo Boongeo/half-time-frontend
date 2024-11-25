@@ -21,6 +21,7 @@ export interface PasswordMatchProps {
 /** Explore Props */
 export interface MentorCardProps {
     mentor: Mentor;
+    onClick?: (value: number) => void;
 }
 
 export interface SearchSectionProps {
