@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/components/common/Button";
-import { Category } from "@/config/category";
 import {SearchInput} from "@/components/common/SearchInput";
+import {getCategoryOptions} from "@/lib/utils/category";
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState<"mentor" | "mentee">("mentee");
@@ -66,7 +66,7 @@ export default function Home() {
                 </p>
                   <SearchInput
                       placeholder="What Do You Want To Level Up?"
-                      options={Category}
+                      options={getCategoryOptions()}
                       onOptionSelect={(option) => console.log(option)}
                       className="w-[300px] rounded-lg"
                   />
