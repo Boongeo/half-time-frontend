@@ -1,6 +1,7 @@
 import {LucideIcon} from "lucide-react";
 import {PasswordValidation} from "@/types/auth";
 import {Mentor} from "@/lib/mocks/mentors";
+import {FilterKey, FilterOption, FilterValues} from "@/types/category";
 
 /** Auth Props */
 export interface SocialLoginButtonProps {
@@ -26,19 +27,6 @@ export interface MentorCardProps {
 export interface SearchSectionProps {
     value: string;
     onChange: (value: string) => void;
-}
-
-export type FilterKey = 'techStack' | 'experience' | 'rating';
-
-export type FilterOption = {
-    value: string;
-    label: string;
-};
-
-export interface FilterValues {
-    techStack: string[];
-    experience: string[];
-    rating: string[];
 }
 
 export interface FilterSectionProps {
