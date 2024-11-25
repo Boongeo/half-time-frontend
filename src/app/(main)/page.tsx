@@ -2,37 +2,27 @@
 
 import { useState } from "react";
 import { Button } from "@/components/common/Button";
+import Tabs from "@/components/common/Tabs/Tabs";
 import { Category } from "@/config/category";
 import {SearchInput} from "@/components/common/SearchInput";
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState<"mentor" | "mentee">("mentee");
-
+  const [selectedTab, setSelectedTab] = useState<string>("mentee");
+  const tabs = [
+      { label: "Mentee", value: "mentee" },
+      { label: "Mentor", value: "mentor" },
+  ]
   return (
       <div className="flex flex-col items-center px-4 md:px-10 mt-20">
         <div className="flex gap-8 w-full max-w-4xl justify-center">
-            {/* 멘티 탭 */}
-            <div
-                onClick={() => setSelectedTab("mentee")}
-                className={`cursor-pointer text-lg tracking-wider font-medium pb-2 ${
-                    selectedTab === "mentee"
-                        ? "text-themeColor border-b-4 border-themeColor"
-                        : "text-gray-600 hover:text-themeColor"
-                }`}
-            >
-                Mentee
-            </div>
 
-            {/* 멘토 탭 */}
-            <div
-              onClick={() => setSelectedTab("mentor")}
-              className={`cursor-pointer text-lg tracking-wider pb-2 ${
-                  selectedTab === "mentor"
-                      ? "text-themeColor border-b-4 border-themeColor"
-                      : "text-gray-600 hover:text-themeColor"
-              }`}
-            >
-                Mentor
+            {/* 탭 섹션 */}
+            <div className="mt-8">
+                <Tabs
+                    tabs={tabs}
+                    selectedTab={selectedTab}
+                    onTabSelect={(value) => setSelectedTab(value)}
+                />
             </div>
 
 
