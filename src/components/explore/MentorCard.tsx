@@ -1,12 +1,21 @@
+import {useRouter} from 'next/navigation';
 import {MentorCardProps} from "@/types/featureProps";
 import {Card} from "@/components/common/Card";
 import Image from "next/image";
 
 export function MentorCard({ mentor }: MentorCardProps) {
     const displayedTechStack = mentor.techStack.slice(0, 3);
+    const router = useRouter();
+
+    const handleMentorClick = (id: number) => {
+        router.push(`/mentor/${id}`);
+    };
 
     return (
-        <Card className="p-0 overflow-hidden hover:shadow-lg transition-shadow duration-300 w-full h-[440px] relative">
+        <Card
+            className="p-0 overflow-hidden hover:shadow-lg transition-shadow duration-300 w-full h-[440px] relative"
+            onClick={() => handleMentorClick(mentor.id)}
+        >
             {/* 멘토 프로필 이미지 */}
             <div className="relative h-48">
                 <Image
