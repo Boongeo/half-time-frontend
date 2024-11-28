@@ -1,6 +1,7 @@
 import {LucideIcon} from "lucide-react";
 import {PasswordValidation} from "@/types/auth";
-import {Mentor} from "@/lib/mocks/mentors";
+import {FilterKey, FilterOption, FilterValues} from "@/types/category";
+import {Mentor} from "@/types/mentor";
 
 /** Auth Props */
 export interface SocialLoginButtonProps {
@@ -28,20 +29,7 @@ export interface SearchSectionProps {
     onChange: (value: string) => void;
 }
 
-export type FilterKey = 'techStack' | 'experience' | 'rating';
-
-export type FilterOption = {
-    value: string;
-    label: string;
-};
-
-export interface FilterValues {
-    techStack: string[];
-    experience: string[];
-    rating: string[];
-}
-
-export interface FilterSectionProps {
+interface FilterSectionProps {
     filters: FilterValues;
     onFilterChange: (field: FilterKey, value: string[]) => void;
 }
@@ -53,4 +41,25 @@ export interface CheckboxGroupProps {
     onChange: (values: string[]) => void;
     maxHeight?: string;
     gridLayout?: boolean;
+}
+
+export interface UseMentorFilterProps {
+    mentors: Mentor[];
+    initialFilters?: FilterValues;
+}
+
+export interface MentorFilterState {
+    searchTerm: string;
+    filters: FilterValues;
+    priceRange: [number, number];
+    setSearchTerm: (term: string) => void;
+    setFilter: (key: FilterKey, values: string[]) => void;
+    setPriceRange: (range: [number, number]) => void;
+    clearFilters: () => void;
+}
+
+export interface ExtendedFilterSectionProps extends FilterSectionProps {
+    priceRange: [number, number];
+    onPriceRangeChange: (range: [number, number]) => void;
+    onClearAll: () => void;
 }
