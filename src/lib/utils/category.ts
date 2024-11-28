@@ -15,3 +15,11 @@ export const optionsMap: Record<FilterKey, FilterOption[]> = {
     experience: experienceOptions,
     rating: ratingOptions,
 };
+
+export const getTechDisplayName = (value: string): string => {
+    const tech = Object.values(TECH_CATEGORIES)
+        .flat()
+        .find(tech => tech.value === value);
+
+    return tech?.label || value;
+};
