@@ -1,4 +1,4 @@
-import { FilterSectionProps } from "@/types/featureProps";
+import { ExtendedFilterSectionProps } from "@/types/featureProps";
 import { Button } from "../common/Button";
 import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
@@ -6,24 +6,22 @@ import { cn } from "@/lib/utils/cn";
 import { CheckboxGroup } from "@/components/explore/CheckboxGroup";
 import { Slider } from "@/components/explore/Slider";
 import { experienceOptions, ratingOptions, TECH_CATEGORIES } from "@/config/category";
-import { FilterKey, TechCategories } from "@/types/category";
+import {FilterKey, TechCategories} from "@/types/category";
 import { optionsMap } from "@/lib/utils/category";
 
-export function FilterSection({ filters, onFilterChange }: FilterSectionProps) {
+export function FilterSection({
+  filters,
+  onFilterChange,
+  priceRange,
+  onPriceRangeChange,
+  onClearAll
+}: ExtendedFilterSectionProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [priceRange, setPriceRange] = useState([0, 100000]);
     const [selectedCategory, setSelectedCategory] = useState<keyof TechCategories>(Object.keys(TECH_CATEGORIES)[0]);
-    const hasSelectedFilters = Object.values(filters).some(values => values.length > 0);
+    const hasSelectedFilters = Object.values(filters).some(values => values.length > 0) || priceRange[0] > 0 || priceRange[1] < 100000;
 
     const handleClearFilter = (key: FilterKey, value: string) => {
         onFilterChange(key, filters[key].filter(v => v !== value));
-    };
-
-    const handleClearAll = () => {
-        Object.keys(filters).forEach(key => {
-            onFilterChange(key as FilterKey, []);
-        });
-        setPriceRange([0, 100000]);
     };
 
     return (
@@ -65,9 +63,17 @@ export function FilterSection({ filters, onFilterChange }: FilterSectionProps) {
                                 );
                             })
                         )}
+                        {/* 가격 범위 배지 */}
+                        {(priceRange[0] > 0 || priceRange[1] < 100000) && (
+                            <div className="flex items-center gap-1 px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-500">
+                                <span>
+                                    {priceRange[0].toLocaleString()}원 - {priceRange[1].toLocaleString()}원
+                                </span>
+                            </div>
+                        )}
                         <button
                             className="text-sm text-gray-500 hover:text-gray-700"
-                            onClick={handleClearAll}
+                            onClick={onClearAll}
                         >
                             초기화
                         </button>
@@ -131,7 +137,7 @@ export function FilterSection({ filters, onFilterChange }: FilterSectionProps) {
                             <div className="px-2">
                                 <Slider
                                     value={priceRange}
-                                    onValueChange={setPriceRange}
+                                    onValueChange={onPriceRangeChange}
                                     min={0}
                                     max={100000}
                                     step={1000}
