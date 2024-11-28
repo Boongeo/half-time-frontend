@@ -39,9 +39,9 @@ export const TECH_CATEGORIES: TechCategories = {
 
 export const experienceOptions: FilterOption[] = [
     { value: '0-3', label: '0-3년' },
-    { value: '3-5', label: '3-5년' },
-    { value: '5-10', label: '5-10년' },
-    { value: '10+', label: '10년 이상' },
+    { value: '4-7', label: '4-7년' },
+    { value: '8-14', label: '8-14년' },
+    { value: '15-50', label: '15년 이상' },
 ];
 
 export const ratingOptions: FilterOption[] = [
