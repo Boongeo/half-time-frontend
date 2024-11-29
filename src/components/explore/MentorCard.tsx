@@ -2,6 +2,7 @@ import {useRouter} from 'next/navigation';
 import {MentorCardProps} from "@/types/featureProps";
 import {Card} from "@/components/common/Card";
 import Image from "next/image";
+import {getTechDisplayName} from "@/lib/utils/category";
 
 export function MentorCard({ mentor }: MentorCardProps) {
     const displayedTechStack = mentor.techStack.slice(0, 3);
@@ -50,7 +51,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
                                 key={tech}
                                 className="px-2 py-0.5 bg-themeColor text-xs rounded-full text-white"
                             >
-                                {tech}
+                                {getTechDisplayName(tech)}
                             </span>
                         ))}
                     </div>

@@ -1,13 +1,13 @@
 export interface Mentor {
-    id: number;
+    id: string;
     name: string;
+    profileImage: string;
     role: string;
     company: string;
-    profileImage: string;
-    techStack: readonly string[];
     experience: number;
+    techStack: string[];
+    hourlyRate: number;
     rating: number;
     reviewCount: number;
-    hourlyRate: number;
     intro: string;
 }

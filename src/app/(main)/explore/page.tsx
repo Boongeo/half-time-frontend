@@ -1,26 +1,22 @@
 'use client'
 
-import {useState} from "react";
 import {SearchSection} from "@/components/explore/SearchSection";
 import {FilterSection} from "@/components/explore/FilterSection";
 import {mockMentors} from "@/lib/mocks/mentors";
 import {MentorCard} from "@/components/explore/MentorCard";
-import {FilterKey, FilterValues} from "@/types/featureProps";
+import {useMentorFilter} from "@/lib/hooks/useMentorFilter";
 
 export default function MentorExplorePage() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filters, setFilters] = useState<FilterValues>({
-        techStack: [],
-        experience: [],
-        rating: []
-    });
-
-    const handleFilterChange = (key: FilterKey, values: string[]) => {
-        setFilters(prev => ({
-            ...prev,
-            [key]: values
-        }));
-    };
+    const {
+        filteredMentors,
+        searchTerm,
+        filters,
+        priceRange,
+        setSearchTerm,
+        handleFilterChange,
+        setPriceRange,
+        handleClearFilters
+    } = useMentorFilter({ mentors: mockMentors });
 
     return (
         <div className="p-12">
@@ -39,12 +35,20 @@ export default function MentorExplorePage() {
                 <FilterSection
                     filters={filters}
                     onFilterChange={handleFilterChange}
+                    priceRange={priceRange}
+                    onPriceRangeChange={setPriceRange}
+                    onClearAll={handleClearFilters}
                 />
+            </div>
+
+            {/* 필터링된 결과 카운트 */}
+            <div className="mb-6 text-gray-600">
+                총 {filteredMentors.length}명의 멘토
             </div>
 
             {/* 멘토 카드 그리드 */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {mockMentors.map((mentor) => (
+                {filteredMentors.map((mentor) => (
                     <MentorCard key={mentor.id} mentor={mentor}/>
                 ))}
             </div>
