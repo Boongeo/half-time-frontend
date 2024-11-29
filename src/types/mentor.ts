@@ -1,7 +1,8 @@
 export interface Mentor {
-    id: string;
+    id: number;
     name: string;
     profileImage: string;
+    email: string;
     role: string;
     company: string;
     experience: number;
