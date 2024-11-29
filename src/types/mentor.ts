@@ -1,8 +1,10 @@
+import {TECH_CATEGORIES} from "@/config/category";
+
 export interface Mentor {
     id: string;
     name: string;
     profileImage: string;
-    role: string;
+    interest: string;
     company: string;
     experience: number;
     techStack: string[];
@@ -11,3 +13,6 @@ export interface Mentor {
     reviewCount: number;
     intro: string;
 }
+
+export type DeveloperLevel = 'Junior' | 'Mid' | 'Senior' | 'Lead';
+export type DeveloperInterest = keyof typeof TECH_CATEGORIES;

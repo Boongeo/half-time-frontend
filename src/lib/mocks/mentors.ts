@@ -4,7 +4,7 @@ export const mockMentors: Mentor[] = [
     {
         id: "1",
         name: "박유주",
-        role: "Frontend Developer",
+        interest: 'FrontEnd',
         company: "Google",
         profileImage: "/images/Mock.jpg",
         techStack: ["react", "typescript", "nextjs"],
@@ -17,7 +17,7 @@ export const mockMentors: Mentor[] = [
     {
         id: "2",
         name: "이혜린",
-        role: "Senior Frontend Developer",
+        interest: 'FrontEnd',
         company: "Naver",
         profileImage: "/images/Mock.jpg",
         techStack: ["react", "typescript", "nextjs", "nodejs"],
@@ -30,7 +30,7 @@ export const mockMentors: Mentor[] = [
     {
         id: "3",
         name: "전병준",
-        role: "Backend Developer",
+        interest: 'BackEnd',
         company: "Kakao",
         profileImage: "/images/Mock.jpg",
         techStack: ["react", "nodejs", "mongodb"],
@@ -43,7 +43,7 @@ export const mockMentors: Mentor[] = [
     {
         id: "4",
         name: "빌게이츠",
-        role: "Senior Backend Developer",
+        interest: 'Database',
         company: "Microsoft",
         profileImage: "/images/Mock.jpg",
         techStack: ["nodejs", "mongodb", "mysql"],
