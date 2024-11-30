@@ -1,5 +1,5 @@
 import {useRouter} from 'next/navigation';
-import {MentorCardProps} from "@/types/featureProps";
+import {MentorCardProps} from "@/types/components/featureProps";
 import {Card} from "@/components/common/Card";
 import Image from "next/image";
 import {formatDeveloperTitle, getTechDisplayName} from "@/lib/utils/category";
