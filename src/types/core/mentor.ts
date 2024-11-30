@@ -2,8 +2,9 @@ import {TECH_CATEGORIES} from "@/config/category";
 import {FilterKey, FilterValues} from "@/types/shared/category";
 
 export interface Mentor {
-    id: string;
+    id: number;
     name: string;
+    email: string;
     profileImage: string;
     interest: string;
     company: string;
