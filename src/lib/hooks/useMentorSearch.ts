@@ -1,9 +1,9 @@
-import { useMentorExploreStore } from "@/store/mentor-explore";
+import { useMentorExploreStore } from "@/store/explore";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Mentor } from "@/types/mentor";
+import { Mentor } from "@/types/core/mentor";
 import { mentorApi } from "@/lib/api/mentor";
 import { debounce, DebouncedFunc } from 'lodash';
-import {UseMentorSearchProps} from "@/types/featureProps";
+import {UseMentorSearchProps} from "@/types/components/featureProps";
 
 export function useMentorSearch({ initialMentors = [] }: UseMentorSearchProps) {
     const {

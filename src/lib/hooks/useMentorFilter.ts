@@ -1,6 +1,6 @@
-import {UseMentorFilterProps} from "@/types/featureProps";
+import {UseMentorFilterProps} from "@/types/components/featureProps";
 import {useMemo} from "react";
-import {useMentorExploreStore} from "@/store/mentor-explore";
+import {useMentorExploreStore} from "@/store/explore";
 
 export function useMentorFilter({ mentors }: UseMentorFilterProps) {
     const {

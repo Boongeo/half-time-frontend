@@ -1,6 +1,6 @@
-import {ApiResponse} from "@/types/auth";
+import {ApiResponse} from "@/types/api";
 import {useAuthStore} from "@/store/auth";
-import {User} from "@/types/user";
+import {User} from "@/types/core/user";
 
 export const userApi = {
     // 사용자 정보 등록

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils/cn";
-import { SelectProps } from "@/types/commonProps";
+import { SelectProps } from "@/types/components/commonProps";
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
    className,

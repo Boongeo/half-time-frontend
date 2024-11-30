@@ -1,7 +1,7 @@
-import {MentorExploreState} from "@/types/featureProps";
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
-import {FilterKey} from "@/types/category";
+import {FilterKey} from "@/types/shared/category";
+import {MentorExploreState} from "@/types/core/mentor";
 
 const initialState = {
     searchTerm: '',

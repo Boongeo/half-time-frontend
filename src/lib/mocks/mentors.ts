@@ -1,4 +1,4 @@
-import {Mentor} from "@/types/mentor";
+import {Mentor} from "@/types/core/mentor";
 
 export const mockMentors: Mentor[] = [
     {

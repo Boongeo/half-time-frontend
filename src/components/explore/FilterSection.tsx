@@ -1,4 +1,4 @@
-import { ExtendedFilterSectionProps } from "@/types/featureProps";
+import { ExtendedFilterSectionProps } from "@/types/components/featureProps";
 import { Button } from "../common/Button";
 import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils/cn";
 import { CheckboxGroup } from "@/components/explore/CheckboxGroup";
 import { Slider } from "@/components/explore/Slider";
 import { experienceOptions, ratingOptions, TECH_CATEGORIES } from "@/config/category";
-import {FilterKey, TechCategories} from "@/types/category";
+import {FilterKey, TechCategories} from "@/types/shared/category";
 import { optionsMap } from "@/lib/utils/category";
 
 export function FilterSection({

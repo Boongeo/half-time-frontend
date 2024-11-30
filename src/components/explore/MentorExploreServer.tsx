@@ -4,7 +4,7 @@ import { SearchSection } from "@/components/explore/SearchSection";
 import { FilterSection } from "@/components/explore/FilterSection";
 import { MentorCard } from "@/components/explore/MentorCard";
 import { useMentorSearch } from "@/lib/hooks/useMentorSearch";
-import {MentorExploreServerProps} from "@/types/featureProps";
+import {MentorExploreServerProps} from "@/types/components/featureProps";
 
 export default function MentorExploreServer({ initialMentors }: MentorExploreServerProps) {
     const {

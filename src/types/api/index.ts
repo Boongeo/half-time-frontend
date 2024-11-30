@@ -1,4 +1,4 @@
-import {Mentor} from "@/types/mentor";
+import {Mentor} from "@/types/core/mentor";
 
 export interface ApiResponse<T> {
     success: boolean;

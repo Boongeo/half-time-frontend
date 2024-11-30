@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { BoxProps } from "@/types/commonProps";
+import { BoxProps } from "@/types/components/commonProps";
 import Image from 'next/image';
 
 export const Card = forwardRef<HTMLDivElement, BoxProps>(({

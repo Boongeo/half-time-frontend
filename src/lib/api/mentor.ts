@@ -1,8 +1,9 @@
-import {SearchParams} from "@/types/params";
+import {SearchParams} from "@/types/shared/params";
 import {ApiResponse, SearchResponse} from "@/types/api";
-import {Mentor} from "@/types/mentor";
+import {Mentor} from "@/types/core/mentor";
 
 export const mentorApi = {
+    // 초기 멘토 목록 조회 (SSR)
     getInitialMentors: async (): Promise<ApiResponse<SearchResponse>> => {
         const response = await fetch('/api/mentors', {
             next: {
@@ -13,6 +14,7 @@ export const mentorApi = {
         return response.json();
     },
 
+    // 멘토 검색 API
     searchMentors: async (params: SearchParams): Promise<ApiResponse<SearchResponse>> => {
         const searchParams = new URLSearchParams();
 
@@ -57,6 +59,7 @@ export const mentorApi = {
         return response.json();
     },
 
+    // 멘토 상세 정보 조회 API
     getMentor: async (mentorId: number): Promise<ApiResponse<Mentor>> => {
         const response = await fetch(`/api/mentors/${mentorId}`, {
             next: {

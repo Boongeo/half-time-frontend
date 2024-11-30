@@ -1,4 +1,4 @@
-import {FilterOption, TechCategories} from "@/types/category";
+import {FilterOption, TechCategories} from "@/types/shared/category";
 
 export const TECH_CATEGORIES: TechCategories = {
     "FrontEnd": [

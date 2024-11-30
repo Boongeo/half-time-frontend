@@ -75,3 +75,10 @@ export interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInp
     options?: SelectOption[];
     onOptionSelect?: (option: SelectOption) => void;
 }
+
+/** HOC props */
+export interface WithAuthProps {
+    requireAuth?: boolean;
+    requireUnauth?: boolean;
+    requireRegistration?: boolean;
+}

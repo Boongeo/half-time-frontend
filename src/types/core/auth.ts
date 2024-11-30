@@ -1,11 +1,5 @@
 import {AuthResponse} from "@/types/api";
 
-/** 사용자 기본 정보 */
-export interface AuthResponseUser {
-    id: string;
-    email: string;
-}
-
 /** 상태 타입 */
 export interface AuthState {
     accessToken: string | null;
@@ -44,13 +38,6 @@ export interface PasswordValidation {
     hasUpperCase: boolean;
     hasLowerCase: boolean;
     hasNumber: boolean;
-}
-
-/** HOC props */
-export interface WithAuthProps {
-    requireAuth?: boolean;
-    requireUnauth?: boolean;
-    requireRegistration?: boolean;
 }
 
 /** JWT Payload 타입 */

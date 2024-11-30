@@ -1,7 +1,7 @@
 import {Search} from "lucide-react";
 import {Input} from "@/components/common/Input";
 import {forwardRef, useState} from "react";
-import {SearchInputProps, SelectOption} from "@/types/commonProps";
+import {SearchInputProps, SelectOption} from "@/types/components/commonProps";
 import {cn} from "@/lib/utils/cn";
 
 export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(({
