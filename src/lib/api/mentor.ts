@@ -6,6 +6,7 @@ export const mentorApi = {
     // 초기 멘토 목록 조회 (SSR)
     getInitialMentors: async (): Promise<ApiResponse<SearchResponse>> => {
         const response = await fetch('/api/mentors', {
+            method: 'GET',
             next: {
                 revalidate: 3600
             }
@@ -54,7 +55,9 @@ export const mentorApi = {
             searchParams.append('limit', params.limit.toString());
         }
 
-        const response = await fetch(`/api/mentors/search?${searchParams.toString()}`);
+        const response = await fetch(`/api/mentors/search?${searchParams.toString()}`, {
+            method: 'GET'
+        });
         if (!response.ok) throw new Error('Failed to search mentors');
         return response.json();
     },
@@ -62,6 +65,7 @@ export const mentorApi = {
     // 멘토 상세 정보 조회 API
     getMentor: async (mentorId: number): Promise<ApiResponse<Mentor>> => {
         const response = await fetch(`/api/mentors/${mentorId}`, {
+            method: 'GET',
             next: {
                 revalidate: 3600
             }
