@@ -90,3 +90,10 @@ export interface TabProps {
     onTabSelect: (value: string) => void;
     className?: string;
 }
+
+/** HOC props */
+export interface WithAuthProps {
+    requireAuth?: boolean;
+    requireUnauth?: boolean;
+    requireRegistration?: boolean;
+}

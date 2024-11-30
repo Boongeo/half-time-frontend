@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
-import { TabProps } from "@/types/commonProps";
+import { TabProps } from "@/types/components/commonProps";
 
 const Tab = forwardRef<HTMLDivElement, TabProps>(
     ({ label, value, selected, onTabSelect, className, ...props }, ref) => {
