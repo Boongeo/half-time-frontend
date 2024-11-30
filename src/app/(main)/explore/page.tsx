@@ -1,57 +1,14 @@
-'use client'
+import {mentorApi} from "@/lib/api/mentor";
+import MentorExploreServer from "@/components/explore/MentorExploreServer";
+import MentorExploreClient from "@/components/explore/MentorExploreClient";
 
-import {SearchSection} from "@/components/explore/SearchSection";
-import {FilterSection} from "@/components/explore/FilterSection";
-import {mockMentors} from "@/lib/mocks/mentors";
-import {MentorCard} from "@/components/explore/MentorCard";
-import {useMentorFilter} from "@/lib/hooks/useMentorFilter";
+const USE_SERVER_COMPONENT = false;
 
-export default function MentorExplorePage() {
-    const {
-        filteredMentors,
-        searchTerm,
-        filters,
-        priceRange,
-        setSearchTerm,
-        handleFilterChange,
-        setPriceRange,
-        handleClearFilters
-    } = useMentorFilter({ mentors: mockMentors });
+export default async function MentorExplorePage() {
+    if (USE_SERVER_COMPONENT) {
+        const response = await mentorApi.getInitialMentors();
+        return <MentorExploreServer initialMentors={response.data.mentors} />
+    }
 
-    return (
-        <div className="p-12">
-            {/* 페이지 헤더 */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">멘토 찾기</h1>
-                <p className="text-gray-600">나에게 맞는 멘토를 찾아보세요</p>
-            </div>
-
-            {/* 필터 섹션 */}
-            <div className="bg-white rounded-lg shadow p-6 mb-8 space-y-6">
-                <SearchSection
-                    value={searchTerm}
-                    onChange={setSearchTerm}
-                />
-                <FilterSection
-                    filters={filters}
-                    onFilterChange={handleFilterChange}
-                    priceRange={priceRange}
-                    onPriceRangeChange={setPriceRange}
-                    onClearAll={handleClearFilters}
-                />
-            </div>
-
-            {/* 필터링된 결과 카운트 */}
-            <div className="mb-6 text-gray-600">
-                총 {filteredMentors.length}명의 멘토
-            </div>
-
-            {/* 멘토 카드 그리드 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {filteredMentors.map((mentor) => (
-                    <MentorCard key={mentor.id} mentor={mentor}/>
-                ))}
-            </div>
-        </div>
-    )
+    return <MentorExploreClient />;
 }
