@@ -1,8 +1,4 @@
-/** 사용자 기본 정보 */
-export interface AuthResponseUser {
-    id: string;
-    email: string;
-}
+import {AuthResponse} from "@/types/api";
 
 /** 상태 타입 */
 export interface AuthState {
@@ -42,29 +38,6 @@ export interface PasswordValidation {
     hasUpperCase: boolean;
     hasLowerCase: boolean;
     hasNumber: boolean;
-}
-
-/** API 응답 타입 */
-export interface ApiResponse<T> {
-    success: boolean;
-    data: T;
-    error?: string;
-}
-
-export interface AuthResponse {
-    accessToken: string;
-    refreshToken: string;
-}
-
-export type CheckEmailResponse = ApiResponse<{ exists: boolean }>
-export type VerifyEmailResponse = ApiResponse<{ email: string; }>
-export type VerifyCodeResponse = ApiResponse<{ verified: boolean }>
-
-/** HOC props */
-export interface WithAuthProps {
-    requireAuth?: boolean;
-    requireUnauth?: boolean;
-    requireRegistration?: boolean;
 }
 
 /** JWT Payload 타입 */

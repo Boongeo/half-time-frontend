@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-import { ModalProps } from "@/types/commonProps";
+import { ModalProps } from "@/types/components/commonProps";
 
 export function Modal({
   isOpen,

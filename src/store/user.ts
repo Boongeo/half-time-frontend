@@ -1,4 +1,4 @@
-import {User, UserState} from "@/types/user";
+import {User, UserState} from "@/types/core/user";
 import {create} from "zustand";
 import {userApi} from "@/lib/api/user";
 

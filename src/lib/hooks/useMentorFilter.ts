@@ -1,6 +1,6 @@
-import {UseMentorFilterProps} from "@/types/featureProps";
+import {UseMentorFilterProps} from "@/types/components/featureProps";
 import {useMemo} from "react";
-import {useMentorFilterStore} from "@/store/mentor-filter";
+import {useMentorExploreStore} from "@/store/explore";
 
 export function useMentorFilter({ mentors }: UseMentorFilterProps) {
     const {
@@ -11,7 +11,7 @@ export function useMentorFilter({ mentors }: UseMentorFilterProps) {
         setFilter: handleFilterChange,
         setPriceRange,
         clearFilters: handleClearFilters
-    } = useMentorFilterStore();
+    } = useMentorExploreStore();
 
     const filteredMentors = useMemo(() => {
         return mentors.filter(mentor => {
@@ -20,7 +20,7 @@ export function useMentorFilter({ mentors }: UseMentorFilterProps) {
                 const searchTargets = [
                     mentor.name,
                     mentor.company,
-                    mentor.role,
+                    mentor.interest,
                     ...mentor.techStack
                 ];
                 if (!searchTargets.some(target => searchRegex.test(target))) {

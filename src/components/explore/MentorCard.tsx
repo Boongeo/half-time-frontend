@@ -2,10 +2,11 @@ import {useRouter} from 'next/navigation';
 import {MentorCardProps} from "@/types/featureProps";
 import {Card} from "@/components/common/Card";
 import Image from "next/image";
-import {getTechDisplayName} from "@/lib/utils/category";
+import {formatDeveloperTitle, getTechDisplayName} from "@/lib/utils/category";
 
 export function MentorCard({ mentor }: MentorCardProps) {
     const displayedTechStack = mentor.techStack.slice(0, 3);
+    const developerTitle = formatDeveloperTitle(mentor.experience, mentor.interest);
     const router = useRouter();
 
     const handleMentorClick = (id: number) => {
@@ -40,7 +41,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
 
                     {/* 직무 & 회사 */}
                     <div className="space-y-0.5">
-                        <p className="text-sm text-gray-600">{mentor.role}</p>
+                        <p className="text-sm text-gray-600">{developerTitle}</p>
                         <p className="text-xs text-gray-500">{mentor.company}</p>
                     </div>
 

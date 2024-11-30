@@ -1,9 +1,10 @@
-import {Mentor} from "@/types/mentor";
+import {Mentor} from "@/types/core/mentor";
 
 export const mockMentors: Mentor[] = [
     {
         id: 1,
         name: "박유주",
+        interest: 'FrontEnd',
         role: "Frontend Developer",
         email: "test@example.com",
         company: "Google",
@@ -18,6 +19,7 @@ export const mockMentors: Mentor[] = [
     {
         id: 2,
         name: "이혜린",
+        interest: 'FrontEnd',
         role: "Senior Frontend Developer",
         email: "test@example.com",
         company: "Naver",
@@ -32,6 +34,7 @@ export const mockMentors: Mentor[] = [
     {
         id: 3,
         name: "전병준",
+        interest: 'BackEnd',
         role: "Backend Developer",
         email: "test@example.com",
         company: "Kakao",
@@ -46,6 +49,7 @@ export const mockMentors: Mentor[] = [
     {
         id: 4,
         name: "빌게이츠",
+        interest: 'Database',
         role: "Senior Backend Developer",
         email: "test@example.com",
         company: "Microsoft",

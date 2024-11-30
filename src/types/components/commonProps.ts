@@ -30,7 +30,6 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: boolean;

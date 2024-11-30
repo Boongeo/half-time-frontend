@@ -1,4 +1,4 @@
-import {PasswordValidation} from "@/types/auth";
+import {PasswordValidation} from "@/types/core/auth";
 
 export const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

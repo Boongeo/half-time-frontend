@@ -1,6 +1,6 @@
 import {create} from "zustand";
 import {createJSONStorage, persist} from "zustand/middleware";
-import {AuthState} from "@/types/auth";
+import {AuthState} from "@/types/core/auth";
 import {decodeToken} from "@/lib/auth/jwt";
 
 export const useAuthStore = create<AuthState>()(

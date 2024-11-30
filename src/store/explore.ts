@@ -1,7 +1,7 @@
-import {MentorFilterState} from "@/types/featureProps";
 import {create} from "zustand";
 import {persist} from "zustand/middleware";
-import {FilterKey} from "@/types/category";
+import {FilterKey} from "@/types/shared/category";
+import {MentorExploreState} from "@/types/core/mentor";
 
 const initialState = {
     searchTerm: '',
@@ -13,7 +13,7 @@ const initialState = {
     priceRange: [0, 100000] as [number, number]
 };
 
-export const useMentorFilterStore = create<MentorFilterState>()(
+export const useMentorExploreStore = create<MentorExploreState>()(
     persist(
         (set) => ({
             ...initialState,

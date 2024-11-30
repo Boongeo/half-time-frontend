@@ -1,4 +1,4 @@
-import {AuthResponse, ApiResponse, CheckEmailResponse, VerifyCodeResponse, VerifyEmailResponse} from "@/types/auth";
+import {AuthResponse, ApiResponse, CheckEmailResponse, VerifyCodeResponse, VerifyEmailResponse} from "@/types/api";
 
 export const authApi = {
     // 이메일 존재 여부 확인

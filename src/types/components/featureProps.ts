@@ -1,7 +1,7 @@
 import {LucideIcon} from "lucide-react";
-import {PasswordValidation} from "@/types/auth";
-import {FilterKey, FilterOption, FilterValues} from "@/types/category";
-import {Mentor} from "@/types/mentor";
+import {PasswordValidation} from "@/types/core/auth";
+import {FilterKey, FilterOption, FilterValues} from "@/types/shared/category";
+import {Mentor} from "@/types/core/mentor";
 
 /** Auth Props */
 export interface SocialLoginButtonProps {
@@ -49,18 +49,16 @@ export interface UseMentorFilterProps {
     initialFilters?: FilterValues;
 }
 
-export interface MentorFilterState {
-    searchTerm: string;
-    filters: FilterValues;
-    priceRange: [number, number];
-    setSearchTerm: (term: string) => void;
-    setFilter: (key: FilterKey, values: string[]) => void;
-    setPriceRange: (range: [number, number]) => void;
-    clearFilters: () => void;
-}
-
 export interface ExtendedFilterSectionProps extends FilterSectionProps {
     priceRange: [number, number];
     onPriceRangeChange: (range: [number, number]) => void;
     onClearAll: () => void;
+}
+
+export interface MentorExploreServerProps {
+    initialMentors: Mentor[];
+}
+
+export interface UseMentorSearchProps {
+    initialMentors?: Mentor[];
 }
