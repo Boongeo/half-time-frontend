@@ -2,9 +2,11 @@ import {Mentor} from "@/types/core/mentor";
 
 export const mockMentors: Mentor[] = [
     {
-        id: "1",
+        id: 1,
         name: "박유주",
         interest: 'FrontEnd',
+        role: "Frontend Developer",
+        email: "test@example.com",
         company: "Google",
         profileImage: "/images/Mock.jpg",
         techStack: ["react", "typescript", "nextjs"],
@@ -15,9 +17,11 @@ export const mockMentors: Mentor[] = [
         intro: "10년차 프론트엔드 개발자입니다. 주로 React와 TypeScript를 사용하여 대규모 웹 애플리케이션을 개발하고 있습니다."
     },
     {
-        id: "2",
+        id: 2,
         name: "이혜린",
         interest: 'FrontEnd',
+        role: "Senior Frontend Developer",
+        email: "test@example.com",
         company: "Naver",
         profileImage: "/images/Mock.jpg",
         techStack: ["react", "typescript", "nextjs", "nodejs"],
@@ -28,9 +32,11 @@ export const mockMentors: Mentor[] = [
         intro: "안녕 친구들아? 나 내일 저녁은 감자탕 먹을거임. 할 말이 많아서 소개글이 길어지면 어떻게 되나 볼까여"
     },
     {
-        id: "3",
+        id: 3,
         name: "전병준",
         interest: 'BackEnd',
+        role: "Backend Developer",
+        email: "test@example.com",
         company: "Kakao",
         profileImage: "/images/Mock.jpg",
         techStack: ["react", "nodejs", "mongodb"],
@@ -41,9 +47,11 @@ export const mockMentors: Mentor[] = [
         intro: "풀스택 개발 경험을 바탕으로 실무에서 필요한 기술들을 알려드립니다."
     },
     {
-        id: "4",
+        id: 4,
         name: "빌게이츠",
         interest: 'Database',
+        role: "Senior Backend Developer",
+        email: "test@example.com",
         company: "Microsoft",
         profileImage: "/images/Mock.jpg",
         techStack: ["nodejs", "mongodb", "mysql"],

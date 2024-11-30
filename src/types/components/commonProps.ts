@@ -27,6 +27,7 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
     subtitle?: string;
     mainTitle?: string;
     fullWidth?: boolean;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -76,9 +77,16 @@ export interface SearchInputProps extends Omit<React.InputHTMLAttributes<HTMLInp
     onOptionSelect?: (option: SelectOption) => void;
 }
 
-/** HOC props */
-export interface WithAuthProps {
-    requireAuth?: boolean;
-    requireUnauth?: boolean;
-    requireRegistration?: boolean;
+export interface TabsProps {
+    tabs: Array<{ label: string; value: string }>;
+    selectedTab: string;
+    onTabSelect: (value: string) => void;
+}
+
+export interface TabProps {
+    label: string;
+    value: string;
+    selected: boolean;
+    onTabSelect: (value: string) => void;
+    className?: string;
 }

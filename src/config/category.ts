@@ -49,3 +49,12 @@ export const ratingOptions: FilterOption[] = [
     { value: '3+', label: '3.0 이상' },
     { value: 'all', label: '전체' },
 ];
+
+export const ReviewCategories = [
+    "Technically competent",
+    "Very motivational",
+    "Amazing communicator",
+    "Amazing problem solver",
+    "Empathetic listener",
+    "Encouraging mentor",
+];
