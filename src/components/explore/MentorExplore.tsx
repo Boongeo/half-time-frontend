@@ -3,9 +3,10 @@
 import { SearchSection } from "@/components/explore/SearchSection";
 import { FilterSection } from "@/components/explore/FilterSection";
 import { MentorCard } from "@/components/explore/MentorCard";
-import {useMentor} from "@/lib/hooks/useMentor";
+import { useMentor } from "@/lib/hooks/useMentor";
+import {InitialMentorData} from "@/types/core/mentor";
 
-export default function MentorExplore() {
+export default function MentorExplore({ initialData }: InitialMentorData) {
     const {
         mentors,
         totalMentors,
@@ -20,7 +21,7 @@ export default function MentorExplore() {
         clearFilters,
         loadMore,
         hasMore
-    } = useMentor();
+    } = useMentor({ initialData });
 
     return (
         <div className="p-12">

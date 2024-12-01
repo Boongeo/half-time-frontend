@@ -1,5 +1,8 @@
 import MentorExplore from "@/components/explore/MentorExplore";
+import { MentorService } from "@/lib/services/mentorService";
 
 export default async function MentorExplorePage() {
-    return <MentorExplore />;
+    const mentorService = new MentorService();
+    const initialData = await mentorService.getInitialMentors();
+    return <MentorExplore initialData={initialData} />;
 }
