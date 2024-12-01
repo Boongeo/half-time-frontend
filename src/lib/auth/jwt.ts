@@ -1,4 +1,4 @@
-import {JwtPayload} from "@/types/auth";
+import {JwtPayload} from "@/types/core/auth";
 
 export function decodeToken(token: string | null): JwtPayload | null {
     if (!token) return null;

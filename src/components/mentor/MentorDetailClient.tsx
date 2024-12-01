@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Tabs from "@/components/common/Tabs/Tabs";
 import ReviewCard from "@/components/review/ReviewCard";
-import { Mentor } from "@/types/mentor";
+import { Mentor } from "@/types/core/mentor";
 import { Mail, MessageCircle, CircleDollarSign, Pickaxe, BriefcaseBusiness} from "lucide-react";
 import { mockReviews } from "@/lib/mocks/reviews";
+import {formatDeveloperTitle} from "@/lib/utils/category";
 
 
 const InfoTab = ({ mentor }: { mentor: Mentor }) => (
@@ -58,7 +59,6 @@ const InfoTab = ({ mentor }: { mentor: Mentor }) => (
                 </div>
             </div>
         </div>
-
     </div>
 );
 
@@ -100,6 +100,7 @@ export default function MentorDetailClient({ mentor }: { mentor: Mentor }) {
         { label: "Reviews", value: "reviews" },
     ];
     const [selectedTab, setSelectedTab] = useState("info");
+    const developerTitle = formatDeveloperTitle(mentor.experience, mentor.interest);
 
     return (
         <div className="container mx-auto p-12">
@@ -112,8 +113,8 @@ export default function MentorDetailClient({ mentor }: { mentor: Mentor }) {
                 />
                 <div className="flex-1">
                     <div className="flex flex-row items-center gap-2">
-                        <h1 className="text-2xl text-gray-600 font-bold">{mentor.name}</h1>
-                        <p className="text-gray-500">{mentor.role} @ {mentor.company}</p>
+                        <h1 className="text-2xl font-bold">{mentor.name}</h1>
+                        <p className="text-gray-500">{developerTitle} @ {mentor.company}</p>
                     </div>
                     <p className="mt-3 text-lg text-gray-800 font-semibold break-words">
                         {mentor.intro}

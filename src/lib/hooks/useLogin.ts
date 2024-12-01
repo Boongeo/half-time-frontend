@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
-import {LoginForm} from "@/types/auth";
+import {LoginForm} from "@/types/core/auth";
 import {validateEmail} from "@/lib/auth/validators";
 import {useUserStore} from "@/store/user";
 

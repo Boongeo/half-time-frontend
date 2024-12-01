@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { userApi } from "@/lib/api/user";
-import {RegisterForm} from "@/types/user";
+import {RegisterForm} from "@/types/core/user";
 
 export function useRegister() {
     const router = useRouter();

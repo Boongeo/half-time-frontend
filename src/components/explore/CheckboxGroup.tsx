@@ -1,4 +1,4 @@
-import {CheckboxGroupProps} from "@/types/featureProps";
+import {CheckboxGroupProps} from "@/types/components/featureProps";
 import {cn} from "@/lib/utils/cn";
 
 export function CheckboxGroup({
@@ -6,7 +6,6 @@ export function CheckboxGroup({
   options,
   selectedValues,
   onChange,
-  gridLayout = false,
   maxHeight
 }: CheckboxGroupProps) {
     const handleChange = (value: string) => {
@@ -21,18 +20,15 @@ export function CheckboxGroup({
             <label className="text-sm font-medium text-gray-700">{label}</label>
             <div
                 className={cn(
-                    gridLayout && maxHeight && "overflow-y-auto",
-                    gridLayout ? "grid grid-cols-2 auto-rows-min gap-2" : "space-y-2"
+                    "space-y-2",
+                    maxHeight && "overflow-y-auto"
                 )}
                 style={maxHeight ? {maxHeight} : undefined}
             >
                 {options.map((option) => (
                     <label
                         key={option.value}
-                        className={cn(
-                            "flex items-center gap-2 cursor-pointer",
-                            gridLayout && "min-w-[120px]"
-                        )}
+                        className="flex items-center gap-2 cursor-pointer"
                     >
                         <input
                             type="checkbox"

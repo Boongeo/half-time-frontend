@@ -1,6 +1,9 @@
-import {AuthResponseUser} from "@/types/auth";
-
 export type UserRole = 'user' | 'mentor' | 'admin';
+
+export interface AuthResponseUser {
+    id: string;
+    email: string;
+}
 
 export interface User extends AuthResponseUser {
     name?: string;

@@ -30,7 +30,6 @@ export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: boolean;
@@ -90,4 +89,16 @@ export interface TabProps {
     selected: boolean;
     onTabSelect: (value: string) => void;
     className?: string;
+}
+
+export interface InfiniteScrollTriggerProps {
+    onIntersectAction: () => void;
+    enabled?: boolean;
+}
+
+/** HOC props */
+export interface WithAuthProps {
+    requireAuth?: boolean;
+    requireUnauth?: boolean;
+    requireRegistration?: boolean;
 }

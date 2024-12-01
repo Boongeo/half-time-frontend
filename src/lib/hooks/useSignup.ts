@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import {authApi} from "@/lib/api/auth";
 import {useAuthStore} from "@/store/auth";
 import {useUserStore} from "@/store/user";
-import {PasswordValidation, SignupForm, VerificationState} from "@/types/auth";
+import {PasswordValidation, SignupForm, VerificationState} from "@/types/core/auth";
 import {doPasswordsMatch, isPasswordValid, validatePassword} from "@/lib/auth/validators";
 
 export function useSignup() {

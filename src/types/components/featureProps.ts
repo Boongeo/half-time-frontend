@@ -1,6 +1,7 @@
 import {LucideIcon} from "lucide-react";
-import {PasswordValidation} from "@/types/auth";
-import {Mentor} from "@/lib/mocks/mentors";
+import {PasswordValidation} from "@/types/core/auth";
+import {FilterKey, FilterOption, FilterValues} from "@/types/shared/category";
+import {Mentor} from "@/types/core/mentor";
 
 /** Auth Props */
 export interface SocialLoginButtonProps {
@@ -29,20 +30,7 @@ export interface SearchSectionProps {
     onChange: (value: string) => void;
 }
 
-export type FilterKey = 'techStack' | 'experience' | 'rating';
-
-export type FilterOption = {
-    value: string;
-    label: string;
-};
-
-export interface FilterValues {
-    techStack: string[];
-    experience: string[];
-    rating: string[];
-}
-
-export interface FilterSectionProps {
+interface FilterSectionProps {
     filters: FilterValues;
     onFilterChange: (field: FilterKey, value: string[]) => void;
 }
@@ -54,4 +42,21 @@ export interface CheckboxGroupProps {
     onChange: (values: string[]) => void;
     maxHeight?: string;
     gridLayout?: boolean;
+}
+
+export interface ExtendedFilterSectionProps extends FilterSectionProps {
+    priceRange: [number, number];
+    onPriceRangeChange: (range: [number, number]) => void;
+    onClearAll: () => void;
+}
+
+/** Review Props */
+export interface ReviewCardProps {
+    id: number;
+    userId: string;
+    rating: number;
+    reviewer: string;
+    date: string;
+    content: string;
+    categories: string[];
 }

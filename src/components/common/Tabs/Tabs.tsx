@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import Tab from "./Tab";
-import { TabsProps } from "@/types/commonProps";
+import { TabsProps } from "@/types/components/commonProps";
 
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     ({ tabs, selectedTab, onTabSelect }, ref) => {
