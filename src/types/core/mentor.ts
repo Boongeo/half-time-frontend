@@ -1,5 +1,6 @@
 import {TECH_CATEGORIES} from "@/config/category";
 import {FilterKey, FilterValues} from "@/types/shared/category";
+import {ApiResponse, SearchResponse} from "@/types/api";
 
 export interface Mentor {
     id: number;
@@ -27,4 +28,8 @@ export interface MentorExploreState {
     setFilter: (key: FilterKey, values: string[]) => void;
     setPriceRange: (range: [number, number]) => void;
     clearFilters: () => void;
+}
+
+export interface InitialMentorData {
+    initialData: ApiResponse<SearchResponse>;
 }
