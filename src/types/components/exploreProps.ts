@@ -1,25 +1,6 @@
-import {LucideIcon} from "lucide-react";
-import {PasswordValidation} from "@/types/core/auth";
-import {FilterKey, FilterOption, FilterValues} from "@/types/shared/category";
 import {Mentor} from "@/types/core/mentor";
+import {FilterKey, FilterOption, FilterValues} from "@/types/shared/category";
 
-/** Auth Props */
-export interface SocialLoginButtonProps {
-    provider: string;
-    icon: LucideIcon | string;
-    children: React.ReactNode;
-}
-
-export interface PasswordRequirementsProps {
-    validation: PasswordValidation;
-}
-
-export interface PasswordMatchProps {
-    isMatching: boolean;
-    show: boolean;
-}
-
-/** Explore Props */
 export interface MentorCardProps {
     mentor: Mentor;
     onClick?: (value: number) => void;
@@ -48,15 +29,4 @@ export interface ExtendedFilterSectionProps extends FilterSectionProps {
     priceRange: [number, number];
     onPriceRangeChange: (range: [number, number]) => void;
     onClearAll: () => void;
-}
-
-/** Review Props */
-export interface ReviewCardProps {
-    id: number;
-    userId: string;
-    rating: number;
-    reviewer: string;
-    date: string;
-    content: string;
-    categories: string[];
 }

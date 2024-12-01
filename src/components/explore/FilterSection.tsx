@@ -1,4 +1,3 @@
-import { ExtendedFilterSectionProps } from "@/types/components/featureProps";
 import { Button } from "../common/Button";
 import { SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { Slider } from "@/components/explore/Slider";
 import { experienceOptions, ratingOptions, TECH_CATEGORIES } from "@/config/category";
 import {FilterKey, TechCategories} from "@/types/shared/category";
 import { optionsMap } from "@/lib/utils/category";
+import {ExtendedFilterSectionProps} from "@/types/components/exploreProps";
 
 export function FilterSection({
   filters,

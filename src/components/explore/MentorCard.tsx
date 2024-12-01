@@ -1,8 +1,8 @@
 import {useRouter} from 'next/navigation';
-import {MentorCardProps} from "@/types/components/featureProps";
 import {Card} from "@/components/common/Card";
 import Image from "next/image";
 import {formatDeveloperTitle, getTechDisplayName} from "@/lib/utils/category";
+import {MentorCardProps} from "@/types/components/exploreProps";
 
 export function MentorCard({ mentor }: MentorCardProps) {
     const displayedTechStack = mentor.techStack.slice(0, 3);

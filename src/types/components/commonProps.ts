@@ -1,16 +1,4 @@
-import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes} from "react";
-
-/** Layout Props */
-export interface LayoutProps {
-    children: ReactNode;
-}
-
-export interface SideBarProps {
-    id: string;
-    name: string;
-    href: string;
-    icon: React.ComponentType<{ className?: string }>;
-}
+import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes} from "react";
 
 /** Components Props */
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import {Button} from "@/components/common/Button";
 import { useUserStore } from "@/store/user";
-import {ReviewCardProps} from "@/types/components/featureProps";
+
+import {ReviewCardProps} from "@/types/components/mentorProps";
 
 const ReviewCard = ({ rating, reviewer, date, content, categories, userId }: ReviewCardProps) => {
     const { user } = useUserStore();

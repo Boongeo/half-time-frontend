@@ -1,7 +1,8 @@
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { Footer } from "./Footer";
-import { LayoutProps } from "@/types/components/commonProps";
+
+import {LayoutProps} from "@/types/components/layoutProps";
 
 export const Layout = ({ children }: LayoutProps) => {
     return (

@@ -1,5 +1,5 @@
-import {CheckboxGroupProps} from "@/types/components/featureProps";
 import {cn} from "@/lib/utils/cn";
+import {CheckboxGroupProps} from "@/types/components/exploreProps";
 
 export function CheckboxGroup({
   label,

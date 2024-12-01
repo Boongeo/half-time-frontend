@@ -3,10 +3,10 @@
 import { useState, useEffect, forwardRef } from 'react';
 import {useRouter} from 'next/navigation';
 import { CalendarProps } from 'react-calendar';
-import { CalendarValue } from '@/types/react-calendar';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { mockBookings } from '@/lib/mocks/bookings';
-import { Booking, BookingsForDate } from '@/types/booking';
+import { Booking, BookingsForDate } from '@/types/core/booking';
+import {CalendarValue} from "@/types/components/mentorProps";
 
 export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref) => {
     const [date, setDate] = useState<CalendarValue>(new Date());

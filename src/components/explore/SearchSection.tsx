@@ -1,5 +1,5 @@
-import {SearchSectionProps} from "@/types/components/featureProps";
 import {SearchInput} from "@/components/common/SearchInput";
+import {SearchSectionProps} from "@/types/components/exploreProps";
 
 export function SearchSection({ value, onChange }: SearchSectionProps) {
     return (

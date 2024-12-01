@@ -1,5 +1,5 @@
-import {PasswordRequirementsProps} from "@/types/components/featureProps";
 import {Check, X} from "lucide-react";
+import {PasswordRequirementsProps} from "@/types/components/authProps";
 
 export function PasswordRequirements({ validation }: PasswordRequirementsProps) {
     const requirements = [
