@@ -91,6 +91,11 @@ export interface TabProps {
     className?: string;
 }
 
+export interface InfiniteScrollTriggerProps {
+    onIntersectAction: () => void;
+    enabled?: boolean;
+}
+
 /** HOC props */
 export interface WithAuthProps {
     requireAuth?: boolean;

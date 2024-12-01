@@ -4,14 +4,14 @@ import { SearchSection } from "@/components/explore/SearchSection";
 import { FilterSection } from "@/components/explore/FilterSection";
 import { MentorCard } from "@/components/explore/MentorCard";
 import { useMentor } from "@/lib/hooks/useMentor";
-import {InitialMentorData} from "@/types/core/mentor";
+import { InitialMentorData } from "@/types/core/mentor";
+import {InfiniteScrollTrigger} from "@/components/common/IntersectionObserver";
 
 export default function MentorExplore({ initialData }: InitialMentorData) {
     const {
         mentors,
         totalMentors,
         isLoading,
-        error,
         searchTerm,
         filters,
         priceRange,
@@ -58,22 +58,18 @@ export default function MentorExplore({ initialData }: InitialMentorData) {
                 ))}
             </div>
 
-            {/* 로딩/에러 상태 */}
-            {isLoading && <div className="text-center py-4">로딩 중...</div>}
-            {error && <div className="text-center text-red-500 py-4">{error}</div>}
-
-            {/* 무한 스크롤 */}
-            {hasMore && (
-                <div className="text-center py-8">
-                    <button
-                        onClick={loadMore}
-                        disabled={isLoading}
-                        className="px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50"
-                    >
-                        더 보기
-                    </button>
+            {/* 로딩 상태 */}
+            {isLoading && (
+                <div className="text-center py-4">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"/>
                 </div>
             )}
+
+            {/* 무한 스크롤 트리거 */}
+            <InfiniteScrollTrigger
+                onIntersectAction={loadMore}
+                enabled={hasMore && !isLoading}
+            />
         </div>
     );
 }
