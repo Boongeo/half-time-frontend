@@ -33,10 +33,12 @@ export class MentorService {
         if (this.isMockMode) {
             const filtered = this.filterMockData(mockMentors, params);
             const page = params.page || 1;
+            const start = (page - 1) * 20;
+            const end = Math.min(start + 20, filtered.length);
 
             return {
                 data: {
-                    mentors: filtered.slice((page - 1) * 20, page * 20),
+                    mentors: filtered.slice(start, end),
                     total: filtered.length
                 },
                 success: true
