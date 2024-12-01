@@ -1,12 +1,12 @@
 import {useMentorExploreStore} from "@/store/explore";
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {Mentor} from "@/types/core/mentor";
+import {InitialMentorData, Mentor} from "@/types/core/mentor";
 import {debounce} from "lodash";
 import {MentorService} from "@/lib/services/mentorService";
 
 const mentorService = new MentorService();
 
-export function useMentor() {
+export function useMentor({ initialData }: InitialMentorData) {
     const {
         searchTerm,
         filters,
@@ -17,8 +17,8 @@ export function useMentor() {
         clearFilters
     } = useMentorExploreStore();
 
-    const [mentors, setMentors] = useState<Mentor[]>([]);
-    const [totalMentors, setTotalMentors] = useState(0);
+    const [mentors, setMentors] = useState<Mentor[]>(initialData.data.mentors);
+    const [totalMentors, setTotalMentors] = useState(initialData.data.total);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState(1);
