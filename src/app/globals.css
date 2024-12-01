@@ -19,3 +19,23 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.react-calendar {
+  @apply bg-white shadow-lg rounded-lg p-4;
+}
+
+.react-calendar__tile {
+  @apply text-center p-2 hover:bg-blue-100 rounded;
+}
+
+.react-calendar__tile--active {
+  @apply bg-blue-500 text-white font-bold;
+}
+
+.react-calendar__navigation {
+  @apply flex justify-between items-center mb-2;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  @apply text-red-500;
+}
