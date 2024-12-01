@@ -44,23 +44,10 @@ export interface CheckboxGroupProps {
     gridLayout?: boolean;
 }
 
-export interface UseMentorFilterProps {
-    mentors: Mentor[];
-    initialFilters?: FilterValues;
-}
-
 export interface ExtendedFilterSectionProps extends FilterSectionProps {
     priceRange: [number, number];
     onPriceRangeChange: (range: [number, number]) => void;
     onClearAll: () => void;
-}
-
-export interface MentorExploreServerProps {
-    initialMentors: Mentor[];
-}
-
-export interface UseMentorSearchProps {
-    initialMentors?: Mentor[];
 }
 
 /** Review Props */
