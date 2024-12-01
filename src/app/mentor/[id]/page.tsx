@@ -1,4 +1,5 @@
 import MentorDetailClient from "@/components/mentor/MentorDetailClient";
+import { MyCalendar } from "@/components/common/Calendar";
 import { notFound } from "next/navigation";
 import {MentorService} from "@/lib/services/mentorService";
 
@@ -14,8 +15,13 @@ export default async function MentorDetailPage(props: { params: { id: string } }
         }
 
         return (
-            <div>
-                <MentorDetailClient mentor={response.data} />
+            <div className="flex w-full">
+                <div className="flex-[7] min-w-[400px]">
+                    <MentorDetailClient mentor={response.data}/>
+                </div>
+                <div className="flex-[3] min-w-[350px]">
+                    <MyCalendar/>
+                </div>
             </div>
         )
     } catch {
