@@ -1,8 +1,8 @@
 import {useMentorExploreStore} from "@/store/explore";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {InitialMentorData, Mentor} from "@/types/core/mentor";
-import {debounce} from "lodash";
 import {MentorService} from "@/lib/services/mentorService";
+import {debounce} from "lodash";
 
 const mentorService = new MentorService();
 
@@ -24,7 +24,7 @@ export function useMentor({ initialData }: InitialMentorData) {
     const [page, setPage] = useState(1);
     const limit = 20;
 
-    const fetchMentors = useCallback(async () => {
+    const fetchMentors = useCallback(async (pageNum: number) => {
         try {
             setIsLoading(true);
             setError(null);
@@ -36,12 +36,12 @@ export function useMentor({ initialData }: InitialMentorData) {
                 rating: filters.rating,
                 priceMin: priceRange[0],
                 priceMax: priceRange[1],
-                page,
+                page: pageNum,
                 limit
             });
 
             if (response.success) {
-                if (page === 1) {
+                if (pageNum === 1) {
                     setMentors(response.data.mentors);
                 } else {
                     setMentors(prev => [...prev, ...response.data.mentors]);
@@ -53,26 +53,27 @@ export function useMentor({ initialData }: InitialMentorData) {
         } finally {
             setIsLoading(false);
         }
-    }, [searchTerm, filters, priceRange, page]);
+    }, [searchTerm, filters, priceRange]);
 
-    const debouncedFetch = useMemo(() => debounce(fetchMentors, 300), [fetchMentors])
+    const debouncedFetch = useMemo(
+        () => debounce((pageNum: number) => fetchMentors(pageNum), 300),
+        [fetchMentors]
+    );
 
     useEffect(() => {
         setPage(1);
-        debouncedFetch();
+        debouncedFetch(1);
 
         return () => debouncedFetch.cancel();
     }, [searchTerm, filters, priceRange, debouncedFetch]);
 
-    useEffect(() => {
-        if (page > 1) fetchMentors();
-    }, [page, fetchMentors]);
-
     const loadMore = useCallback(() => {
         if (!isLoading && mentors.length < totalMentors) {
-            setPage(prev => prev + 1);
+            const nextPage = page + 1;
+            setPage(nextPage);
+            fetchMentors(nextPage);
         }
-    }, [isLoading, mentors.length, totalMentors])
+    }, [isLoading, mentors.length, totalMentors, page, fetchMentors])
 
     return {
         mentors,
