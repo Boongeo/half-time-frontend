@@ -1,4 +1,4 @@
-export interface SearchParams {
+export interface MentorSearchParams {
     search?: string;
     techStack?: string[];
     experience?: string[];

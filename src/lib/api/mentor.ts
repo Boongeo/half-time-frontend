@@ -1,4 +1,4 @@
-import {SearchParams} from "@/types/shared/params";
+import {MentorSearchParams} from "@/types/shared/params";
 import {ApiResponse, SearchResponse} from "@/types/api";
 import {Mentor} from "@/types/core/mentor";
 
@@ -16,7 +16,7 @@ export const mentorApi = {
     },
 
     // 멘토 검색 API
-    searchMentors: async (params: SearchParams): Promise<ApiResponse<SearchResponse>> => {
+    searchMentors: async (params: MentorSearchParams): Promise<ApiResponse<SearchResponse>> => {
         const searchParams = new URLSearchParams();
 
         if (params.search) {
