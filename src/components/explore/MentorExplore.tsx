@@ -1,22 +1,26 @@
 'use client'
 
-import {SearchSection} from "@/components/explore/SearchSection";
-import {FilterSection} from "@/components/explore/FilterSection";
-import {mockMentors} from "@/lib/mocks/mentors";
-import {MentorCard} from "@/components/explore/MentorCard";
-import {useMentorFilter} from "@/lib/hooks/useMentorFilter";
+import { SearchSection } from "@/components/explore/SearchSection";
+import { FilterSection } from "@/components/explore/FilterSection";
+import { MentorCard } from "@/components/explore/MentorCard";
+import {useMentor} from "@/lib/hooks/useMentor";
 
-export default function MentorExploreClient() {
+export default function MentorExplore() {
     const {
-        filteredMentors,
+        mentors,
+        totalMentors,
+        isLoading,
+        error,
         searchTerm,
         filters,
         priceRange,
         setSearchTerm,
-        handleFilterChange: setFilter,
+        setFilter,
         setPriceRange,
-        handleClearFilters: clearFilters
-    } = useMentorFilter({ mentors: mockMentors });
+        clearFilters,
+        loadMore,
+        hasMore
+    } = useMentor();
 
     return (
         <div className="p-12">
@@ -43,15 +47,32 @@ export default function MentorExploreClient() {
 
             {/* 필터링된 결과 카운트 */}
             <div className="mb-6 text-gray-600">
-                총 {filteredMentors.length}명의 멘토
+                총 {totalMentors}명의 멘토
             </div>
 
             {/* 멘토 카드 그리드 */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {filteredMentors.map((mentor) => (
+                {mentors.map((mentor) => (
                     <MentorCard key={mentor.id} mentor={mentor}/>
                 ))}
             </div>
+
+            {/* 로딩/에러 상태 */}
+            {isLoading && <div className="text-center py-4">로딩 중...</div>}
+            {error && <div className="text-center text-red-500 py-4">{error}</div>}
+
+            {/* 무한 스크롤 */}
+            {hasMore && (
+                <div className="text-center py-8">
+                    <button
+                        onClick={loadMore}
+                        disabled={isLoading}
+                        className="px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200 disabled:opacity-50"
+                    >
+                        더 보기
+                    </button>
+                </div>
+            )}
         </div>
-    )
+    );
 }
