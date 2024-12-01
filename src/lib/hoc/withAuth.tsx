@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
-import {useUserStore} from "@/store/user";
-import {WithAuthProps} from "@/types/components/commonProps";
+import { useUserStore } from "@/store/user";
+import {WithAuthProps} from "@/types/components/hocProps";
 
 export function withAuth<P extends object>(
     WrappedComponent: React.ComponentType<P>,

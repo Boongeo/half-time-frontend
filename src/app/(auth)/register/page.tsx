@@ -1,7 +1,7 @@
 'use client';
 
 import { useRegister } from "@/lib/hooks/useRegister";
-import { withAuth } from "@/lib/auth/withAuth";
+import { withAuth } from "@/lib/hoc/withAuth";
 import { Card } from "@/components/common/Card";
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";

@@ -5,7 +5,7 @@ import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useSignup} from "@/lib/hooks/useSignup";
 import {CheckCircle, Mail} from "lucide-react";
-import {withAuth} from "@/lib/auth/withAuth";
+import {withAuth} from "@/lib/hoc/withAuth";
 import {SocialLoginButton} from "@/components/auth/SocialLoginButton";
 import {AuthDivider} from "@/components/auth/AuthDivider";
 import {AuthHeader} from "@/components/auth/AuthHeader";
