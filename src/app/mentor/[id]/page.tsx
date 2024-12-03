@@ -1,5 +1,5 @@
 import MentorDetailClient from "@/components/mentor/MentorDetailClient";
-import { MyCalendar } from "@/components/common/Calendar";
+import { MyCalendar } from "@/components/booking/Calendar";
 import { notFound } from "next/navigation";
 import {MentorService} from "@/lib/services/mentorService";
 

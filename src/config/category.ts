@@ -1,4 +1,4 @@
-import {FilterOption, TechCategories} from "@/types/shared/category";
+import {FilterOption, TechCategories, ReviewCategories} from "@/types/shared/category";
 
 export const TECH_CATEGORIES: TechCategories = {
     "FrontEnd": [
@@ -50,11 +50,11 @@ export const ratingOptions: FilterOption[] = [
     { value: 'all', label: '전체' },
 ];
 
-export const ReviewCategories = [
-    "Technically competent",
-    "Very motivational",
-    "Amazing communicator",
-    "Amazing problem solver",
-    "Empathetic listener",
-    "Encouraging mentor",
+export const category: ReviewCategories[] = [
+    { value: "technically-competent", label: "Technically competent" },
+    { value: "very-motivational", label: "Very motivational" },
+    { value: "amazing-communicator", label: "Amazing communicator" },
+    { value: "amazing-problem-solver", label: "Amazing problem solver" },
+    { value: "empathetic-listener", label: "Empathetic listener" },
+    { value: "encouraging-mentor", label: "Encouraging mentor" },
 ];
