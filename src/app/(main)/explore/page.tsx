@@ -3,6 +3,6 @@ import { MentorService } from "@/lib/services/mentorService";
 
 export default async function MentorExplorePage() {
     const mentorService = new MentorService();
-    const initialData = await mentorService.getInitialMentors();
+    const initialData = await mentorService.searchMentors({});
     return <MentorExplore initialData={initialData} />;
 }

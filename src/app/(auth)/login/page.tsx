@@ -4,8 +4,8 @@ import {socialLogin} from "@/config/login";
 import {Button} from "@/components/common/Button";
 import {Input} from "@/components/common/Input";
 import {useLogin} from "@/lib/hooks/useLogin";
-import {withAuth} from "@/lib/auth/withAuth";
-import { SocialLoginButton } from "@/components/auth/SocialLoginButton";
+import {withAuth} from "@/lib/hoc/withAuth";
+import {SocialLoginButton} from "@/components/auth/SocialLoginButton";
 import {AuthHeader} from "@/components/auth/AuthHeader";
 import {AuthDivider} from "@/components/auth/AuthDivider";
 

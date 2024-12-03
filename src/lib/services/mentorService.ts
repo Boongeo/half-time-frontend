@@ -5,19 +5,6 @@ import {mentorApi} from "@/lib/api/mentor";
 export class MentorService {
     private isMockMode = process.env.NEXT_PUBLIC_API_MODE === 'mock';
 
-    async getInitialMentors() {
-        if (this.isMockMode) {
-            return {
-                success: true,
-                data: {
-                    mentors: mockMentors.slice(0, 20),
-                    total: mockMentors.length
-                }
-            };
-        }
-        return await mentorApi.getInitialMentors();
-    }
-
     async getMentorById(id: number) {
         if (this.isMockMode) {
             const mentor = mockMentors.find(mentor => mentor.id === id);

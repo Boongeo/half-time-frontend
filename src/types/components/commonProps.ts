@@ -1,6 +1,5 @@
 import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes} from "react";
 
-/** Components Props */
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
@@ -82,11 +81,4 @@ export interface TabProps {
 export interface InfiniteScrollTriggerProps {
     onIntersectAction: () => void;
     enabled?: boolean;
-}
-
-/** HOC props */
-export interface WithAuthProps {
-    requireAuth?: boolean;
-    requireUnauth?: boolean;
-    requireRegistration?: boolean;
 }
