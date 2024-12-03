@@ -19,3 +19,8 @@ export type TechOption = {
 export type TechCategories = {
     [key: string]: TechOption[];
 };
+
+export type ReviewCategories = {
+    value: string;
+    label: string;
+}
