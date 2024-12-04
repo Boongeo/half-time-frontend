@@ -19,3 +19,9 @@ export interface SearchResponse {
     mentors: Mentor[];
     total: number;
 }
+
+export interface MentorRegistrationResponse {
+    mentorId: number;
+    email: string;
+    name: string;
+}
