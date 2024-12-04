@@ -33,7 +33,10 @@ export default function VerificationSection() {
 
                 {/* 포트폴리오 URL */}
                 <div className="space-y-2">
-                    <label htmlFor="portfolioUrl">포트폴리오 URL</label>
+                    <label htmlFor="portfolioUrl" className="flex items-center gap-2">
+                        포트폴리오 URL
+                        <span className="text-sm text-gray-500">(선택사항)</span>
+                    </label>
                     <Input
                         id="portfolioUrl"
                         type="url"
@@ -41,11 +44,17 @@ export default function VerificationSection() {
                         value={form.portfolioUrl || ''}
                         onChange={(e) => setField('portfolioUrl', e.target.value)}
                     />
+                    <p className="text-sm text-gray-500">
+                        개인 웹사이트나 포트폴리오가 있다면 입력해주세요
+                    </p>
                 </div>
 
                 {/* Github URL */}
                 <div className="space-y-2">
-                    <label htmlFor="githubUrl">Github URL</label>
+                    <label htmlFor="githubUrl" className="flex items-center gap-2">
+                        Github URL
+                        <span className="text-sm text-gray-500">(선택사항)</span>
+                    </label>
                     <Input
                         id="githubUrl"
                         type="url"
@@ -53,6 +62,9 @@ export default function VerificationSection() {
                         value={form.githubUrl || ''}
                         onChange={(e) => setField('githubUrl', e.target.value)}
                     />
+                    <p className="text-sm text-gray-500">
+                        Github 프로필이 있다면 입력해주세요
+                    </p>
                 </div>
             </div>
         </div>
