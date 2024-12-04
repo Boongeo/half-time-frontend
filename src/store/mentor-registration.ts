@@ -52,8 +52,8 @@ export const useMentorRegistrationStore = create<MentorRegistrationStore>((set, 
                 if (!form.interest?.trim()) {
                     return { isValid: false, message: '관심 분야를 입력해주세요' };
                 }
-                if (!form.intro?.trim() || form.intro.length < 50) {
-                    return { isValid: false, message: '자기소개를 50자 이상 작성해주세요' };
+                if (!form.intro?.trim() || form.intro.length < 30) {
+                    return { isValid: false, message: '자기소개를 30자 이상 작성해주세요' };
                 }
                 return { isValid: true, message: '' };
 
@@ -61,10 +61,14 @@ export const useMentorRegistrationStore = create<MentorRegistrationStore>((set, 
                 if (!form.hourlyRate || form.hourlyRate < 0) {
                     return { isValid: false, message: '올바른 멘토링 비용을 입력해주세요' };
                 }
-                if (!form.availableTime?.some((time: { times: string[] }) => time.times.length === 2)) {
-                    return { isValid: false, message: '최소 1개 이상의 멘토링 가능 시간을 설정해주세요' };
+                if (!form.mentoringType) {
+                    return { isValid: false, message: '선호하는 멘토링 방식을 선택해주세요' };
+                }
+                if ((form.mentoringType === 'offline' || form.mentoringType === 'both') && !form.preferredRegion) {
+                    return { isValid: false, message: '선호하는 멘토링 지역을 선택해주세요' };
                 }
                 return { isValid: true, message: '' };
+
 
             case 3: // Verification Section
                 if (!form.careerProof) {

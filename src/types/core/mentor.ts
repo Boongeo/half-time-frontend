@@ -45,9 +45,13 @@ export interface MentorRegistrationForm {
     company: string;
     experience: number;
     techStack: string[];
-    hourlyRate: number;
     interest: string;
     intro: string;
+
+    // 멘토링 정보
+    hourlyRate: number;
+    mentoringType: 'online' | 'offline' | 'both';
+    preferredRegion?: string;
 
     // 인증 정보
     careerProof: File | null;
