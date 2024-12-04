@@ -33,3 +33,50 @@ export interface MentorExploreState {
 export interface InitialMentorData {
     initialData: ApiResponse<SearchResponse>;
 }
+
+export interface MentorRegistrationForm {
+    // 계정 정보
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+
+    // 전문 정보
+    company: string;
+    experience: number;
+    techStack: string[];
+    hourlyRate: number;
+    interest: string;
+    intro: string;
+
+    // 인증 정보
+    careerProof: File | null;
+    portfolioUrl?: string;
+    githubUrl?: string;
+
+    // 멘토링 가능 시간
+    availableTime: {
+        day: string;
+        times: string[];
+    }[];
+}
+
+export interface MentorRegistrationStore {
+    form: Partial<MentorRegistrationForm>;
+    currentStep: number;
+    isLoading: boolean;
+    selectedCategory: string;
+
+    // Actions
+    setField: <K extends keyof MentorRegistrationForm>(
+        field: K,
+        value: MentorRegistrationForm[K]
+    ) => void;
+    setCurrentStep: (step: number) => void;
+    setLoading: (isLoading: boolean) => void;
+    setSelectedCategory: (category: string) => void;
+    resetForm: () => void;
+    validateCurrentStep: () => { isValid: boolean; message: string };
+}
+
+export type RegistrationStatus = 'pending' | 'approved' | 'rejected';
