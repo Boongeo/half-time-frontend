@@ -13,3 +13,15 @@ export interface ReviewCardProps {
 
 /** Calender Props */
 export type CalendarValue = CalendarProps['value'];
+
+/** Mentor Registration */
+interface Step {
+    id: number;
+    title: string;
+    component?: React.ComponentType;
+}
+
+export interface ProgressStepsProps {
+    steps: readonly Step[];
+    currentStep: number;
+}
