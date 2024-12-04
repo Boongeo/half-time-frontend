@@ -1,7 +1,7 @@
 import {ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes} from "react";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'tag' | 'selected';
     size?: 'sm' | 'md' | 'lg';
     loading?: boolean;
     fullWidth?: boolean;
@@ -28,6 +28,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     disabled?: boolean;
     multiline?: boolean;
     rows?: number;
+    value?: string | number | readonly string[];
     showSearchIcon?: boolean;
     options?: { label: string; value: string }[];
 }
