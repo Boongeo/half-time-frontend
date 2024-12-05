@@ -1,5 +1,6 @@
-import {MentorRegistrationForm, MentorRegistrationStore} from "@/types/core/mentor";
+import {MentorRegistrationForm, MentorRegistrationStore, RegistrationStatus} from "@/types/core/mentor";
 import {create} from "zustand";
+import {mentorRegistrationApi} from "@/lib/api/mentor-registration";
 
 const initialForm: Partial<MentorRegistrationForm> = {
     company: '',
@@ -8,7 +9,8 @@ const initialForm: Partial<MentorRegistrationForm> = {
     interest: '',
     intro: '',
     hourlyRate: 0,
-    availableTime: [],
+    mentoringType: 'online',
+    preferredRegion: undefined,
     careerProof: null,
     portfolioUrl: '',
     githubUrl: '',
@@ -19,6 +21,7 @@ export const useMentorRegistrationStore = create<MentorRegistrationStore>((set, 
     currentStep: 1,
     isLoading: false,
     selectedCategory: '',
+    registrationStatus: null as RegistrationStatus | null,
 
     setField: (field, value) => set((state) => ({
         form: {
@@ -33,7 +36,14 @@ export const useMentorRegistrationStore = create<MentorRegistrationStore>((set, 
 
     setSelectedCategory: (category) => set({ selectedCategory: category }),
 
-    resetForm: () => set({ form: initialForm, currentStep: 1 }),
+    setRegistrationStatus: (status) => set({ registrationStatus: status }),
+
+    resetForm: () => set({
+        form: initialForm,
+        currentStep: 1,
+        selectedCategory: '',
+        registrationStatus: null
+    }),
 
     validateCurrentStep: () => {
         const { currentStep, form } = get();
@@ -84,6 +94,39 @@ export const useMentorRegistrationStore = create<MentorRegistrationStore>((set, 
 
             default:
                 return { isValid: false, message: '알 수 없는 오류가 발생했습니다.' };
+        }
+    },
+
+    submitRegistration: async () => {
+        const { form, setLoading } = get();
+
+        try {
+            setLoading(true);
+
+            const formData = new FormData();
+            Object.entries(form).forEach(([key, value]) => {
+                if (key === 'careerProof') return;
+                if (Array.isArray(value)) {
+                    value.forEach(v => formData.append(`${key}[]`, v));
+                } else if (value !== null && value !== undefined) {
+                    formData.append(key, value.toString());
+                }
+            });
+
+            if (form.careerProof) {
+                formData.append('careerProof', form.careerProof);
+            }
+
+            const response = await mentorRegistrationApi.register(formData);
+
+            if (response.success) {
+                set({ registrationStatus: 'pending' });
+            }
+        } catch (error) {
+            console.error('멘토 등록 실패: ', error);
+            throw error;
+        } finally {
+            setLoading(false);
         }
     }
 }));
