@@ -1,3 +1,5 @@
+'use client'
+
 import {useMentorRegistrationStore} from "@/store/mentor-registration";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
