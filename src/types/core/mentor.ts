@@ -34,35 +34,45 @@ export interface InitialMentorData {
     initialData: ApiResponse<SearchResponse>;
 }
 
-export interface MentorRegistrationForm {
-    // 계정 정보
-    name: string;
-    email: string;
-    password: string;
-    passwordConfirm: string;
+export type RegistrationStatus = 'pending' | 'approved' | 'rejected';
 
-    // 전문 정보
+export interface MentorRegistration {
+    id: number;
+    userId: string;
+    user: {
+        id: string;
+        name: string;
+        email: string;
+    };
+    status: RegistrationStatus;
     company: string;
     experience: number;
     techStack: string[];
     interest: string;
     intro: string;
-
-    // 멘토링 정보
     hourlyRate: number;
     mentoringType: 'online' | 'offline' | 'both';
     preferredRegion?: string;
+    careerProofUrl: string;
+    portfolioUrl?: string;
+    githubUrl?: string;
+    rejectReason?: string;
+    createdAt: string;
+    updatedAt: string;
+}
 
-    // 인증 정보
+export interface MentorRegistrationForm {
+    company: string;
+    experience: number;
+    techStack: string[];
+    interest: string;
+    intro: string;
+    hourlyRate: number;
+    mentoringType: 'online' | 'offline' | 'both';
+    preferredRegion?: string;
     careerProof: File | null;
     portfolioUrl?: string;
     githubUrl?: string;
-
-    // 멘토링 가능 시간
-    availableTime: {
-        day: string;
-        times: string[];
-    }[];
 }
 
 export interface MentorRegistrationStore {
@@ -70,6 +80,7 @@ export interface MentorRegistrationStore {
     currentStep: number;
     isLoading: boolean;
     selectedCategory: string;
+    registrationStatus: RegistrationStatus | null;
 
     // Actions
     setField: <K extends keyof MentorRegistrationForm>(
@@ -79,8 +90,8 @@ export interface MentorRegistrationStore {
     setCurrentStep: (step: number) => void;
     setLoading: (isLoading: boolean) => void;
     setSelectedCategory: (category: string) => void;
+    setRegistrationStatus: (status: RegistrationStatus | null) => void;
     resetForm: () => void;
     validateCurrentStep: () => { isValid: boolean; message: string };
+    submitRegistration: () => Promise<void>;
 }
-
-export type RegistrationStatus = 'pending' | 'approved' | 'rejected';
