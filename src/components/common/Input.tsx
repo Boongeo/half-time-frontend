@@ -57,7 +57,8 @@ export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputPro
                         sizes[inputSize],
                         error && 'border-red-500 focus-visible:ring-red-500',
                         className,
-                        'resize-none'
+                        'resize-none',
+                        'py-3'
                     )}
                     ref={ref as React.RefObject<HTMLTextAreaElement>}
                     rows={rows}
