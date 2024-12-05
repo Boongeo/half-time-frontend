@@ -1,4 +1,4 @@
-import {ApiResponse, MentorRegistrationResponse} from "@/types/api";
+import {ApiResponse, MentorRegistrationResponse, RegistrationListResponse} from "@/types/api";
 import {MentorRegistration, RegistrationStatus} from "@/types/core/mentor";
 
 export const mentorRegistrationApi = {
@@ -33,7 +33,7 @@ export const mentorRegistrationApi = {
         status?: RegistrationStatus;
         page?: number;
         limit?: number;
-    }): Promise<ApiResponse<MentorRegistrationResponse>> => {
+    }): Promise<ApiResponse<RegistrationListResponse>> => {
         const searchParams = new URLSearchParams();
         if (params?.status) searchParams.append('status', params.status);
         if (params?.page) searchParams.append('page', params.page.toString());
