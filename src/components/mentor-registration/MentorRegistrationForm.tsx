@@ -7,6 +7,7 @@ import {Button} from "@/components/common/Button";
 import {useMentorRegistrationStore} from "@/store/mentor-registration";
 import {useState} from "react";
 import ProgressSteps from "@/components/mentor-registration/ProgressSteps";
+import {useRouter} from "next/navigation";
 
 const STEPS = [
     { id: 1, title: '전문 분야', component: ProfessionalSection },
@@ -15,7 +16,8 @@ const STEPS = [
 ] as const;
 
 export default function MentorRegistrationForm() {
-    const { currentStep, isLoading, setCurrentStep, validateCurrentStep } = useMentorRegistrationStore();
+    const router = useRouter();
+    const { currentStep, isLoading, setCurrentStep, validateCurrentStep, submitRegistration } = useMentorRegistrationStore();
     const [error, setError] = useState<string | null>(null);
     const CurrentStepComponent = STEPS.find(step => step.id === currentStep)?.component || ProfessionalSection;
 
@@ -37,6 +39,21 @@ export default function MentorRegistrationForm() {
         if (currentStep > 1) {
             setCurrentStep(currentStep - 1);
         }
+    };
+
+    const handleSubmit = async () => {
+        setError(null);
+        for (let step = 1; step <= STEPS.length; step++) {
+            setCurrentStep(step);
+            const validation = validateCurrentStep();
+            if (!validation.isValid) {
+                setError(validation.message);
+                return;
+            }
+
+        }
+        await submitRegistration();
+        router.push('/mentor/registration/status');
     };
 
     return (
@@ -71,7 +88,7 @@ export default function MentorRegistrationForm() {
                 ) : <div/>}
 
                 <Button
-                    onClick={currentStep === STEPS.length ? undefined : handleNext}
+                    onClick={currentStep === STEPS.length ? handleSubmit : handleNext}
                     type={currentStep === STEPS.length ? 'submit' : 'button'}
                     variant="primary"
                     loading={isLoading}
