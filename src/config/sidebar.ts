@@ -5,9 +5,7 @@ import {
     User,
     CalendarCheck2,
     LayoutDashboard,
-    Calendar,
     Users,
-    Clock,
     FileText,
     BarChart3, Settings
 } from "lucide-react";
@@ -49,43 +47,31 @@ export const defaultSideItems: SideBarProps[] = [
 export const mentorSideItems: SideBarProps[] = [
     {
         id: 'dashboard',
-        name: '대시보드',
+        name: 'Dashboard',
         href: '/mentor/dashboard',
         icon: LayoutDashboard
     },
     {
-        id: 'schedule',
-        name: '일정',
-        href: '/mentor/schedule',
-        icon: Calendar
-    },
-    {
         id: 'sessions',
-        name: '멘토링',
+        name: 'Sessions',
         href: '/mentor/sessions',
         icon: Users
     },
     {
-        id: 'availability',
-        name: '시간 관리',
-        href: '/mentor/availability',
-        icon: Clock
-    },
-    {
         id: 'reviews',
-        name: '리뷰',
+        name: 'Reviews',
         href: '/mentor/reviews',
         icon: FileText
     },
     {
         id: 'earnings',
-        name: '수익',
+        name: 'Earnings',
         href: '/mentor/earnings',
         icon: BarChart3
     },
     {
         id: 'settings',
-        name: '설정',
+        name: 'Settings',
         href: '/mentor/settings',
         icon: Settings
     },
