@@ -24,22 +24,15 @@ const ReviewCard = ({
 
     const [isDelete, setIsDelete] = useState(false);
 
-    console.log(editCategories);
-    // 카테고리가 변경될 때 editCategories에 반영
     useEffect(() => {
         setEditCategories(categories);
     }, [categories]);
 
     const handleSave = () => {
-        // 저장 로직 추가
-        console.log("Updated content:", editContent);
-        console.log("Updated rating:", editRating);
-        console.log("Updated categories:", editCategories);
         setIsEditing(false);
     };
 
     const handleDelete = () => {
-        // 삭제 로직 추가
         setIsDelete(false);
     };
 

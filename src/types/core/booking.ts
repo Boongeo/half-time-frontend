@@ -7,10 +7,11 @@ export interface Booking {
     subject: string; // 과목
     student: string; // 학생 이름
     location: string; // 장소
-    method: string; // 예약 방식 (대면, 온라인 등)
+    method: "offline" | "online"; // 예약 방식 (대면, 온라인 등)
 }
 
 export interface BookingsForDate {
     date: string; // 예약 날짜 (YYYY-MM-DD)
     bookings: Booking[]; // 해당 날짜의 예약 목록
 }
+
