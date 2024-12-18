@@ -1,12 +1,12 @@
 'use client'
 
-import ProfessionalSection from "@/components/mentor-registration/sections/ProfessionalSection";
-import MentoringSection from "@/components/mentor-registration/sections/MentoringSection";
-import VerificationSection from "@/components/mentor-registration/sections/VerificationSection";
+import ProfessionalSection from "@/components/mentoring/sections/ProfessionalSection";
+import MentoringSection from "@/components/mentoring/sections/MentoringSection";
+import VerificationSection from "@/components/mentoring/sections/VerificationSection";
 import {Button} from "@/components/common/Button";
 import {useMentorRegistrationStore} from "@/store/mentor-registration";
 import {useState} from "react";
-import ProgressSteps from "@/components/mentor-registration/ProgressSteps";
+import ProgressSteps from "@/components/mentoring/ProgressSteps";
 import {useRouter} from "next/navigation";
 import {Modal} from "@/components/common/Modal";
 
