@@ -1,4 +1,4 @@
-import MentorRegistrationForm from "@/components/mentor-registration/MentorRegistrationForm";
+import MentorRegistrationForm from "@/components/mentoring/MentorRegistrationForm";
 
 export default function MentorRegistrationPage() {
     return (
