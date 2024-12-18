@@ -1,4 +1,4 @@
-import {Mentor} from "@/types/core/mentor";
+import {Mentor, MentorRegistration, RegistrationStatus} from "@/types/core/mentor";
 
 export interface ApiResponse<T> {
     success: boolean;
@@ -18,4 +18,12 @@ export type VerifyCodeResponse = ApiResponse<{ verified: boolean }>
 export interface SearchResponse {
     mentors: Mentor[];
     total: number;
+}
+
+export interface MentorRegistrationResponse {
+    status: RegistrationStatus;
+}
+
+export interface RegistrationListResponse extends SearchResponse {
+    registrations: MentorRegistration[];
 }
