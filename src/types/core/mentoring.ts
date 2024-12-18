@@ -11,4 +11,24 @@ export interface Mentoring {
             students: string[];
         }[];
     }[];
-};
+}
+
+export interface TimeSchedule {
+    day: string;
+    times: string[];
+}
+
+export interface Session {
+    id: number;
+    title: string;
+    description: string;
+    availableTime: TimeSchedule[];
+    price: number;
+}
+
+export interface SessionFormData {
+    title: string;
+    description: string;
+    availableTime: TimeSchedule[];
+    price: string;
+}
