@@ -9,7 +9,7 @@ import { Button } from "@/components/common/Button";
 import { Card } from "@/components/common/Card";
 
 export default function MentorStatusPage() {
-    const [status, setStatus] = useState<RegistrationStatus | null>("pending");
+    const [status, setStatus] = useState<RegistrationStatus | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
