@@ -1,3 +1,8 @@
+export interface TimeSchedule {
+    day: string;
+    times: string[];
+}
+
 export interface Mentoring {
     id: string;
     subject: string;
@@ -11,34 +16,6 @@ export interface Mentoring {
             students: string[];
         }[];
     }[];
-}
-
-export interface TimeSchedule {
-    day: string;
-    times: string[];
-}
-
-export interface Session {
-    id: number;
-    title: string;
-    description: string;
-    availableTime: Array<{
-        day: string;
-        times: string[];
-        duration: number;
-    }>;
-    price: number;
-}
-
-interface SessionFormData {
-    title: string;
-    description: string;
-    availableTime: Array<{
-        day: string;
-        times: string[];
-        duration: number;
-    }>;
-    price: string;
 }
 
 export interface MenteeApplication {
@@ -61,12 +38,29 @@ export interface MenteeApplication {
 
 export type SessionType = 'individual' | 'group';
 
-export interface ExtendedSessionFormData extends SessionFormData {
+export interface Session {
+    id: number;
+    title: string;
+    description: string;
+    availableTime: Array<{
+        day: string;
+        times: string[];
+        duration: number;
+    }>;
+    price: number;
     type: SessionType;
-    maxParticipants: string;
+    maxParticipants?: number;
 }
 
-export interface ExtendedSession extends Session {
+export interface SessionFormData {
+    title: string;
+    description: string;
+    availableTime: Array<{
+        day: string;
+        times: string[];
+        duration: number;
+    }>;
+    price: string;
     type: SessionType;
-    maxParticipants: number;
+    maxParticipants?: string;
 }

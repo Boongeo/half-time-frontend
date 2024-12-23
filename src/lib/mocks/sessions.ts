@@ -1,6 +1,6 @@
-import { ExtendedSession, MenteeApplication } from "@/types/core/mentoring";
+import { Session, MenteeApplication } from "@/types/core/mentoring";
 
-export const mockSessions: ExtendedSession[] = [
+export const mockSessions: Session[] = [
     {
         id: 1,
         title: "React와 TypeScript로 실전 웹 개발 배우기",

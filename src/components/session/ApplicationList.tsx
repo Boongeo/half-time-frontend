@@ -1,9 +1,9 @@
-import { ExtendedSession, MenteeApplication } from "@/types/core/mentoring";
+import { Session, MenteeApplication } from "@/types/core/mentoring";
 import {X, Clock, CheckCircle, XCircle, User, CalendarDays} from "lucide-react";
 import { Button } from "@/components/common/Button";
 
 interface ApplicationListProps {
-    session: ExtendedSession;
+    session: Session;
     applications: MenteeApplication[];
     onClose: () => void;
     onApprove?: (applicationId: number) => void;
@@ -161,7 +161,7 @@ export function ApplicationList({
                                         className="flex-1"
                                         onClick={() => onApprove?.(application.id)}
                                         disabled={session.type === 'group' &&
-                                            approvedApplications.length >= session.maxParticipants}
+                                            approvedApplications.length >= (session.maxParticipants as number)}
                                     >
                                         <CheckCircle className="w-4 h-4 mr-1"/>
                                         수락

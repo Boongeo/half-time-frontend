@@ -1,7 +1,7 @@
 'use client'
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { ExtendedSession, ExtendedSessionFormData } from "@/types/core/mentoring";
+import { Session, SessionFormData } from "@/types/core/mentoring";
 import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/common/Button";
 import { SessionCard } from "@/components/session/SessionCard";
@@ -9,7 +9,7 @@ import { CreateSessionModal } from "@/components/session/CreateSessionModal";
 import { ApplicationList } from "@/components/session/ApplicationList";
 import {mockMenteeApplications, mockSessions} from "@/lib/mocks/sessions";
 
-const initialFormData: ExtendedSessionFormData = {
+const initialFormData: SessionFormData = {
     title: '',
     description: '',
     availableTime: [],
@@ -19,10 +19,10 @@ const initialFormData: ExtendedSessionFormData = {
 };
 
 export default function MentorSessionPage() {
-    const [sessions, setSessions] = useState<ExtendedSession[]>(mockSessions);
+    const [sessions, setSessions] = useState<Session[]>(mockSessions);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedSession, setSelectedSession] = useState<ExtendedSession | null>(null);
-    const [formData, setFormData] = useState<ExtendedSessionFormData>(initialFormData);
+    const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+    const [formData, setFormData] = useState<SessionFormData>(initialFormData);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;

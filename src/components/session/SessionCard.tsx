@@ -1,9 +1,9 @@
-import { ExtendedSession, MenteeApplication } from "@/types/core/mentoring";
+import { Session, MenteeApplication } from "@/types/core/mentoring";
 import { Calendar, Video, Users, Clock } from "lucide-react";
 import { getSessionTypeLabel, formatScheduleDisplay } from "@/lib/utils/session";
 
 interface SessionCardProps {
-    session: ExtendedSession;
+    session: Session;
     isSelected: boolean;
     applications: MenteeApplication[];
     onClick: () => void;
@@ -37,7 +37,7 @@ export function SessionCard({ session, isSelected, applications, onClick }: Sess
             <div className="flex items-start justify-between mb-2">
                 <h3 className="font-medium text-gray-900">{session.title}</h3>
                 <span className={`px-2 py-1 rounded-full text-xs whitespace-nowrap ${getBadgeStyles(session.type)}`}>
-                    {getSessionTypeLabel(session.type, session.maxParticipants)}
+                    {getSessionTypeLabel(session.type, session.maxParticipants as number)}
                 </span>
             </div>
 
