@@ -54,9 +54,9 @@ export default function MentoringTimeSettings({ availableTime, onChange }: Mento
     };
 
     return (
-        <div className="space-y-4">
+        <div className="w-full space-y-4">
             {/* 요일 선택 섹션 */}
-            <div className="border rounded-lg p-6 bg-white">
+            <div className="w-full border rounded-lg p-6 bg-white">
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">요일 선택</label>
                     <p className="text-sm text-gray-500">멘토링 가능한 요일을 선택해주세요.</p>
@@ -67,7 +67,7 @@ export default function MentoringTimeSettings({ availableTime, onChange }: Mento
                             key={day}
                             onClick={() => handleDayClick(day)}
                             className={`
-                                w-12 h-12 rounded-full flex items-center justify-center
+                                w-11 h-11 rounded-full flex items-center justify-center
                                 transition-colors
                                 ${selectedDay === day
                                 ? 'bg-blue-600 text-white'
@@ -82,12 +82,12 @@ export default function MentoringTimeSettings({ availableTime, onChange }: Mento
 
             {/* 시간 선택 그리드 */}
             {selectedDay && (
-                <div className="border rounded-lg p-6 bg-white">
+                <div className="w-full border rounded-lg p-6 bg-white">
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">{selectedDay}요일 시간 선택</label>
                         <p className="text-sm text-gray-500">멘토링 가능한 시간을 선택해주세요.</p>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                         {timeSlots.map(({start, end}) => (
                             <button
                                 key={start}
@@ -120,7 +120,7 @@ export default function MentoringTimeSettings({ availableTime, onChange }: Mento
                             .sort((a, b) => days.indexOf(a.day) - days.indexOf(b.day))
                             .map(({day, times}) => (
                                 <div key={day} className="flex">
-                                    <div className="shrink-0 w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center font-medium">
+                                    <div className="shrink-0 w-14 h-14 rounded-full text-gray-600 bg-gray-100 flex items-center justify-center font-medium">
                                         {day}
                                     </div>
                                     <div className="flex-1 ml-4 flex items-center min-w-0 bg-gray-50 rounded-lg p-4">

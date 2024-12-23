@@ -1,7 +1,17 @@
-import {Compass, Home, MessageSquare, User, CalendarCheck2} from "lucide-react";
+import {
+    Compass,
+    Home,
+    MessageSquare,
+    User,
+    CalendarCheck2,
+    LayoutDashboard,
+    Users,
+    FileText,
+    BarChart3, Settings
+} from "lucide-react";
 import {SideBarProps} from "@/types/components/layoutProps";
 
-export const sideItems: SideBarProps[] = [
+export const defaultSideItems: SideBarProps[] = [
     {
         id: "home",
         name: "Home",
@@ -33,3 +43,36 @@ export const sideItems: SideBarProps[] = [
         icon: User
     },
 ];
+
+export const mentorSideItems: SideBarProps[] = [
+    {
+        id: 'dashboard',
+        name: 'Dashboard',
+        href: '/mentor/dashboard',
+        icon: LayoutDashboard
+    },
+    {
+        id: 'sessions',
+        name: 'Sessions',
+        href: '/mentor/sessions',
+        icon: Users
+    },
+    {
+        id: 'reviews',
+        name: 'Reviews',
+        href: '/mentor/reviews',
+        icon: FileText
+    },
+    {
+        id: 'earnings',
+        name: 'Earnings',
+        href: '/mentor/earnings',
+        icon: BarChart3
+    },
+    {
+        id: 'settings',
+        name: 'Settings',
+        href: '/mentor/settings',
+        icon: Settings
+    },
+]

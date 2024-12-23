@@ -1,6 +1,7 @@
 import {TECH_CATEGORIES} from "@/config/category";
 import {FilterKey, FilterValues} from "@/types/shared/category";
 import {ApiResponse, SearchResponse} from "@/types/api";
+import {LucideIcon} from "lucide-react";
 
 export interface Mentor {
     id: number;
@@ -94,4 +95,17 @@ export interface MentorRegistrationStore {
     resetForm: () => void;
     validateCurrentStep: () => { isValid: boolean; message: string };
     submitRegistration: () => Promise<void>;
+}
+
+export interface StatusConfig {
+    icon: LucideIcon;
+    title: string;
+    description: string;
+    iconColor: string;
+    bgColor: string;
+    borderColor: string;
+    action?: {
+        text: string;
+        href: string;
+    };
 }
