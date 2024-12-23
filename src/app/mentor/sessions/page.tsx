@@ -15,7 +15,10 @@ const initialFormData: SessionFormData = {
     availableTime: [],
     price: '',
     type: 'individual',
-    maxParticipants: '1'
+    maxParticipants: '1',
+    method: 'online',
+    location: '',
+    link: ''
 };
 
 export default function MentorSessionPage() {
@@ -45,7 +48,10 @@ export default function MentorSessionPage() {
             availableTime: formData.availableTime,
             price: Number(formData.price),
             type: formData.type,
-            maxParticipants: Number(formData.maxParticipants)
+            maxParticipants: Number(formData.maxParticipants),
+            method: formData.method,
+            location: formData.method === 'offline' ? formData.location : undefined,
+            link: formData.method === 'online' ? formData.link : undefined
         };
         setSessions(prev => [...prev, newSession]);
         setFormData(initialFormData);
