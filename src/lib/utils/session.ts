@@ -52,6 +52,7 @@ export const getGroupCount = (applications: MenteeApplication[]): number => {
     ).length;
 };
 
+// 세션 타임 포맷 함수
 export const formatSessionTime = (time: string, duration: number) => {
     const [hours, minutes] = time.split(':').map(Number);
     const endTime = new Date(2024, 0, 1, hours, minutes + duration);

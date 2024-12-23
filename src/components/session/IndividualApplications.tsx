@@ -2,6 +2,7 @@ import { CalendarDays, Clock, CheckCircle, XCircle, User } from "lucide-react";
 import { Button } from "@/components/common/Button";
 import _ from "lodash";
 import {ApplicationListProps} from "@/types/components/sessionProps";
+import {formatSessionTime} from "@/lib/utils/session";
 
 export function IndividualApplications({
    session,
@@ -10,14 +11,6 @@ export function IndividualApplications({
    onReject
 }: Omit<ApplicationListProps, 'onClose'>) {
     const dateGroups = _.groupBy(applications, app => app.preferredDate);
-
-    const addMinutesToTime = (time: string, duration: number) => {
-        const [hours, minutes] = time.split(':').map(Number);
-        const totalMinutes = hours * 60 + minutes + duration;
-        const newHours = Math.floor(totalMinutes / 60);
-        const newMinutes = totalMinutes % 60;
-        return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
-    };
 
     return (
         <div className="space-y-6 text-gray-600">
@@ -91,16 +84,11 @@ export function IndividualApplications({
                                         </p>
                                     )}
                                     <div className="flex justify-between items-center mt-2">
-                                        <div className="flex items-center gap-1 ml-11">
+                                        <div className="flex items-center gap-2 ml-11">
                                             <Clock className="w-4 h-4 text-gray-400"/>
-                                            <span className="text-sm">
-                                                {application.preferredTime} ~ {
-                                                addMinutesToTime(
-                                                    application.preferredTime,
-                                                    session.availableTime[0].duration
-                                                )
-                                            }
-                                            </span>
+                                            <div className="border rounded px-1 py-0.5 text-sm text-gray-700">
+                                                {formatSessionTime(application.preferredTime, session.availableTime[0].duration)}
+                                            </div>
                                         </div>
 
                                         {/* 승인/거절 버튼 또는 상태 표시 */}

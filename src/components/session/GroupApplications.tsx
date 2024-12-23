@@ -1,6 +1,6 @@
 import { CalendarDays, CheckCircle, XCircle, User } from "lucide-react";
 import { Button } from "@/components/common/Button";
-import { groupApplicationsByTimeSlot } from "@/lib/utils/session";
+import {formatSessionTime, groupApplicationsByTimeSlot } from "@/lib/utils/session";
 import {ApplicationListProps} from "@/types/components/sessionProps";
 
 export function GroupApplications({
@@ -38,7 +38,9 @@ export function GroupApplications({
                                             weekday: 'short'
                                         })}
                                         {' '}
-                                        {group.time}
+                                        <span className="border rounded px-1 py-0.5 text-sm text-gray-700 ml-2">
+                                            {formatSessionTime(group.time, session.availableTime[0].duration)}
+                                        </span>
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
