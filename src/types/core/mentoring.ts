@@ -4,18 +4,16 @@ export interface TimeSchedule {
 }
 
 export interface Mentoring {
-    id: string;
-    subject: string;
-    language: string;
-    location: string;
-    method: "offline" | "online";
-    bookings: {
-        date: string;
-        timeSlots: {
-            time: string;
-            students: string[];
-        }[];
-    }[];
+    id: number;
+    sessionId: number;
+    date: string;
+    time: string;
+    participants: Array<{
+        menteeId: number;
+        status: 'confirmed' | 'pending' | 'cancelled';
+    }>;
+    status: 'open' | 'full' | 'completed';
+    currentParticipantCount: number;
 }
 
 export interface MenteeApplication {
@@ -42,6 +40,9 @@ export interface Session {
     id: number;
     title: string;
     description: string;
+    method: 'offline' | 'online';
+    location?: string;
+    link?: string;
     availableTime: Array<{
         day: string;
         times: string[];
@@ -55,6 +56,9 @@ export interface Session {
 export interface SessionFormData {
     title: string;
     description: string;
+    method: 'offline' | 'online';
+    location?: string;
+    link?: string;
     availableTime: Array<{
         day: string;
         times: string[];
