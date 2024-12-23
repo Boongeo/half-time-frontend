@@ -61,6 +61,49 @@ export function CreateSessionModal({
                 )}
 
                 <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-600">진행 방식</label>
+                    <Select
+                        name="method"
+                        value={formData.method}
+                        onChange={onInputChange}
+                        options={[
+                            {value: 'online', label: '온라인'},
+                            {value: 'offline', label: '오프라인'}
+                        ]}
+                    />
+                </div>
+
+                {formData.method === 'offline' ? (
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-600">진행 장소</label>
+                        <Input
+                            name="location"
+                            value={formData.location || ''}
+                            onChange={onInputChange}
+                            placeholder="멘토링이 진행될 장소를 입력하세요"
+                            required
+                        />
+                        <p className="text-sm text-gray-500">
+                            구체적인 주소를 입력해주세요. (예: 서울시 강남구 테헤란로 123)
+                        </p>
+                    </div>
+                ) : (
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-600">화상 미팅 링크</label>
+                        <Input
+                            name="link"
+                            value={formData.link || ''}
+                            onChange={onInputChange}
+                            placeholder="Zoom 링크를 입력하세요"
+                            required
+                        />
+                        <p className="text-sm text-gray-500">
+                            줌 링크는 멘토링 승인 후 멘티에게 공개됩니다
+                        </p>
+                    </div>
+                )}
+
+                <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-600">세션 제목</label>
                     <Input
                         name="title"
@@ -94,20 +137,20 @@ export function CreateSessionModal({
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-600">시간당 가격</label>
+                    <label className="text-sm font-medium text-gray-600">세션당 가격</label>
                     <div className="flex items-center gap-2">
                         <Input
                             name="price"
                             type="number"
                             value={formData.price}
                             onChange={onInputChange}
-                            placeholder="시간당 가격을 입력하세요"
+                            placeholder="세션당 가격을 입력하세요"
                             min="0"
                             step="1000"
                             required
                             className="w-48"
                         />
-                        <span className="text-gray-500 text-sm">원 / {formData.type === 'group' ? '인당' : '시간'}</span>
+                        <span className="text-gray-500 text-sm">원 / {formData.type === 'group' ? '인당' : '세션'}</span>
                     </div>
                 </div>
 
