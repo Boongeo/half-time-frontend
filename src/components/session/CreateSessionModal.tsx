@@ -1,19 +1,9 @@
-import { ChangeEvent, FormEvent } from "react";
-import { SessionFormData } from "@/types/core/mentoring";
 import { Modal } from "@/components/common/Modal";
 import { Input } from "@/components/common/Input";
 import { Select } from "@/components/common/Select";
 import { Button } from "@/components/common/Button";
 import MentoringTimeSettings from "@/components/mentoring/MentoringTimeSettings";
-
-interface CreateSessionModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    formData: SessionFormData;
-    onInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-    onTimeChange: (times: Array<{ day: string; times: string[]; duration: number }>) => void;
-    onSubmit: (e: FormEvent) => void;
-}
+import {CreateSessionModalProps} from "@/types/components/sessionProps";
 
 export function CreateSessionModal({
    isOpen,

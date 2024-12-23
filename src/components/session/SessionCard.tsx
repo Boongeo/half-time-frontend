@@ -1,13 +1,6 @@
-import { Session, MenteeApplication } from "@/types/core/mentoring";
 import { Calendar, Video, Users, Clock, MapPin } from "lucide-react";
 import {getSessionTypeLabel, formatScheduleDisplay, getGroupCount} from "@/lib/utils/session";
-
-interface SessionCardProps {
-    session: Session;
-    isSelected: boolean;
-    applications: MenteeApplication[];
-    onClick: () => void;
-}
+import {SessionCardProps} from "@/types/components/sessionProps";
 
 export function SessionCard({ session, isSelected, applications, onClick }: SessionCardProps) {
     const getBadgeStyles = (type: 'individual' | 'group') => {
