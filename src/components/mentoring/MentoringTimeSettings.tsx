@@ -16,11 +16,8 @@ export default function MentoringTimeSettings({ availableTime, onChange }: Mento
     const [durationError, setDurationError] = useState<string>("");
     const days = ['월', '화', '수', '목', '금', '토', '일'];
 
-    // 30분 단위로 시간 슬롯 생성
-    const timeSlots = Array.from({ length: 45 }, (_, i) => {
-        const hour = Math.floor(i / 2);
-        const minute = i % 2 === 0 ? "00" : "30";
-        return `${String(hour).padStart(2, '0')}:${minute}`;
+    const timeSlots = Array.from({ length: 24 }, (_, i) => {
+        return `${String(i).padStart(2, '0')}:00`;
     });
 
     const handleDayClick = (day: string) => {
