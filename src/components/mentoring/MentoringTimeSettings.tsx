@@ -204,14 +204,16 @@ export default function MentoringTimeSettings({ availableTime, onChange }: Mento
                             .sort((a, b) => days.indexOf(a.day) - days.indexOf(b.day))
                             .map(({day, times, duration}) => (
                                 <div key={day} className="flex">
-                                    <div className="shrink-0 w-14 h-14 rounded-full text-gray-600 bg-gray-100 flex items-center justify-center font-medium">
+                                    <div
+                                        className="shrink-0 w-14 h-14 rounded-full text-gray-600 bg-gray-100 flex items-center justify-center font-medium">
                                         {day}
                                     </div>
-                                    <div className="flex-1 ml-4 flex items-center min-w-0 bg-gray-50 rounded-lg p-4">
-                                        <p className="truncate text-gray-600 text-sm font-light">
-                                            {times.sort().map(time =>
-                                                `${time}~${calculateEndTime(time, duration)}`
-                                            ).join(', ')}
+                                    <div className="flex-1 ml-4 min-w-0 bg-gray-50 rounded-lg p-4">
+                                        <p className="text-gray-600 text-sm font-light break-words">
+                                            {times
+                                                .sort()
+                                                .map(time => `${time}~${calculateEndTime(time, duration)}`)
+                                                .join(', ')}
                                         </p>
                                     </div>
                                 </div>
