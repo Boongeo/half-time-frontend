@@ -8,7 +8,7 @@ export const mockSessions: Session[] = [
         method: "online",
         link: "https://zoom.us/j/123456789",
         type: "group",
-        maxParticipants: 6,
+        maxParticipants: 3,
         duration: 120,
         availableDays: [
             {
@@ -70,7 +70,7 @@ export const mockMentorings: Mentoring[] = [
         ],
         status: "open",
         currentParticipantCount: 2,
-        maxParticipantCount: 6
+        maxParticipantCount: 3
     },
     {
         id: 2,
@@ -89,7 +89,7 @@ export const mockMentorings: Mentoring[] = [
         ],
         status: "open",
         currentParticipantCount: 1,
-        maxParticipantCount: 6
+        maxParticipantCount: 3
     },
     {
         id: 3,
@@ -102,7 +102,22 @@ export const mockMentorings: Mentoring[] = [
                 status: "confirmed"
             }
         ],
-        status: "completed",
+        status: "full",
+        currentParticipantCount: 1,
+        maxParticipantCount: 1
+    },
+    {
+        id: 4,
+        sessionId: 2,
+        date: "2024-12-31",
+        time: "20:30",
+        participants: [
+            {
+                menteeId: 107,
+                status: "pending"
+            }
+        ],
+        status: "full",
         currentParticipantCount: 1,
         maxParticipantCount: 1
     }
@@ -115,7 +130,7 @@ export const mockMenteeApplications: MenteeApplication[] = [
         mentee: {
             id: 101,
             name: "김시후",
-            profileImage: undefined,
+            profileImage: null,
             interest: "프론트엔드 개발"
         },
         message: "React와 TypeScript 실무 활용법을 배우고 싶습니다.",
@@ -129,7 +144,7 @@ export const mockMenteeApplications: MenteeApplication[] = [
         mentee: {
             id: 102,
             name: "이하준",
-            profileImage: undefined,
+            profileImage: null,
             interest: "웹 개발"
         },
         message: "실무에서 자주 사용되는 React 패턴을 학습하고 싶습니다.",
@@ -143,7 +158,7 @@ export const mockMenteeApplications: MenteeApplication[] = [
         mentee: {
             id: 103,
             name: "박서연",
-            profileImage: undefined,
+            profileImage: null,
             interest: "프론트엔드 개발"
         },
         message: "TypeScript 고급 기능 활용법을 배우고 싶습니다.",
@@ -157,7 +172,7 @@ export const mockMenteeApplications: MenteeApplication[] = [
         mentee: {
             id: 104,
             name: "최준우",
-            profileImage: undefined,
+            profileImage: null,
             interest: "React"
         },
         message: "저녁 시간대 수업을 듣고 싶습니다.",
@@ -171,7 +186,7 @@ export const mockMenteeApplications: MenteeApplication[] = [
         mentee: {
             id: 105,
             name: "정도현",
-            profileImage: undefined,
+            profileImage: null,
             interest: "웹 개발"
         },
         message: "TypeScript 기초부터 배우고 싶습니다.",
@@ -185,12 +200,26 @@ export const mockMenteeApplications: MenteeApplication[] = [
         mentee: {
             id: 106,
             name: "강지원",
-            profileImage: undefined,
+            profileImage: null,
             interest: "백엔드 개발"
         },
         message: "이직을 위한 기술 면접 준비를 하고 있습니다.",
-        status: "pending",
+        status: "approved",
         appliedAt: "2024-12-21T10:00:00Z",
         paymentStatus: "paid"
+    },
+    {
+        id: 7,
+        mentoringId: 4,
+        mentee: {
+            id: 107,
+            name: "전병준",
+            profileImage: null,
+            interest: "백엔드 개발"
+        },
+        message: "아 멘토링 로직 개빡세다;;",
+        status: "pending",
+        appliedAt: "2024-12-21T10:00:00Z",
+        paymentStatus: "pending"
     }
 ];
