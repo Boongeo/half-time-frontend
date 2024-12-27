@@ -1,15 +1,3 @@
-import {Mentoring, Session} from "@/types/core/mentoring";
-
-export interface ReviewStats {
-    averageRating: number;
-    totalReviews: number;
-    responseRate: number;
-    unrespondedReviews: number;
-    monthlyReviews: number;
-    reviewGrowth: number;
-    recommendRate: number;
-}
-
 export interface Mentee {
     name: string;
     profileImage: string | null;
@@ -17,22 +5,56 @@ export interface Mentee {
 
 export interface Review {
     id: number;
-    sessionId: number;          // 세션 ID
-    mentoringId: number;        // 멘토링 ID 추가
+    mentoringId: number;
     mentee: {
-        id: number;             // menteeId 추가
+        id: number;
         name: string;
         profileImage: string | null;
     };
     rating: number;
-    positives: string;
-    improvements: string;
+    content: string;
+    tags: string[];
     reply: string | null;
-    isReported: boolean;
-    createdAt: string;         // 리뷰 작성 시간
+    status: 'published' | 'hidden' | 'reported';
+    createdAt: string;
+    updatedAt: string;
 }
 
-export interface ReviewWithDetails extends Review {
-    session: Session;
-    mentoring: Mentoring;
+export interface ReviewStats {
+    averageRating: number;
+    totalReviews: number;
+    responseRate: number;
+    topTags: Array<{
+        tag: string;
+        count: number;
+    }>;
+    monthlyStats: Array<{
+        month: string;
+        rating: number;
+        reviewCount: number;
+    }>;
+}
+
+export interface ReviewWithMentoring {
+    id: number;
+    mentoringId: number;
+    mentee: {
+        id: number;
+        name: string;
+        profileImage: string | null;
+    };
+    rating: number;
+    content: string;
+    tags: string[];
+    reply: string | null;
+    status: 'published' | 'hidden' | 'reported';
+    createdAt: string;
+    updatedAt: string;
+    mentoring: {
+        date: string;
+        time: string;
+        type: 'individual' | 'group';
+        method: 'online' | 'offline';
+        title: string;
+    };
 }
