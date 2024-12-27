@@ -1,6 +1,6 @@
 import { Calendar, Video, Users, Clock, MapPin } from "lucide-react";
-import {getSessionTypeLabel, formatScheduleDisplay, getGroupCount} from "@/lib/utils/session";
 import {SessionCardProps} from "@/types/components/sessionProps";
+import {MenteeApplication} from "@/types/core/mentoring";
 
 export function SessionCard({ session, isSelected, applications, onClick }: SessionCardProps) {
     const getBadgeStyles = (type: 'individual' | 'group') => {
@@ -41,6 +41,21 @@ export function SessionCard({ session, isSelected, applications, onClick }: Sess
             : 'text-rose-600';
     };
 
+    const formatAvailableDays = () => {
+        return session.availableDays
+            .map(schedule => `${schedule.day} (${schedule.times.length}타임)`)
+            .join(', ');
+    };
+
+    const getSessionTypeLabel = (type: 'individual' | 'group', maxParticipants?: number) => {
+        if (type === 'individual') return '1:1 멘토링';
+        return `그룹 멘토링 (${maxParticipants}인)`;
+    };
+
+    const getGroupApplicationCount = (applications: MenteeApplication[]) => {
+        return new Set(applications.map(app => app.mentoringId)).size;
+    };
+
     return (
         <div
             className={`p-4 cursor-pointer transition-colors
@@ -59,7 +74,7 @@ export function SessionCard({ session, isSelected, applications, onClick }: Sess
             <div className="space-y-1.5">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Calendar className="w-4 h-4"/>
-                    <span className="truncate">{formatScheduleDisplay(session.availableTime)}</span>
+                    <span className="truncate">{formatAvailableDays()}</span>
                 </div>
                 <div className={`flex items-center gap-2 text-sm ${getMethodClass()}`}>
                     {getMethodIcon()}
@@ -67,17 +82,17 @@ export function SessionCard({ session, isSelected, applications, onClick }: Sess
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Clock className="w-4 h-4"/>
-                    <span>세션 {session.availableTime[0].duration}분</span>
+                    <span>세션 {session.duration}분</span>
                 </div>
                 {session.type === 'group' ? (
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                         <Users className="w-4 h-4"/>
                         <span>
                             <span className="text-green-600">
-                                {getGroupCount(applications.filter(app => app.status === 'approved'))}개 그룹 확정
+                                {getGroupApplicationCount(applications.filter(app => app.status === 'approved'))}개 그룹 확정
                             </span>
                             <span className="text-yellow-600 ml-1">
-                                {getGroupCount(applications.filter(app => app.status === 'pending'))}개 그룹 대기
+                                {getGroupApplicationCount(applications.filter(app => app.status === 'pending'))}개 그룹 대기
                             </span>
                         </span>
                     </div>
@@ -104,7 +119,7 @@ export function SessionCard({ session, isSelected, applications, onClick }: Sess
                 <div className="flex items-center gap-3">
                     <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full">
                        {session.type === 'group'
-                           ? `신청 ${getGroupCount(applications)}개 그룹`
+                           ? `신청 ${getGroupApplicationCount(applications)}개 그룹`
                            : `신청 ${applications.length}명`
                        }
                     </span>

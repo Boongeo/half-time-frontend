@@ -1,238 +1,196 @@
-import { Session, MenteeApplication } from "@/types/core/mentoring";
+import { Session, Mentoring, MenteeApplication } from "@/types/core/mentoring";
 
 export const mockSessions: Session[] = [
     {
         id: 1,
-        title: "React와 TypeScript로 실전 웹 개발 배우기",
-        description: "React와 TypeScript를 활용한 웹 개발의 기초부터 실전까지 배워봅시다. 실무에서 자주 사용되는 패턴과 구조에 대해 알아봅니다.",
-        availableTime: [
+        title: "React와 TypeScript로 배우는 실전 웹 개발",
+        description: "React와 TypeScript를 활용한 웹 개발의 기초부터 실전까지 다룹니다. 실무에서 자주 사용되는 패턴과 구조를 익히고 실제 프로젝트에 적용하는 방법을 배웁니다.",
+        method: "online",
+        link: "https://zoom.us/j/123456789",
+        type: "group",
+        maxParticipants: 6,
+        duration: 120,
+        availableDays: [
             {
                 day: "월",
-                times: ["10:00", "14:00", "16:00"],
-                duration: 90
+                times: ["10:00", "14:00", "20:00"]
             },
             {
                 day: "수",
-                times: ["14:00", "16:00"],
-                duration: 90
+                times: ["14:00", "20:00"]
             }
         ],
         price: 50000,
-        type: 'group',
-        maxParticipants: 4,
-        method: 'online',
-        link: 'https://us04web.zoom.us/j/12345678901'
+        createdAt: "2024-12-20T00:00:00Z",
+        updatedAt: "2024-12-20T00:00:00Z"
     },
     {
         id: 2,
-        title: "Spring Boot로 배우는 백엔드 개발",
-        description: "Spring Boot를 활용한 백엔드 개발의 A to Z를 배워봅시다. JPA, Security 등 실무에 필요한 내용을 다룹니다.",
-        availableTime: [
+        title: "백엔드 개발자 이직 준비 A to Z",
+        description: "백엔드 개발자 이직을 위한 전략적 접근법을 다룹니다. 기술 면접 준비부터 시스템 디자인, 이력서 작성까지 모든 과정을 다룹니다.",
+        method: "offline",
+        location: "서울 강남구 테헤란로 123",
+        type: "individual",
+        duration: 90,
+        availableDays: [
             {
                 day: "화",
-                times: ["13:00", "15:00"],
-                duration: 120
+                times: ["19:00", "20:30"]
             },
             {
                 day: "목",
-                times: ["13:00", "15:00", "17:00"],
-                duration: 120
+                times: ["19:00", "20:30"]
             }
         ],
-        price: 60000,
-        type: 'group',
-        maxParticipants: 6,
-        method: 'offline',
-        location: '서울시 강남구 테헤란로 123 왕굼 스터디카페 2층'
+        price: 100000,
+        createdAt: "2024-12-21T00:00:00Z",
+        updatedAt: "2024-12-21T00:00:00Z"
+    }
+];
+
+export const mockMentorings: Mentoring[] = [
+    {
+        id: 1,
+        sessionId: 1,
+        date: "2024-12-25",
+        time: "14:00",
+        participants: [
+            {
+                menteeId: 101,
+                status: "confirmed"
+            },
+            {
+                menteeId: 102,
+                status: "confirmed"
+            },
+            {
+                menteeId: 103,
+                status: "pending"
+            }
+        ],
+        status: "open",
+        currentParticipantCount: 2,
+        maxParticipantCount: 6
+    },
+    {
+        id: 2,
+        sessionId: 1,
+        date: "2024-12-25",
+        time: "20:00",
+        participants: [
+            {
+                menteeId: 104,
+                status: "confirmed"
+            },
+            {
+                menteeId: 105,
+                status: "pending"
+            }
+        ],
+        status: "open",
+        currentParticipantCount: 1,
+        maxParticipantCount: 6
     },
     {
         id: 3,
-        title: "Node.js 백엔드 심화 멘토링",
-        description: "Node.js와 Express를 활용한 서버 개발, 데이터베이스 설계, 성능 최적화 등을 다룹니다.",
-        availableTime: [
+        sessionId: 2,
+        date: "2024-12-26",
+        time: "19:00",
+        participants: [
             {
-                day: "수",
-                times: ["19:00", "20:00"],
-                duration: 60
-            },
-            {
-                day: "금",
-                times: ["19:00", "20:00"],
-                duration: 60
+                menteeId: 106,
+                status: "confirmed"
             }
         ],
-        price: 55000,
-        type: 'individual',
-        maxParticipants: 1,
-        method: 'online',
-        link: 'https://us04web.zoom.us/j/98765432109'
+        status: "completed",
+        currentParticipantCount: 1,
+        maxParticipantCount: 1
     }
 ];
 
 export const mockMenteeApplications: MenteeApplication[] = [
-    // 그룹 세션 1 (12/25 14:00)
     {
         id: 1,
-        sessionId: 1,
+        mentoringId: 1,
         mentee: {
-            id: 1,
-            name: "김멘티",
-            profileImage: "",
-            interest: "프론트엔드 개발자",
+            id: 101,
+            name: "김시후",
+            profileImage: undefined,
+            interest: "프론트엔드 개발"
         },
-        status: "pending",
-        preferredDate: "2024-12-25",
-        preferredTime: "14:00",
-        message: "React와 TypeScript 학습 방법에 대해 조언을 구하고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
+        message: "React와 TypeScript 실무 활용법을 배우고 싶습니다.",
+        status: "approved",
+        appliedAt: "2024-12-20T10:00:00Z",
+        paymentStatus: "paid"
     },
     {
         id: 2,
-        sessionId: 1,
+        mentoringId: 1,
         mentee: {
-            id: 2,
-            name: "이멘티",
-            profileImage: "",
-            interest: "백엔드 개발자",
+            id: 102,
+            name: "이하준",
+            profileImage: undefined,
+            interest: "웹 개발"
         },
-        status: "pending",
-        preferredDate: "2024-12-25",
-        preferredTime: "14:00",
-        message: "프론트엔드 개발자로 전향하고 싶어서 상담받고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
+        message: "실무에서 자주 사용되는 React 패턴을 학습하고 싶습니다.",
+        status: "approved",
+        appliedAt: "2024-12-20T11:00:00Z",
+        paymentStatus: "paid"
     },
-    // 그룹 세션 2 (12/27 16:00)
     {
         id: 3,
-        sessionId: 1,
+        mentoringId: 1,
         mentee: {
-            id: 3,
-            name: "박멘티",
-            profileImage: "",
-            interest: "프론트엔드 개발자",
+            id: 103,
+            name: "박서연",
+            profileImage: undefined,
+            interest: "프론트엔드 개발"
         },
-        status: "pending",
-        preferredDate: "2024-12-30",
-        preferredTime: "16:00",
-        message: "실무에서 자주 사용되는 React 패턴들을 배우고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
+        message: "TypeScript 고급 기능 활용법을 배우고 싶습니다.",
+        status: "approved",
+        appliedAt: "2024-12-20T12:00:00Z",
+        paymentStatus: "pending"
     },
     {
         id: 4,
-        sessionId: 1,
+        mentoringId: 2,
         mentee: {
-            id: 4,
-            name: "최멘티",
-            profileImage: "",
-            interest: "풀스택 개발자",
+            id: 104,
+            name: "최준우",
+            profileImage: undefined,
+            interest: "React"
         },
+        message: "저녁 시간대 수업을 듣고 싶습니다.",
         status: "pending",
-        preferredDate: "2024-12-30",
-        preferredTime: "16:00",
-        message: "타입스크립트 고급 기능 활용법을 배우고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
+        appliedAt: "2024-12-20T14:00:00Z",
+        paymentStatus: "paid"
     },
     {
         id: 5,
-        sessionId: 1,
+        mentoringId: 2,
         mentee: {
-            id: 5,
-            name: "정멘티",
-            profileImage: "",
-            interest: "프론트엔드 개발자",
+            id: 105,
+            name: "정도현",
+            profileImage: undefined,
+            interest: "웹 개발"
         },
+        message: "TypeScript 기초부터 배우고 싶습니다.",
         status: "pending",
-        preferredDate: "2024-12-30",
-        preferredTime: "16:00",
-        message: "실제 프로젝트에서의 상태관리 전략에 대해 논의하고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'pending'
+        appliedAt: "2024-12-20T15:00:00Z",
+        paymentStatus: "pending"
     },
-    {
-        id: 8,
-        sessionId: 1,
-        mentee: {
-            id: 9,
-            name: "이혜린",
-            profileImage: "",
-            interest: "프론트엔드 개발자",
-        },
-        status: "pending",
-        preferredDate: "2024-12-30",
-        preferredTime: "16:00",
-        message: "실제 프로젝트에서의 상태관리 전략에 대해 논의하고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'pending'
-    },
-
-    {
-        id: 11,
-        sessionId: 2,
-        mentee: {
-            id: 13,
-            name: "박유주",
-            profileImage: "",
-            interest: "프론트엔드 개발자",
-        },
-        status: "pending",
-        preferredDate: "2024-12-26",
-        preferredTime: "14:00",
-        message: "아 백엔드 어려워요~",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
-    },
-
-    // 1:1 세션 신청들
     {
         id: 6,
-        sessionId: 3,
+        mentoringId: 3,
         mentee: {
-            id: 6,
-            name: "한멘티",
-            profileImage: "",
-            interest: "백엔드 개발자",
+            id: 106,
+            name: "강지원",
+            profileImage: undefined,
+            interest: "백엔드 개발"
         },
+        message: "이직을 위한 기술 면접 준비를 하고 있습니다.",
         status: "pending",
-        preferredDate: "2024-12-27",
-        preferredTime: "19:00",
-        message: "Node.js 성능 최적화와 모니터링 방법에 대해 배우고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
-    },
-    {
-        id: 7,
-        sessionId: 3,
-        mentee: {
-            id: 7,
-            name: "송멘티",
-            profileImage: "",
-            interest: "백엔드 개발자",
-        },
-        status: "pending",
-        preferredDate: "2025-01-01",
-        preferredTime: "19:00",
-        message: "대용량 트래픽 처리를 위한 서버 아키텍처 설계 방법을 상담받고 싶습니다.",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'pending'
-    },
-    {
-        id: 9,
-        sessionId: 3,
-        mentee: {
-            id: 8,
-            name: "전병준",
-            profileImage: "",
-            interest: "백엔드 개발자",
-        },
-        status: "pending",
-        preferredDate: "2025-01-01",
-        preferredTime: "20:00",
-        message: "와우 너무 기대돼용~",
-        appliedAt: new Date().toISOString(),
-        paymentStatus: 'paid'
+        appliedAt: "2024-12-21T10:00:00Z",
+        paymentStatus: "paid"
     }
 ];

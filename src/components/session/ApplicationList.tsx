@@ -6,7 +6,8 @@ import {IndividualApplications} from "@/components/session/IndividualApplication
 
 export function ApplicationList({
     session,
-    applications,
+    application,
+    mentoring,
     onClose,
     onApprove,
     onReject
@@ -27,21 +28,23 @@ export function ApplicationList({
 
             <SessionInfo session={session} />
 
-            {applications.length === 0 ? (
+            {application.length === 0 ? (
                 <div className="text-center py-8 text-gray-500">
                     아직 신청한 멘티가 없습니다
                 </div>
             ) : session.type === 'group' ? (
                 <GroupApplications
                     session={session}
-                    applications={applications}
+                    application={application}
+                    mentoring={mentoring}
                     onApprove={onApprove}
                     onReject={onReject}
                 />
             ) : (
                 <IndividualApplications
                     session={session}
-                    applications={applications}
+                    application={application}
+                    mentoring={mentoring}
                     onApprove={onApprove}
                     onReject={onReject}
                 />

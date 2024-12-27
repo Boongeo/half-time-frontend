@@ -1,60 +1,86 @@
-import {MenteeApplication, SessionType, TimeSchedule} from "@/types/core/mentoring";
+import {MenteeApplication, Mentoring} from "@/types/core/mentoring";
+import _ from "lodash";
 
 interface TimeSlotGroup {
     date: string;
     time: string;
+    mentoring: Mentoring;
     applications: MenteeApplication[];
 }
 
-export const getSessionTypeLabel = (type: SessionType, maxParticipants: number) => {
-    return type === 'individual' ? '1:1 멘토링' : `그룹 멘토링 (최대 ${maxParticipants}명)`;
-};
+export const groupApplicationsByMentoring = (
+    applications: MenteeApplication[],
+    mentorings: Map<number, Mentoring>
+): TimeSlotGroup[] => {
+    const applicationsByMentoring = _.groupBy(applications, 'mentoringId');
 
-export const formatScheduleDisplay = (availableTime: TimeSchedule[]) => {
-    if (!availableTime.length) return '시간 미설정';
-    return availableTime
-        .map(schedule => `${schedule.day}요일 (${schedule.times.length}타임)`)
-        .join(', ');
-};
+    const groups = Object.entries(applicationsByMentoring)
+        .map(([mentoringId, mentorApps]) => {
+            const mentoring = mentorings.get(Number(mentoringId));
+            if (!mentoring) return null;
 
-// 신청을 날짜/시간별로 그룹화
-export const groupApplicationsByTimeSlot = (applications: MenteeApplication[]): TimeSlotGroup[] => {
-    const groups: { [key: string]: TimeSlotGroup } = {};
-
-    applications.forEach(app => {
-        const key = `${app.preferredDate}-${app.preferredTime}`;
-        if (!groups[key]) {
-            groups[key] = {
-                date: app.preferredDate,
-                time: app.preferredTime,
-                applications: []
+            return {
+                date: mentoring.date,
+                time: mentoring.time,
+                mentoring,
+                applications: mentorApps
             };
-        }
-        groups[key].applications.push(app);
-    });
+        })
+        .filter((group): group is TimeSlotGroup => group !== null);
 
-    // 날짜순, 시간순으로 정렬
-    return Object.values(groups).sort((a, b) => {
-        const dateCompare = a.date.localeCompare(b.date);
-        if (dateCompare !== 0) return dateCompare;
-        return a.time.localeCompare(b.time);
-    });
+    return _.sortBy(groups, ['date', 'time']);
 };
 
 // 시간대별 그룹 수 계산
-export const getGroupCount = (applications: MenteeApplication[]): number => {
-    return Object.keys(
-        applications.reduce((groups: { [key: string]: MenteeApplication[] }, app) => {
-            const key = `${app.preferredDate}-${app.preferredTime}`;
-            groups[key] = [...(groups[key] || []), app];
-            return groups;
-        }, {})
-    ).length;
+export const getGroupCount = (mentorings: Mentoring[]): number => {
+    return new Set(mentorings.map(m => `${m.date}-${m.time}`)).size;
 };
 
-// 세션 타임 포맷 함수
-export const formatSessionTime = (time: string, duration: number) => {
+// 시간 포맷 함수
+export const formatMentoringTime = (time: string, duration: number) => {
     const [hours, minutes] = time.split(':').map(Number);
-    const endTime = new Date(2024, 0, 1, hours, minutes + duration);
-    return `${time}~${endTime.getHours().toString().padStart(2, '0')}:${endTime.getMinutes().toString().padStart(2, '0')}`;
+    const startDate = new Date(2024, 0, 1, hours, minutes);
+    const endDate = new Date(startDate.getTime() + duration * 60000);
+
+    return `${time}~${endDate.getHours().toString().padStart(2, '0')}:${endDate.getMinutes().toString().padStart(2, '0')}`;
+};
+
+// 날짜 포맷 함수
+export const formatMentoringDate = (date: string): string => {
+    return new Date(date).toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'short'
+    });
+};
+
+// 멘토링 상태에 따른 뱃지 스타일 반환
+export const getMentoringStatusStyle = (status: Mentoring['status']) => {
+    switch (status) {
+        case 'open':
+            return 'bg-green-50 text-green-600';
+        case 'full':
+            return 'bg-yellow-50 text-yellow-600';
+        case 'completed':
+            return 'bg-gray-50 text-gray-600';
+        default:
+            return 'bg-gray-50 text-gray-600';
+    }
+};
+
+// 결제 상태에 따른 뱃지 스타일 반환
+export const getPaymentStatusStyle = (status: MenteeApplication['paymentStatus']) => {
+    switch (status) {
+        case 'paid':
+            return 'bg-green-50 text-green-600';
+        case 'pending':
+            return 'bg-yellow-50 text-yellow-600';
+        case 'refunded':
+            return 'bg-gray-50 text-gray-600';
+        case 'failed':
+            return 'bg-red-50 text-red-600';
+        default:
+            return 'bg-gray-50 text-gray-600';
+    }
 };

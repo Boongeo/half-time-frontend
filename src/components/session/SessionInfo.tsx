@@ -1,5 +1,5 @@
 import { Video, MapPin, CalendarDays } from "lucide-react";
-import { formatSessionTime } from "@/lib/utils/session";
+import { formatMentoringTime } from "@/lib/utils/session";
 import {SessionInfoProps} from "@/types/components/sessionProps";
 
 export function SessionInfo({ session }: SessionInfoProps) {
@@ -42,7 +42,7 @@ export function SessionInfo({ session }: SessionInfoProps) {
                     <h3 className="font-medium text-sm mt-1">예약 가능 시간</h3>
                 </div>
                 <div className="space-y-2">
-                    {session.availableTime.map((schedule) => (
+                    {session.availableDays.map((schedule) => (
                         <div key={schedule.day} className="flex items-center gap-2">
                             <span className="ml-1 w-6 font-medium text-gray-600">
                                 {schedule.day}
@@ -53,7 +53,7 @@ export function SessionInfo({ session }: SessionInfoProps) {
                                         key={time}
                                         className="px-2 py-1 bg-white rounded text-sm text-gray-600 border"
                                     >
-                                        {formatSessionTime(time, schedule.duration)}
+                                        {formatMentoringTime(time, session.duration)}
                                     </span>
                                 ))}
                             </div>

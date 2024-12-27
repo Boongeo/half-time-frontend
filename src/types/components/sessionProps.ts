@@ -1,9 +1,10 @@
-import {MenteeApplication, Session, SessionFormData} from "../core/mentoring";
+import {MenteeApplication, Mentoring, Session, SessionFormData} from "../core/mentoring";
 import {ChangeEvent, FormEvent} from "react";
 
 export interface ApplicationListProps {
     session: Session;
-    applications: MenteeApplication[];
+    application: MenteeApplication[];
+    mentoring: Map<number, Mentoring>
     onClose: () => void;
     onApprove?: (applicationId: number) => void;
     onReject?: (applicationId: number) => void;
@@ -18,7 +19,7 @@ export interface CreateSessionModalProps {
     onClose: () => void;
     formData: SessionFormData;
     onInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-    onTimeChange: (times: Array<{ day: string; times: string[]; duration: number }>) => void;
+    onTimeChange: (days: Array<{ day: string; times: string[]; }>) => void;
     onSubmit: (e: FormEvent) => void;
 }
 
