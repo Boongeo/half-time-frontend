@@ -45,7 +45,7 @@ export function IndividualApplications({
                                     <div key={application.id} className="p-4 hover:bg-gray-50">
                                         {/* 신청자 기본 정보 */}
                                         <div className="flex items-center gap-3 mb-3">
-                                            {application.mentee.profileImage !== undefined ? (
+                                            {application.mentee.profileImage ? (
                                                 <img
                                                     src={application.mentee.profileImage}
                                                     alt={application.mentee.name}

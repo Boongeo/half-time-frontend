@@ -41,7 +41,7 @@ export interface MenteeApplication {
     mentee: {                       // 멘티 정보
         id: number;
         name: string;
-        profileImage?: string;
+        profileImage: string | null;
         interest: string;
     };
     message: string;                                // 신청 메시지
