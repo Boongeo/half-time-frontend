@@ -83,7 +83,7 @@ export default function MentorSessionPage() {
     };
 
     return (
-        <div className="flex flex-col h-full pb-6">
+        <div className="flex flex-col h-full">
             {/* 헤더 */}
             <div className="flex items-center justify-between px-6 py-4 bg-white border-b shrink-0">
                 <div>
@@ -98,7 +98,7 @@ export default function MentorSessionPage() {
             </div>
 
             {/* 메인 컨텐츠 */}
-            <div className="flex h-[calc(100vh-270px)]">
+            <div className="flex">
                 {/* 왼쪽 세션 목록 */}
                 <div className="w-[40%] border-r bg-white overflow-y-auto">
                     <div className="divide-y">
