@@ -1,17 +1,16 @@
 'use client';
 
 import { useState, useEffect, forwardRef } from 'react';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { CalendarProps } from 'react-calendar';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
-import { mockBookings } from '@/lib/mocks/bookings';
-import { Booking, BookingsForDate } from '@/types/core/booking';
-import {CalendarValue} from "@/types/components/mentorProps";
+import { myMenteeApplications } from '@/lib/mocks/myBookings';
+import { CalendarValue } from "@/types/components/mentorProps";
 
 export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref) => {
     const [date, setDate] = useState<CalendarValue>(new Date());
     const today = new Date().toDateString(); // 오늘 날짜
-    const [appointments, setAppointments] = useState<BookingsForDate | null>(null);
+    const [appointments, setAppointments] = useState<any[] | null>(null);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null); // 클릭된 날짜 저장
     const router = useRouter();
 
@@ -24,9 +23,12 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
     const filterAppointments = (selectedDate: Date) => {
         // UTC 기준으로 날짜를 YYYY-MM-DD 형식으로 변환
         const dateStr = new Date(Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()))
-            .toISOString().split('T')[0];
-        const foundAppointments = mockBookings.find((booking) => booking.date === dateStr);
-        setAppointments(foundAppointments || { date: dateStr, bookings: [] }); // 해당 날짜의 예약 정보 필터링
+            .toISOString()
+            .split('T')[0];  // "2024-12-25" 형식으로 변환
+
+        // 예약 정보에서 해당 날짜의 예약을 필터링
+        const foundAppointments = myMenteeApplications.filter((application) => application.preferredDate === dateStr);
+        setAppointments(foundAppointments.length > 0 ? foundAppointments : null); // 해당 날짜의 예약 정보 필터링
     };
 
 
@@ -85,7 +87,6 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
 
     const weekRange = getWeekRange(new Date(date as Date));
 
-
     return (
         <div ref={ref} className="p-8 mr-12 mt-12 border-[2px] rounded-xl">
             <div className="flex justify-between items-center mb-4">
@@ -93,7 +94,7 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                     onClick={() => navigateWeek('prev')}
                     className="flex justify-center items-center w-6 h-6 bg-themeColor text-white rounded-full"
                 >
-                    <ChevronLeft/>
+                    <ChevronLeft />
                 </button>
                 <span className="text-lg text-gray-800 font-semibold">
                     {weekRange.start} - {weekRange.end}
@@ -102,7 +103,7 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                     onClick={() => navigateWeek('next')}
                     className="flex justify-center items-center w-6 h-6 bg-themeColor text-white rounded-full"
                 >
-                    <ChevronRight/>
+                    <ChevronRight />
                 </button>
             </div>
 
@@ -114,8 +115,8 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                     return (
                         <div
                             key={index}
-                            className={`text-center text-themeColor cursor-pointer 
-                                ${isSelected ? 'font-bold' : ''} 
+                            className={`text-center text-themeColor cursor-pointer
+                                ${isSelected ? 'font-bold' : ''}
                                 ${isToday ? 'bg-gray-300 text-white rounded-md ' : ''}
                             `}
                             onClick={() => handleDateClick(date)} // 클릭 시 handleDateClick 호출
@@ -123,7 +124,7 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                             <div>{date.getDate()}</div>
                             {/* 날짜만 출력 */}
                             <div className="text-sm text-gray-500">
-                                {date.toLocaleString('en-US', {weekday: 'short'})}
+                                {date.toLocaleString('en-US', { weekday: 'short' })}
                             </div>
                         </div>
                     );
@@ -131,20 +132,22 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
             </div>
 
             <div className="mt-4">
-                {selectedDate ? (  // 날짜를 선택했는지 확인
-                    appointments && appointments.bookings && appointments.bookings.length > 0 ? (  // 예약이 있는지 확인
+                {selectedDate ? (
+                    appointments && appointments.length > 0 ? (
                         <ul className="list-disc space-y-2">
-                            {appointments.bookings.map((booking: Booking, index: number) => (
-                                <li key={index}
-                                    onClick={() => router.push(`/booking/${booking.id}`)}
-                                    className="flex justify-between items-center bg-blue-50 rounded-md px-1 py-4 cursor-pointer">
+                            {appointments.map((application: any, index: number) => (
+                                <li
+                                    key={index}
+                                    onClick={() => router.push(`/booking/${application.id}`)}
+                                    className="flex justify-between items-center bg-blue-50 rounded-md px-1 py-4 cursor-pointer"
+                                >
                                     <div className="flex flex-row items-center">
-                                        <Calendar className="w-8 h-6 text-themeColor ml-2 mr-4"/>
+                                        <Calendar className="w-8 h-6 text-themeColor ml-2 mr-4" />
                                         <div className="flex flex-col">
-                                            <span
-                                                className="text-md text-gray-600 font-semibold">{booking.subject}</span>
-                                            <span className="mt-1 text-sm text-gray-500">Mentor: {booking.mentor}</span>
-                                            <span className="text-sm text-gray-500">Time: {booking.time}</span>
+                                            <span className="text-md text-gray-600 font-semibold">{application.sessionTitle}</span>
+                                            <span className="mt-1 text-sm text-gray-500">Mento: {application.mentoInfo.name}</span>
+                                            <span className="text-sm text-gray-500">Time: {application.preferredTime}</span>
+                                            <span className="text-sm text-gray-500">Payment: {application.paymentStatus}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -152,8 +155,8 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                         </ul>
                     ) : (
                         <div>
-                            <p className="text-md text-gray-600 font-semibold">No bookings for this day</p>
-                            <p onClick={() => router.push(`/explore`)} className="mt-2 text-md text-green-800 font-bold underline cursor-pointer">
+                            <p className="text-md text-gray-500 font-medium">No bookings for this day</p>
+                            <p onClick={() => router.push(`/explore`)} className="mt-2 text-md text-green-800 font-semibold underline cursor-pointer">
                                 Explore more
                             </p>
                         </div>
@@ -162,8 +165,6 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                     <p>Select a date to see the bookings.</p>
                 )}
             </div>
-
-
         </div>
     );
 });
