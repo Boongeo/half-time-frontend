@@ -1,12 +1,14 @@
 'use client'
 
-import { sideItems } from "@/config/sidebar";
+import {defaultSideItems, mentorSideItems} from "@/config/sidebar";
 import {usePathname} from "next/navigation";
 import Link from "next/link";
 import {cn} from "@/lib/utils/cn";
 
 export const Sidebar = () => {
     const pathname = usePathname();
+    const isMentorPath = pathname.startsWith("/mentor");
+    const sideItems = isMentorPath ? mentorSideItems : defaultSideItems;
 
     return (
         <nav className="fixed left-0 bg-white border-r px-2 pt-8 w-[80px] h-full overflow-y-auto shadow-none">

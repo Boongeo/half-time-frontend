@@ -18,7 +18,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(({
         'transition-colors duration-200',
         'focus-visible:outline-none',
         'disabled:cursor-not-allowed disabled:opacity-50',
-        'text-gray-400',
+        'text-gray-600',
         'rounded-xl'
     );
 

@@ -1,30 +1,36 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import {Footer} from "@/components/layout/Footer";
+import {usePathname} from 'next/navigation';
 import {Header} from "@/components/layout/Header";
 import {Sidebar} from "@/components/layout/Sidebar";
-import {Footer} from "@/components/layout/Footer";
+import {cn} from "@/lib/utils/cn";
 
-export default function MainLayout({ children, }: { children: React.ReactNode }) {
-    const pathname = usePathname()
-    const showSidebar = pathname !== '/'
+export default function MentorRegistrationLayout({ children, }: { children: React.ReactNode; }) {
+    const pathname = usePathname();
+    const showSidebar = !pathname.startsWith('/mentor/registration') && !pathname.startsWith('/mentor/status');
 
     return (
-        <div className="min-h-screen flex flex-col bg-white">
+        <div className="min-h-screen bg-white flex flex-col overflow-hidden">
             <div className="fixed top-0 left-0 right-0 z-50">
                 <Header/>
             </div>
-            <div className="flex-1 flex pt-[90px]">
+            <div className="flex flex-1 h-[calc(100vh-140px)] pt-[90px] pb-[50px]">
                 {showSidebar && (
                     <aside className="fixed left-0 w-[80px] h-full -mt-[2px]">
                         <Sidebar/>
                     </aside>
                 )}
-                <main className={`flex-1 ${showSidebar ? 'pl-[80px]' : ''}`}>
+                <main className={cn(
+                    "flex-1 container mx-auto px-4 pt-2 overflow-hidden",
+                    showSidebar ? "ml-[80px]" : ""
+                )}>
                     {children}
                 </main>
             </div>
-            <Footer/>
+            <div className="fixed bottom-0 left-0 right-0">
+                <Footer/>
+            </div>
         </div>
-    )
+    );
 }

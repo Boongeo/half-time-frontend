@@ -37,8 +37,8 @@ export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputPro
     const sizes = {
         sm: 'h-8 px-3 text-sm',
         md: 'h-10 px-3 text-sm',
-        lg: 'h-12 px-4 text-base',
-        xl: 'h-18 px-4 text-base',
+        lg: 'h-12 px-4 text-sm',
+        xl: 'h-18 px-4 text-sm',
     };
 
     if (multiline) {
@@ -57,7 +57,8 @@ export const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputPro
                         sizes[inputSize],
                         error && 'border-red-500 focus-visible:ring-red-500',
                         className,
-                        'resize-none'
+                        'resize-none',
+                        'py-3'
                     )}
                     ref={ref as React.RefObject<HTMLTextAreaElement>}
                     rows={rows}
