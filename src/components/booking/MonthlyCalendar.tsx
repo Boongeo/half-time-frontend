@@ -1,7 +1,8 @@
+'use client';
+
 import { useState, forwardRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { format, addMonths, startOfMonth, endOfMonth, eachDayOfInterval, startOfWeek, endOfWeek } from 'date-fns';
-import { toZonedTime } from 'date-fns-tz';
 
 interface MonthlyCalendarProps {
     availableDates: string[];
@@ -12,9 +13,10 @@ interface MonthlyCalendarProps {
 export const MonthlyCalendar = forwardRef<HTMLDivElement, MonthlyCalendarProps>(({
                                                                                      availableDates,
                                                                                      onDateClick,
-                                                                                     selectedDate
+                                                                                     selectedDate,
                                                                                  }, ref) => {
-    const [currentMonth, setCurrentMonth] = useState(toZonedTime(new Date(), 'Asia/Seoul')); // 한국 시간
+    const [currentMonth, setCurrentMonth] = useState(() => new Date());
+    const weekDays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     // 월 변경 핸들러
     const handleMonthChange = (direction: 'prev' | 'next') => {
@@ -27,13 +29,13 @@ export const MonthlyCalendar = forwardRef<HTMLDivElement, MonthlyCalendarProps>(
         const startOfMonthDate = startOfMonth(month);
         const endOfMonthDate = endOfMonth(month);
 
-        // const dates = eachDayOfInterval({ start: startOfMonthDate, end: endOfMonthDate });
+        // 주의 시작과 끝을 계산
+        const startOfWeekDate = startOfWeek(startOfMonthDate, { weekStartsOn: 0 });
+        const endOfWeekDate = endOfWeek(endOfMonthDate, { weekStartsOn: 0 });
 
-        // 첫 주의 빈칸 채우기 (달력의 시작일을 일요일로 맞춤)
-        const startOfWeekDate = startOfWeek(startOfMonthDate);
-        const endOfWeekDate = endOfWeek(endOfMonthDate);
+        const dates = eachDayOfInterval({ start: startOfWeekDate, end: endOfWeekDate });
 
-        return eachDayOfInterval({ start: startOfWeekDate, end: endOfWeekDate });
+        return dates;
     };
 
     const monthDates = generateMonthDates(currentMonth);
@@ -60,7 +62,7 @@ export const MonthlyCalendar = forwardRef<HTMLDivElement, MonthlyCalendarProps>(
 
             {/* 요일 헤더 */}
             <div className="grid grid-cols-7 gap-2 mb-2 text-center text-gray-500 font-semibold">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
+                {weekDays.map((day, index) => (
                     <div key={index}>{day}</div>
                 ))}
             </div>

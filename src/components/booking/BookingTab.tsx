@@ -1,142 +1,185 @@
-import React from "react";
-import { Select } from "@/components/common/Select";
+import React, { useState, useEffect } from "react";
+import { Calendar, Clock, MessageCircle } from "lucide-react";
+import { useMentoring } from "@/lib/hooks/useMentoring";
+import { Modal } from "@/components/common/Modal";
 import { Button } from "@/components/common/Button";
 import { MonthlyCalendar } from "@/components/booking/MonthlyCalendar";
-import { useBooking } from "@/lib/hooks/useBooking";
-import { Globe, MapPin, Laptop, NotebookPen } from "lucide-react";
 
-const BookingTab: React.FC = () => {
+interface AvailableDate {
+    date: string; // "YYYY-MM-DD" 형태
+    times: string[]; // 가능한 시간 배열
+}
+
+export default function BookingTab() {
     const {
-        selectedMentoring,
-        selectedDate,
-        selectedMentoringData,
-        bookedTimeSlot,
-        bookingStatus,
+        selectMentoring,
         totalMentoringData,
-        availableDates,
-        handleSubjectClick,
-        handleDateClick,
-        handleTimeSlotClick,
-        setBookingStatus,
-        bookMentoring,
-    } = useBooking();
+        isModalOpen,
+        setIsModalOpen,
+        getAvailableDates,
+        selectedMentoringId,
+        selectedMentoringTime,
+        setSelectedMentoringTime,
+    } = useMentoring();
 
-    const handleBookClick = async () => {
-        if (!selectedMentoring || !selectedDate || !bookedTimeSlot) {
-            alert("모든 예약 정보를 선택해주세요.");
-            return;
+    const [availableDates, setAvailableDates] = useState<AvailableDate[]>([]); // 올바른 타입 지정
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [availableTimes, setAvailableTimes] = useState<string[]>([]);
+    const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        if (selectedMentoringId) {
+            const dates = getAvailableDates(selectedMentoringId); // 선택된 Session ID에 따라 가능한 날짜를 가져옴
+            setAvailableDates(dates);
         }
+    }, [selectedMentoringId]);
 
-        setBookingStatus("loading");
-
-        // 예약 처리 호출
-        await bookMentoring();
-
-        if (bookingStatus === "success") {
-            alert("예약이 완료되었습니다!");
-        } else if (bookingStatus === "error") {
-            alert("예약에 실패했습니다. 다시 시도해주세요.");
+    const handleDateClick = (date: string) => {
+        const selected = availableDates.find((d) => d.date === date);
+        if (selected) {
+            setSelectedDate(date);
+            setAvailableTimes(selected.times); // `times`로 업데이트
         }
     };
 
+    const handleSubmit = async () => {
+        if (!selectedDate || !selectedMentoringId || !selectedMentoringTime || !message) {
+            console.error("모든 필드를 입력하세요.");
+            return;
+        }
+
+        const requestData = {
+            mentoringId: selectedMentoringId,
+            date: selectedDate,
+            time: selectedMentoringTime,
+            message: message,
+        };
+
+        try {
+            const response = await fetch("/api/mentoring/apply", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            if (!response.ok) {
+                throw new Error("신청에 실패했습니다.");
+            }
+
+            // const result = await response.json();
+            alert("멘토링 신청이 완료되었습니다.");
+            setIsModalOpen(false);
+        } catch (error) {
+            alert("멘토링 신청 중 문제가 발생했습니다.");
+        }
+    };
+
+
     return (
         <div>
-            <div className="w-full flex flex-row items-center gap-4">
-                <div
-                    className="px-4 py-2 mb-4 bg-gray-100 rounded-xl flex gap-2 justify-center items-center hover:bg-gray-300 transition-all duration-300 cursor-pointer">
-                    <NotebookPen className="w-6 h-6 text-gray-800" />
-                    <p className="text-lg font-semibold text-gray-800">멘토링</p>
-                </div>
-                <div className="mb-4">
-                    <Select
-                        value={selectedMentoring || ''}
-                        onChange={(e) => handleSubjectClick(e.target.value)}
-                        options={
-                            Array.isArray(totalMentoringData)
-                                ? totalMentoringData.map((mentoring) => ({
-                                    label: mentoring.subject,
-                                    value: mentoring.id,
-                                }))
-                                : []
-                        }
-                        placeholder="멘토링 선택"
-                    />
+            <h4 className="mb-4 text-lg font-semibold text-gray-800">멘토링</h4>
 
-                </div>
+            {/* 멘토링 과목 카드 목록 */}
+            <div className="flex flex-col gap-4">
+                {Array.isArray(totalMentoringData) &&
+                    totalMentoringData.map((mentoring) => (
+                        <div
+                            key={mentoring.id}
+                            className="p-4 mb-4 border rounded-lg bg-white shadow-sm hover:shadow-md cursor-pointer"
+                            onClick={() => {
+                                selectMentoring(mentoring.id, mentoring); // 선택된 멘토링 데이터 업데이트
+                                setIsModalOpen(true); // 모달 열기
+                            }}
+                        >
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="text-lg font-medium text-gray-800">{mentoring.title}</h3>
+                                <span className="px-2 py-1 rounded-full text-sm bg-blue-100 text-blue-600">
+                  {mentoring.type === "group" ? "그룹" : "개인"}
+                </span>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">{mentoring.description}</p>
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <Calendar className="w-4 h-4" />
+                                    {mentoring.availableTime.map((day) => (
+                                        <span key={day.day}>{day.day}</span>
+                                    ))}
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <Clock className="w-4 h-4" />
+                                    <span>{mentoring.availableTime[0]?.times.join(", ")}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                    <MessageCircle className="w-4 h-4" />
+                                    <span>{`가격: ${mentoring.price}원`}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
             </div>
 
-            {selectedMentoring && (
-                <div className="p-4 border rounded mt-4">
-                    <div className="flex flex-row gap-4">
-                        <MonthlyCalendar
-                            availableDates={availableDates}
-                            onDateClick={handleDateClick}
-                            selectedDate={selectedDate}
-                        />
+            {/* Modal */}
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title="멘토링 신청"
+                description="멘토링 일정을 선택하고 메시지를 입력하세요."
+            >
+                <div>
+                    {/* 달력 컴포넌트 */}
+                    <div className="mb-4">
+                        <h5 className="mb-2 text-gray-600">일정 선택</h5>
+                        <div className="border rounded p-4">
+                            <MonthlyCalendar
+                                availableDates={availableDates.map((d) => d.date)} // ["YYYY-MM-DD"]
+                                onDateClick={handleDateClick}
+                                selectedDate={selectedDate}
+                            />
+                        </div>
                         {selectedDate && (
                             <div className="mt-4">
-                                <div>
-                                    <h2 className="w-fit px-4 py-1 rounded-full font-semibold bg-themeColor text-white-100 text-lg mb-4">
-                                        {selectedMentoringData?.subject}
-                                    </h2>
-                                    <div className="flex flex-col gap-2 mb-8">
-                                        <div
-                                            className="flex items-center gap-2 bg-gray-200 text-gray-900 w-fit p-2 rounded-md">
-                                            <Globe className="text-gray-900" />
-                                            <h2 className="text-gray-900">
-                                                {selectedMentoringData?.language}
-                                            </h2>
-                                        </div>
-                                        <div
-                                            className="flex items-center gap-2 bg-gray-200 text-gray-900 w-fit p-2 rounded-md">
-                                            <MapPin className="text-gray-900" />
-                                            <h2 className="text-gray-900">
-                                                {selectedMentoringData?.location}
-                                            </h2>
-                                        </div>
-                                        <div
-                                            className="flex items-center gap-2 bg-gray-200 text-gray-900 w-fit p-2 rounded-md">
-                                            <Laptop className="text-gray-900" />
-                                            <h2 className="text-gray-900">
-                                                {selectedMentoringData?.method}
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h4 className="text-gray-700 font-semibold mt-4 ">
-                                    {selectedDate} 예약 가능 시간
-                                </h4>
-                                <div className="grid grid-cols-4 gap-2 mt-2">
-                                    {selectedMentoringData?.bookings
-                                        .find((booking) => booking.date === selectedDate)
-                                        ?.timeSlots.map((timeSlot) => (
-                                            <button
-                                                key={timeSlot.time}
-                                                onClick={() => handleTimeSlotClick(timeSlot.time)}
-                                                className={`p-2 border rounded ${
-                                                    bookedTimeSlot === timeSlot.time
-                                                        ? 'bg-themeColor text-white'
-                                                        : 'bg-white text-gray-700'
-                                                } cursor-pointer transition-colors duration-200`}
-                                            >
-                                                {timeSlot.time} <br /> ({timeSlot.students.length}명)
-                                            </button>
-                                        ))}
-                                    {bookedTimeSlot && (
-                                        <div className="w-full flex items-end justify-end">
-                                            <Button onClick={handleBookClick} disabled={bookingStatus === "loading"}>
-                                                {bookingStatus === "loading" ? "예약 중..." : "예약하기"}
-                                            </Button>
-                                        </div>
-                                    )}
+                                <h6 className="mb-2 text-gray-600">가능한 시간</h6>
+                                <div className="flex flex-wrap gap-2">
+                                    {availableTimes.map((time) => (
+                                        <Button
+                                            key={time}
+                                            variant="secondary"
+                                            className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+                                            onClick={() => setSelectedMentoringTime(time)}
+                                        >
+                                            {time}
+                                        </Button>
+                                    ))}
                                 </div>
                             </div>
                         )}
                     </div>
+
+                    {/* 메시지 입력 */}
+                    <div className="mb-4">
+                        <h5 className="mb-2 text-gray-600">메시지</h5>
+                        <textarea
+                            className="w-full h-24 border rounded p-2 text-sm text-gray-600"
+                            placeholder="멘토에게 보낼 메시지를 입력하세요."
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        />
+                    </div>
+
+                    {/* 신청 버튼 */}
+                    <Button
+                        className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        onClick={() => {
+                            handleSubmit();
+                            setIsModalOpen(false);
+                        }}
+                    >
+                        신청하기
+                    </Button>
                 </div>
-            )}
+            </Modal>
         </div>
     );
-};
-
-export default BookingTab;
+}

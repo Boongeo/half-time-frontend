@@ -10,7 +10,7 @@ export function MentorCard({ mentor }: MentorCardProps) {
     const router = useRouter();
 
     const handleMentorClick = (id: number) => {
-        router.push(`/mentor/${id}`);
+        router.push(`/mentoring/${id}`);
     };
 
     return (
