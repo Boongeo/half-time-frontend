@@ -25,14 +25,14 @@ export default function MentorDetailClient({ mentor }: { mentor: Mentor }) {
                 <Tabs
                     tabs={tabs}
                     selectedTab={selectedTab}
-                    onTabSelect={(value) => setSelectedTab(value)}
+                    onTabSelect={(value: string) => setSelectedTab(value)}
                 />
             </div>
 
             {/* 탭 컨텐츠 */}
-            <div className="mt-4">
+            <div className="">
                 {selectedTab === "info" ? (
-                    <div className="flex flex-col px-4 gap-6">
+                    <div className="flex flex-col gap-6">
                         <MentorInfoTab mentor={mentor}/>
 
                         <BookingTab />

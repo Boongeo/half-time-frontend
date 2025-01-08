@@ -1,11 +1,29 @@
-export const getMentoringList = async () => {
-    const response = await fetch(`/api/mentorings}`, {
-        method: 'GET'
+export const getMentoringList = async (status?: string) => {
+    const response = await fetch(`/api/mentorings`, {
+        method: 'GET',
     });
 
-    if (!response.ok) throw new Error('Failed to fetch mentoring list');
+    if (!response.ok) {
+        throw new Error('Failed to fetch mentoring list');
+    }
+
     return response.json();
 };
+
+export const getBookingList = async (status?: string) => {
+    const url = status ? `/api/bookings/${status}` : `/api/bookings`;
+
+    const response = await fetch(url, {
+        method: 'GET',
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch mentoring list');
+    }
+
+    return response.json();
+};
+
 
 export const bookMentoring = async (bookingData: { subject: string; date: string; timeSlot: string; studentId: number }) => {
     const response = await fetch('/api/booking', {
