@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {Session, MenteeApplication, myBookingApplication} from "@/types/core/mentoring";
+import {Session, MenteeApplication, BookingApplication} from "@/types/core/mentoring";
 import { BookingService } from "@/lib/services/bookingService";
 import { mockSessions } from "@/lib/mocks/sessions";
 
@@ -10,7 +10,7 @@ export const useMentoring = () => {
     const [selectedMentoringTime, setSelectedMentoringTime] = useState<string | null>(null);
     const [bookingMessage, setBookingMessage] = useState<string | null>(null);
     const [totalMentoringData, setTotalMentoringData] = useState<Session[] | null>(null);
-    const [menteeApplications, setMenteeApplications] = useState<myBookingApplication[] | null>(null);
+    const [menteeApplications, setMenteeApplications] = useState<BookingApplication[] | null>(null);
     const [selectedStatus, setSelectedStatus] = useState('pending');
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +48,7 @@ export const useMentoring = () => {
             date.setDate(today.getDate() + i); // 복사된 날짜를 1일씩 증가시킴
 
             const dayName = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
-            const availability = session.availableTime.find((time) => time.day === dayName);
+            const availability = session.availableDays.find((time) => time.day === dayName);
 
             if (availability) {
                 dates.push({
