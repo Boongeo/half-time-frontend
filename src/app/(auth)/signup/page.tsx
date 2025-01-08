@@ -11,8 +11,9 @@ import {AuthDivider} from "@/components/auth/AuthDivider";
 import {AuthHeader} from "@/components/auth/AuthHeader";
 import {PasswordRequirements} from "@/components/auth/PasswordRequirements";
 import {PasswordMatch} from "@/components/auth/PasswordMatch";
+import { Suspense } from 'react';
 
-function SignupPage() {
+function SignupContent() {
     const {
         form,
         errors,
@@ -157,6 +158,14 @@ function SignupPage() {
                 </Button>
             </form>
         </div>
+    );
+}
+
+function SignupPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <SignupContent />
+        </Suspense>
     );
 }
 
