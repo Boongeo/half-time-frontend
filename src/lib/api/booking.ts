@@ -1,4 +1,4 @@
-export const getMentoringList = async (status?: string) => {
+export const getMentoringList = async () => {
     const response = await fetch(`/api/mentorings`, {
         method: 'GET',
     });

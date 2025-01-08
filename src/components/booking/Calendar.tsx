@@ -6,11 +6,13 @@ import { CalendarProps } from 'react-calendar';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { myMenteeApplications } from '@/lib/mocks/myBookings';
 import { CalendarValue } from "@/types/components/mentorProps";
+import {BookingApplication} from "@/types/core/mentoring";
+import {getSessionTitle} from "@/lib/utils/session";
 
 export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref) => {
     const [date, setDate] = useState<CalendarValue>(new Date());
     const today = new Date().toDateString(); // 오늘 날짜
-    const [appointments, setAppointments] = useState<any[] | null>(null);
+    const [appointments, setAppointments] = useState<BookingApplication[] | null>(null);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null); // 클릭된 날짜 저장
     const router = useRouter();
 
@@ -135,7 +137,7 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                 {selectedDate ? (
                     appointments && appointments.length > 0 ? (
                         <ul className="list-disc space-y-2">
-                            {appointments.map((application: any, index: number) => (
+                            {appointments.map((application: BookingApplication, index: number) => (
                                 <li
                                     key={index}
                                     onClick={() => router.push(`/booking/${application.id}`)}
@@ -144,8 +146,8 @@ export const MyCalendar = forwardRef<HTMLDivElement, CalendarProps>((props, ref)
                                     <div className="flex flex-row items-center">
                                         <Calendar className="w-8 h-6 text-themeColor ml-2 mr-4" />
                                         <div className="flex flex-col">
-                                            <span className="text-md text-gray-600 font-semibold">{application.sessionTitle}</span>
-                                            <span className="mt-1 text-sm text-gray-500">Mento: {application.mentoInfo.name}</span>
+                                            <span className="text-md text-gray-600 font-semibold">{getSessionTitle(application.sessionId)}</span>
+                                            <span className="mt-1 text-sm text-gray-500">Mento: {application.mentorInfo.name}</span>
                                             <span className="text-sm text-gray-500">Time: {application.preferredTime}</span>
                                             <span className="text-sm text-gray-500">Payment: {application.paymentStatus}</span>
                                         </div>
