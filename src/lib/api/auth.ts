@@ -1,9 +1,13 @@
 import {AuthResponse, ApiResponse, CheckEmailResponse, VerifyCodeResponse, VerifyEmailResponse} from "@/types/api";
+import {getBaseUrl} from "@/lib/utils/api";
+
+const baseUrl = getBaseUrl();
 
 export const authApi = {
     // 이메일 존재 여부 확인
     checkEmail: async (email: string): Promise<CheckEmailResponse> => {
-        const response = await fetch('/api/auth/check-email', {
+        const url = new URL('/api/auth/check-email', baseUrl);
+        const response = await fetch(url.toString(), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
@@ -14,7 +18,8 @@ export const authApi = {
 
     // 이메일 인증 코드 요청
     requestVerification: async (email: string): Promise<VerifyEmailResponse> => {
-        const response = await fetch('/api/auth/request-verification', {
+        const url = new URL('/api/auth/request-verification', baseUrl);
+        const response = await fetch(url.toString(), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
@@ -25,7 +30,8 @@ export const authApi = {
 
     // 인증 코드 확인
     verifyCode: async (params: { email: string; verificationToken: number; }): Promise<VerifyCodeResponse> => {
-        const response = await fetch(`/api/auth/verify-code/${params.verificationToken}`, {
+        const url = new URL(`/api/auth/verify-code/${params.verificationToken}`, baseUrl);
+        const response = await fetch(url.toString(), {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: params.email })
@@ -36,7 +42,8 @@ export const authApi = {
 
     // 로그인
     signIn: async (data: {email: string, password: string}): Promise<ApiResponse<AuthResponse>> => {
-        const response = await fetch('/api/auth/signin', {
+        const url = new URL('/api/auth/signin', baseUrl);
+        const response = await fetch(url.toString(), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -47,7 +54,8 @@ export const authApi = {
 
     // 회원가입
     signUp: async (data: {email: string, password: string, verificationToken: number}): Promise<ApiResponse<AuthResponse>> => {
-        const response = await fetch('/api/auth/signup', {
+        const url = new URL('/api/auth/signup', baseUrl);
+        const response = await fetch(url.toString(), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -58,14 +66,15 @@ export const authApi = {
 
     // 소셜 로그인
     initialOAuth: async (provider: string): Promise<string> => {
-        const response = await fetch(`/api/auth/${provider}`, {
+        const url = new URL(`/api/auth/${provider}`, baseUrl);
+        const response = await fetch(url.toString(), {
             method: 'GET',
             credentials: 'include'
         });
 
         if (!response.ok) throw new Error('Failed to initiate OAuth');
 
-        const { url } = await response.json();
-        return url;
+        const { url: redirectUrl } = await response.json();
+        return redirectUrl;
     }
 };
