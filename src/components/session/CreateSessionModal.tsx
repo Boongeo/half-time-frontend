@@ -123,6 +123,24 @@ export function CreateSessionModal({
                         )}
 
                         <div className="space-y-2">
+                            <label className="text-sm font-medium text-gray-600">세션 시간</label>
+                            <div className="flex items-center gap-2">
+                                <Input
+                                    name="duration"
+                                    type="number"
+                                    value={formData.duration}
+                                    onChange={onInputChange}
+                                    placeholder="분 단위로 입력하세요"
+                                    required
+                                    className="w-48"
+                                />
+                                <span className="text-gray-500 text-sm">
+                                    분
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-600">세션당 가격</label>
                             <div className="flex items-center gap-2">
                                 <Input
@@ -137,8 +155,8 @@ export function CreateSessionModal({
                                     className="w-48"
                                 />
                                 <span className="text-gray-500 text-sm">
-                                    원 / {formData.type === 'group' ? '인당' : '세션'}
-                                </span>
+                                원 / {formData.type === 'group' ? '인당' : '세션'}
+                            </span>
                             </div>
                         </div>
                     </div>
@@ -148,7 +166,8 @@ export function CreateSessionModal({
                         <label className="text-sm font-medium text-gray-600">진행 가능 시간 </label>
                         <p className="text-sm text-gray-500">멘토링 진행이 가능한 요일과 시간을 선택해주세요.</p>
                         <MentoringTimeSettings
-                            availableTime={formData.availableTime}
+                            availableDays={formData.availableDays}
+                            duration={formData.duration ? Number(formData.duration) : 60}
                             onChange={onTimeChange}
                         />
                     </div>
@@ -164,7 +183,7 @@ export function CreateSessionModal({
                     </Button>
                     <Button
                         type="submit"
-                        disabled={!formData.availableTime.length}
+                        disabled={!formData.availableDays.length}
                     >
                         세션 만들기
                     </Button>

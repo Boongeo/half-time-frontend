@@ -1,15 +1,16 @@
 import { CalendarDays, CheckCircle, XCircle, User } from "lucide-react";
 import { Button } from "@/components/common/Button";
-import {formatSessionTime, groupApplicationsByTimeSlot } from "@/lib/utils/session";
+import { formatMentoringTime, formatMentoringDate, groupApplicationsByMentoring, getPaymentStatusStyle } from "@/lib/utils/session";
 import {ApplicationListProps} from "@/types/components/sessionProps";
 
 export function GroupApplications({
   session,
-  applications,
+  application,
+  mentoring,
   onApprove,
   onReject
 }: Omit<ApplicationListProps, 'onClose'>) {
-    const timeSlotGroups = groupApplicationsByTimeSlot(applications);
+    const timeSlotGroups = groupApplicationsByMentoring(application, mentoring);
 
     return (
         <div className="space-y-6 text-gray-600">
@@ -18,7 +19,7 @@ export function GroupApplications({
                     app => app.paymentStatus === 'paid'
                 ).length;
                 const groupStatus = group.applications[0]?.status || 'pending';
-                const isGroupFull = group.applications.length >= (session.maxParticipants || 0);
+                const isGroupFull = group.applications.length >= group.mentoring.maxParticipantCount;
 
                 return (
                     <div
@@ -31,15 +32,10 @@ export function GroupApplications({
                                 <div className="flex items-center gap-2">
                                     <CalendarDays className="w-4 h-4 text-gray-500"/>
                                     <span className="font-medium">
-                                        {new Date(group.date).toLocaleDateString('ko-KR', {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric',
-                                            weekday: 'short'
-                                        })}
+                                        {formatMentoringDate(group.date)}
                                         {' '}
                                         <span className="border rounded px-1 py-0.5 text-sm text-gray-700 ml-2">
-                                            {formatSessionTime(group.time, session.availableTime[0].duration)}
+                                            {formatMentoringTime(group.time, session.duration)}
                                         </span>
                                     </span>
                                 </div>
@@ -50,7 +46,7 @@ export function GroupApplications({
                                             ? 'bg-red-50 text-red-600'
                                             : 'bg-blue-50 text-blue-600'
                                     }`}>
-                                        {isGroupFull ? '정원 마감' : `${group.applications.length}/${session.maxParticipants}명 신청`}
+                                        {isGroupFull ? '정원 마감' : `${group.applications.length}/${group.mentoring.maxParticipantCount}명 신청`}
                                     </span>
 
                                     {/* 결제 현황 뱃지 */}
@@ -91,9 +87,7 @@ export function GroupApplications({
                                             <div className="flex items-center justify-between">
                                                 <h4 className="font-medium">{application.mentee.name}</h4>
                                                 <span className={`text-xs px-2 py-0.5 rounded-full ${
-                                                    application.paymentStatus === 'paid'
-                                                        ? 'bg-green-50 text-green-600'
-                                                        : 'bg-yellow-50 text-yellow-600'
+                                                    getPaymentStatusStyle(application.paymentStatus)
                                                 }`}>
                                                     {application.paymentStatus === 'paid' ? '결제완료' : '결제대기'}
                                                 </span>
@@ -136,7 +130,7 @@ export function GroupApplications({
                                     </Button>
                                 </div>
                             ) : (
-                                <div className={`w-full px-3 py-2 rounded text-sm text-center ${
+                                <div className={`w-full px-3 py-2 rounded text-sm font-medium text-center ${
                                     groupStatus === 'approved'
                                         ? 'bg-green-50 text-green-600'
                                         : 'bg-red-50 text-red-600'

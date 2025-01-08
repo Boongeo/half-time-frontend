@@ -1,21 +1,22 @@
 'use client'
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Session, SessionFormData } from "@/types/core/mentoring";
+import {Session, SessionFormData} from "@/types/core/mentoring";
 import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/common/Button";
 import { SessionCard } from "@/components/session/SessionCard";
 import { CreateSessionModal } from "@/components/session/CreateSessionModal";
 import { ApplicationList } from "@/components/session/ApplicationList";
-import {mockMenteeApplications, mockSessions} from "@/lib/mocks/sessions";
+import {mockMentorings, mockMenteeApplications, mockSessions} from "@/lib/mocks/sessions";
 
 const initialFormData: SessionFormData = {
     title: '',
     description: '',
-    availableTime: [],
+    duration: '',
+    availableDays: [],
     price: '',
     type: 'individual',
-    maxParticipants: '1',
+    maxParticipants: '',
     method: 'online',
     location: '',
     link: ''
@@ -26,16 +27,17 @@ export default function MentorSessionPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSession, setSelectedSession] = useState<Session | null>(null);
     const [formData, setFormData] = useState<SessionFormData>(initialFormData);
+    const mentoringMap = new Map(mockMentorings.map(m => [m.id, m]));
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleTimeChange = (times: Array<{ day: string; times: string[]; duration: number }>) => {
+    const handleTimeChange = (days: Array<{ day: string; times: string[]; }>) => {
         setFormData(prev => ({
             ...prev,
-            availableTime: times
+            availableDays: days
         }));
     };
 
@@ -45,13 +47,16 @@ export default function MentorSessionPage() {
             id: Date.now(),
             title: formData.title,
             description: formData.description,
-            availableTime: formData.availableTime,
+            duration: Number(formData.duration),
+            availableDays: formData.availableDays,
             price: Number(formData.price),
             type: formData.type,
-            maxParticipants: Number(formData.maxParticipants),
+            maxParticipants: formData.type === 'group' ? Number(formData.maxParticipants) : undefined,
             method: formData.method,
             location: formData.method === 'offline' ? formData.location : undefined,
-            link: formData.method === 'online' ? formData.link : undefined
+            link: formData.method === 'online' ? formData.link : undefined,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
         };
         setSessions(prev => [...prev, newSession]);
         setFormData(initialFormData);
@@ -59,7 +64,12 @@ export default function MentorSessionPage() {
     };
 
     const getApplicationsBySession = (sessionId: number) => {
-        return mockMenteeApplications.filter(app => app.sessionId === sessionId);
+        // sessionId에 해당하는 멘토링들의 id 목록
+        const mentoringIds = Array.from(mentoringMap.values())
+            .filter(m => m.sessionId === sessionId)
+            .map(m => m.id);
+
+        return mockMenteeApplications.filter(app => mentoringIds.includes(app.mentoringId));
     };
 
     const handleApproveApplication = (applicationId: number) => {
@@ -73,7 +83,7 @@ export default function MentorSessionPage() {
     };
 
     return (
-        <div className="flex flex-col h-full pb-6">
+        <div className="flex flex-col h-full">
             {/* 헤더 */}
             <div className="flex items-center justify-between px-6 py-4 bg-white border-b shrink-0">
                 <div>
@@ -88,7 +98,7 @@ export default function MentorSessionPage() {
             </div>
 
             {/* 메인 컨텐츠 */}
-            <div className="flex h-[calc(100vh-270px)]">
+            <div className="flex">
                 {/* 왼쪽 세션 목록 */}
                 <div className="w-[40%] border-r bg-white overflow-y-auto">
                     <div className="divide-y">
@@ -109,7 +119,8 @@ export default function MentorSessionPage() {
                     {selectedSession ? (
                         <ApplicationList
                             session={selectedSession}
-                            applications={getApplicationsBySession(selectedSession.id)}
+                            application={getApplicationsBySession(selectedSession.id)}
+                            mentoring={mentoringMap}
                             onClose={() => setSelectedSession(null)}
                             onApprove={handleApproveApplication}
                             onReject={handleRejectApplication}
@@ -130,16 +141,6 @@ export default function MentorSessionPage() {
                     onSubmit={handleCreateSession}
                 />
             </div>
-
-            {/* 세션 생성 모달 */}
-            <CreateSessionModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                formData={formData}
-                onInputChange={handleInputChange}
-                onTimeChange={handleTimeChange}
-                onSubmit={handleCreateSession}
-            />
         </div>
     );
 }
