@@ -1,5 +1,6 @@
-import {MenteeApplication, Mentoring} from "@/types/core/mentoring";
+import {MenteeApplication, Mentoring, Session} from "@/types/core/mentoring";
 import _ from "lodash";
+import {mockSessions} from "@/lib/mocks/sessions";
 
 interface TimeSlotGroup {
     date: string;
@@ -83,4 +84,26 @@ export const getPaymentStatusStyle = (status: MenteeApplication['paymentStatus']
         default:
             return 'bg-gray-50 text-gray-600';
     }
+};
+
+export const getSessionById = (sessionId: number): Session | undefined => {
+    return mockSessions.find(session => session.id === sessionId);
+};
+
+export const getSessionTitle = (sessionId: number): string => {
+    const session = getSessionById(sessionId);
+    return session?.title ?? '제목 없음';
+};
+
+export const getSessionInfo = (sessionId: number) => {
+    const session = getSessionById(sessionId);
+    if (!session) return null;
+
+    return {
+        title: session.title,
+        description: session.description,
+        method: session.method,
+        type: session.type,
+        price: session.price,
+    };
 };

@@ -3,7 +3,7 @@
 import { useMentoring } from "@/lib/hooks/useMentoring";
 import Tabs from "@/components/common/Tabs/Tabs";
 import BookingCard from "@/components/booking/BookingCard";
-import { MenteeApplication } from "@/types/core/mentoring";
+import {ApplicationStatus} from "@/types/core/mentoring";
 
 const BookingPage: React.FC = () => {
     const { applications, selectedStatus, handleStatusTabClick } = useMentoring();
@@ -23,7 +23,7 @@ const BookingPage: React.FC = () => {
                 <Tabs
                     tabs={tabs}
                     selectedTab={selectedStatus}
-                    onTabSelect={(value: MenteeApplication["status"]) => handleStatusTabClick(value)}
+                    onTabSelect={(value) => handleStatusTabClick(value as ApplicationStatus)}
                 />
             </div>
             <div className="mt-8">

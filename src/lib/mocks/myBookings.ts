@@ -1,6 +1,6 @@
-import { myBookingApplication } from "@/types/core/mentoring";
+import { BookingApplication } from "@/types/core/mentoring";
 
-export const myMenteeApplications: myBookingApplication[] = [
+export const myMenteeApplications: BookingApplication[] = [
     {
         id: 1,
         sessionId: 1,
@@ -10,12 +10,12 @@ export const myMenteeApplications: myBookingApplication[] = [
             profileImage: "",
             interest: "프론트엔드 개발자",
         },
-        mentoInfo: {
+        mentorInfo: {
             id: 1,
             name: "이메토"
         },
-        sessionTitle: "React와 함께하는 프론트엔드 개발",
-        sessionDescription: "React와 상태 관리를 중심으로 학습합니다.",
+        // sessionTitle: "React와 함께하는 프론트엔드 개발",
+        // sessionDescription: "React와 상태 관리를 중심으로 학습합니다.",
         status: "approved", // 승인된 상태
         preferredDate: "2024-12-25",
         preferredTime: "14:00",
@@ -32,12 +32,12 @@ export const myMenteeApplications: myBookingApplication[] = [
             profileImage: "",
             interest: "백엔드 개발자",
         },
-        mentoInfo: {
+        mentorInfo: {
             id: 1,
             name: "이메토"
         },
-        sessionTitle: "Spring Boot로 배우는 백엔드 개발",
-        sessionDescription: "Spring Boot를 활용한 백엔드 개발의 A to Z를 배워봅시다.",
+        // sessionTitle: "Spring Boot로 배우는 백엔드 개발",
+        // sessionDescription: "Spring Boot를 활용한 백엔드 개발의 A to Z를 배워봅시다.",
         status: "pending", // 대기 상태
         preferredDate: "2024-12-26",
         preferredTime: "13:00",
@@ -54,12 +54,12 @@ export const myMenteeApplications: myBookingApplication[] = [
             profileImage: "",
             interest: "풀스택 개발자",
         },
-        mentoInfo: {
+        mentorInfo: {
             id: 1,
             name: "이메토"
         },
-        sessionTitle: "Node.js로 RESTful API 설계하기",
-        sessionDescription: "Node.js 기반으로 API 설계 방법과 실무 적용을 학습합니다.",
+        // sessionTitle: "Node.js로 RESTful API 설계하기",
+        // sessionDescription: "Node.js 기반으로 API 설계 방법과 실무 적용을 학습합니다.",
         status: "rejected", // 거절된 상태
         preferredDate: "2025-01-01",
         preferredTime: "19:00",
@@ -76,12 +76,12 @@ export const myMenteeApplications: myBookingApplication[] = [
             profileImage: "",
             interest: "프론트엔드 개발자",
         },
-        mentoInfo: {
+        mentorInfo: {
             id: 1,
             name: "이메토"
         },
-        sessionTitle: "React와 함께하는 프론트엔드 개발",
-        sessionDescription: "React와 상태 관리를 중심으로 학습합니다.",
+        // sessionTitle: "React와 함께하는 프론트엔드 개발",
+        // sessionDescription: "React와 상태 관리를 중심으로 학습합니다.",
         status: "pending", // 대기 상태
         preferredDate: "2024-12-30",
         preferredTime: "16:00",
@@ -98,13 +98,13 @@ export const myMenteeApplications: myBookingApplication[] = [
             profileImage: "",
             interest: "백엔드 개발자",
         },
-        mentoInfo: {
+        mentorInfo: {
             id: 1,
             name: "이메토"
         },
-        sessionTitle: "Spring Boot로 배우는 백엔드 개발",
-        sessionDescription: "Spring Boot를 활용한 백엔드 개발의 A to Z를 배워봅시다.",
-        status: "canceled", // 사용자가 취소한 상태
+        // sessionTitle: "Spring Boot로 배우는 백엔드 개발",
+        // sessionDescription: "Spring Boot를 활용한 백엔드 개발의 A to Z를 배워봅시다.",
+        status: "cancelled", // 사용자가 취소한 상태
         preferredDate: "2024-12-27",
         preferredTime: "15:00",
         message: "Spring Boot에서의 보안 설정 방법을 배우고 싶었습니다.",

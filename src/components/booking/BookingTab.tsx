@@ -4,6 +4,7 @@ import { useMentoring } from "@/lib/hooks/useMentoring";
 import { Modal } from "@/components/common/Modal";
 import { Button } from "@/components/common/Button";
 import { MonthlyCalendar } from "@/components/booking/MonthlyCalendar";
+import {BookingApplication} from "@/types/core/mentoring";
 
 interface AvailableDate {
     date: string; // "YYYY-MM-DD" 형태
@@ -48,10 +49,10 @@ export default function BookingTab() {
             return;
         }
 
-        const requestData = {
-            mentoringId: selectedMentoringId,
-            date: selectedDate,
-            time: selectedMentoringTime,
+        const requestData: Omit<BookingApplication, 'id' | 'mentee' | 'mentorInfo' | 'status' | 'appliedAt' | 'paymentStatus'> = {
+            sessionId: selectedMentoringId,
+            preferredDate: selectedDate,
+            preferredTime: selectedMentoringTime,
             message: message,
         };
 
@@ -71,7 +72,7 @@ export default function BookingTab() {
             // const result = await response.json();
             alert("멘토링 신청이 완료되었습니다.");
             setIsModalOpen(false);
-        } catch (error) {
+        } catch {
             alert("멘토링 신청 중 문제가 발생했습니다.");
         }
     };
@@ -84,36 +85,36 @@ export default function BookingTab() {
             {/* 멘토링 과목 카드 목록 */}
             <div className="flex flex-col gap-4">
                 {Array.isArray(totalMentoringData) &&
-                    totalMentoringData.map((mentoring) => (
+                    totalMentoringData.map((session) => (
                         <div
-                            key={mentoring.id}
+                            key={session.id}
                             className="p-4 mb-4 border rounded-lg bg-white shadow-sm hover:shadow-md cursor-pointer"
                             onClick={() => {
-                                selectMentoring(mentoring.id, mentoring); // 선택된 멘토링 데이터 업데이트
-                                setIsModalOpen(true); // 모달 열기
+                                selectMentoring(session.id, session);
+                                setIsModalOpen(true);
                             }}
                         >
                             <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-lg font-medium text-gray-800">{mentoring.title}</h3>
+                                <h3 className="text-lg font-medium text-gray-800">{session.title}</h3>
                                 <span className="px-2 py-1 rounded-full text-sm bg-blue-100 text-blue-600">
-                  {mentoring.type === "group" ? "그룹" : "개인"}
-                </span>
+                                    {session.type === "group" ? "그룹" : "개인"}
+                                </span>
                             </div>
-                            <p className="text-sm text-gray-600 mb-3">{mentoring.description}</p>
+                            <p className="text-sm text-gray-600 mb-3">{session.description}</p>
                             <div className="space-y-1">
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                     <Calendar className="w-4 h-4" />
-                                    {mentoring.availableTime.map((day) => (
-                                        <span key={day.day}>{day.day}</span>
+                                    {session.availableDays.map((schedule) => (
+                                        <span key={schedule.day}>{schedule.day}</span>
                                     ))}
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                     <Clock className="w-4 h-4" />
-                                    <span>{mentoring.availableTime[0]?.times.join(", ")}</span>
+                                    <span>{session.availableDays[0]?.times.join(", ")}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                     <MessageCircle className="w-4 h-4" />
-                                    <span>{`가격: ${mentoring.price}원`}</span>
+                                    <span>{`가격: ${session.price.toLocaleString()}원`}</span>
                                 </div>
                             </div>
                         </div>
