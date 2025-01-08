@@ -1,12 +1,14 @@
 import {MentorSearchParams} from "@/types/shared/params";
 import {ApiResponse, SearchResponse} from "@/types/api";
 import {Mentor} from "@/types/core/mentor";
+import {getBaseUrl} from "@/lib/utils/api";
+
+const baseUrl = getBaseUrl();
 
 export const mentorApi = {
     // 멘토 검색 API
     searchMentors: async (params: MentorSearchParams = {}): Promise<ApiResponse<SearchResponse>> => {
         const searchParams = new URLSearchParams();
-
         const appendParam = (
             key: string,
             value: string | number | string[] | undefined | null
@@ -29,7 +31,10 @@ export const mentorApi = {
         appendParam('page', params.page ?? 1);
         appendParam('limit', params.limit ?? 20);
 
-        const response = await fetch(`/api/mentors/search?${searchParams.toString()}`, {
+        const url = new URL(`/api/mentors/search`, baseUrl);
+        url.search = searchParams.toString();
+
+        const response = await fetch(url.toString(), {
             method: 'GET'
         });
 
@@ -39,7 +44,9 @@ export const mentorApi = {
 
     // 멘토 상세 정보 조회 API
     getMentor: async (mentorId: number): Promise<ApiResponse<Mentor>> => {
-        const response = await fetch(`/api/mentors/${mentorId}`, {
+        const url = new URL(`/api/mentors/${mentorId}`, baseUrl);
+
+        const response = await fetch(url.toString(), {
             method: 'GET',
             next: {
                 revalidate: 3600

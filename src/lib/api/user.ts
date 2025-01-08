@@ -1,11 +1,14 @@
 import {ApiResponse} from "@/types/api";
 import {useAuthStore} from "@/store/auth";
 import {User} from "@/types/core/user";
+import {getBaseUrl} from "@/lib/utils/api";
+
+const baseUrl = getBaseUrl();
 
 export const userApi = {
-    // 사용자 정보 등록
     register: async (formData: FormData) => {
-        const response = await fetch("/api/user/register", {
+        const url = new URL("/api/user/register", baseUrl);
+        const response = await fetch(url.toString(), {
             method: "POST",
             body: formData,
         });
@@ -14,10 +17,10 @@ export const userApi = {
         return response.json();
     },
 
-    // 현재 사용자 정보 조회
     getMe: async (): Promise<ApiResponse<User>> => {
+        const url = new URL('/api/user/me', baseUrl);
         const { accessToken } = useAuthStore.getState();
-        const response = await fetch('/api/user/me', {
+        const response = await fetch(url.toString(), {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }
@@ -27,10 +30,10 @@ export const userApi = {
         return response.json();
     },
 
-    // 사용자 프로필 업데이트
     updateProfile: async (formData: FormData): Promise<ApiResponse<User>> => {
+        const url = new URL('/api/user/me', baseUrl);
         const { accessToken } = useAuthStore.getState();
-        const response = await fetch('/api/user/me', {
+        const response = await fetch(url.toString(), {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${accessToken}`

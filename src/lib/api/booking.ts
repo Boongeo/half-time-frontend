@@ -1,5 +1,10 @@
+import {getBaseUrl} from "@/lib/utils/api";
+
+const baseUrl = getBaseUrl();
+
 export const getMentoringList = async () => {
-    const response = await fetch(`/api/mentorings`, {
+    const url = new URL(`/api/mentorings`, baseUrl);
+    const response = await fetch(url.toString(), {
         method: 'GET',
     });
 
@@ -11,9 +16,11 @@ export const getMentoringList = async () => {
 };
 
 export const getBookingList = async (status?: string) => {
-    const url = status ? `/api/bookings/${status}` : `/api/bookings`;
+    const baseUrl = getBaseUrl();
+    const path = status ? `/api/bookings/${status}` : `/api/bookings`;
+    const url = new URL(path, baseUrl);
 
-    const response = await fetch(url, {
+    const response = await fetch(url.toString(), {
         method: 'GET',
     });
 
@@ -23,7 +30,6 @@ export const getBookingList = async (status?: string) => {
 
     return response.json();
 };
-
 
 export const bookMentoring = async (bookingData: { subject: string; date: string; timeSlot: string; studentId: number }) => {
     const response = await fetch('/api/booking', {
