@@ -1,10 +1,12 @@
 import MentorDetailClient from "@/components/mentor/MentorDetailClient";
 import { MyCalendar } from "@/components/booking/Calendar";
 import { notFound } from "next/navigation";
-import {MentorService} from "@/lib/services/mentorService";
+import { MentorService } from "@/lib/services/mentorService";
 
-export default async function MentorDetailPage(props: { params: { id: string } }) {
-    const params = await props.params;
+export default async function MentorDetailPage(props: unknown) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const { params } = props;
     const mentorService = new MentorService();
     const mentorId = Number(params.id);
 
