@@ -8,7 +8,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
-    hasLogo?: boolean;
     hasMainTitle?: boolean;
     title?: string;
     subtitle?: string;

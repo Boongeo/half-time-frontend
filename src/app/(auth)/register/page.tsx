@@ -33,7 +33,7 @@ function RegisterPage() {
             {/* 카드 레이아웃 */}
             <div className="flex flex-wrap justify-center gap-8 max-w-[90%]">
                 {/* Nickname 입력 */}
-                <Card hasLogo={false} hasMainTitle={false} className="flex-1 min-w-[400px] max-w-[450px] h-auto gap-4">
+                <Card hasMainTitle={false} className="flex-1 min-w-[400px] max-w-[450px] h-auto gap-4">
                     <h3 className="text-xl font-medium mb-4">Enter your nickname</h3>
                     <form className="flex flex-col gap-4">
                         <Input
@@ -88,7 +88,7 @@ function RegisterPage() {
                 </Card>
 
                 {/* 관심사 선택 */}
-                <Card hasLogo={false} hasMainTitle={false} className="flex-1 min-w-[400px] max-w-[450px] h-auto gap-4">
+                <Card hasMainTitle={false} className="flex-1 min-w-[400px] max-w-[450px] h-auto gap-4">
                     <h3 className="text-xl font-medium mb-4">Select your interest</h3>
                     <form className="flex flex-col gap-4">
                         <Select
