@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { Card } from '@/components/common/Card';
-import { Calendar, Users, TrendingUp, CircleDollarSign, Star, Clock } from 'lucide-react';
+import { Calendar, Users, Star, CalendarClock, TrendingUp } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { MentorReviewSection } from '@/components/mentor-review/MentorReviewSection';
 import { mockStats } from '@/lib/mocks/mentor-reviews';
 import UpcomingSessions from '@/components/session/UpcomingSessions';
 
@@ -62,10 +61,13 @@ export default function MentorDashboard() {
                 {/* 수익 차트 */}
                 <Card fullWidth className="bg-gray-50">
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-lg font-semibold">월별 수익 추이</h2>
+                        <div className="flex items-center justify-between pb-2">
+                            <h2 className="text-lg font-semibold flex items-center gap-2">
+                                <TrendingUp className="w-5 h-5 text-themeColor"/>
+                                월별 수익 추이
+                            </h2>
                         </div>
-                        <div className="h-64">
+                        <div className="h-64 pr-2">
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart data={revenueData}>
                                     <CartesianGrid strokeDasharray="3 3"/>
@@ -77,6 +79,7 @@ export default function MentorDashboard() {
                                     <Tooltip
                                         contentStyle={{fontSize: '14px'}}
                                         labelStyle={{fontSize: '14px'}}
+                                        formatter={(value) => `${Number(value).toLocaleString()}원`}
                                     />
                                     <Line
                                         type="monotone"
@@ -85,7 +88,6 @@ export default function MentorDashboard() {
                                         name="수익"
                                         strokeWidth={2}
                                         dot={{r: 3}}
-                                        formatter={(value) => `${value.toLocaleString()}원`}
                                     />
                                 </LineChart>
                             </ResponsiveContainer>
@@ -96,10 +98,13 @@ export default function MentorDashboard() {
                 {/* 예정된 멘토링 */}
                 <Card fullWidth className="bg-gray-50">
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-lg font-semibold">예정된 멘토링</h2>
+                        <div className="flex items-center justify-between pb-2">
+                            <h2 className="text-lg font-semibold flex items-center gap-2">
+                                <CalendarClock className="w-5 h-5 text-themeColor"/>
+                                예정된 멘토링
+                            </h2>
                         </div>
-                        <UpcomingSessions />
+                        <UpcomingSessions/>
                     </div>
                 </Card>
             </div>

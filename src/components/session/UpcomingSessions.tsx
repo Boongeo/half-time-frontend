@@ -6,11 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from 'date-fns/locale';
 import { Clock } from 'lucide-react';
 import { mockSessions, mockMentorings } from '@/lib/mocks/sessions';
+import { Mentoring } from '@/types/core/mentoring';
 
 export default function UpcomingSessions() {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
-    // 멘토링이 있는 날짜들
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const mentoringDates = mockMentorings.map(mentoring => new Date(mentoring.date));
 
     const filteredMentorings = mockMentorings.filter(mentoring => {
@@ -18,7 +17,7 @@ export default function UpcomingSessions() {
         return mentoringDate.toDateString() === selectedDate.toDateString();
     });
 
-    const getMentoringWithSession = (mentoring) => {
+    const getMentoringWithSession = (mentoring: Mentoring) => {
         const session = mockSessions.find(s => s.id === mentoring.sessionId);
         return { ...mentoring, session };
     };
@@ -29,16 +28,16 @@ export default function UpcomingSessions() {
             <div className="bg-white rounded-lg border p-4">
                 <DatePicker
                     selected={selectedDate}
-                    onChange={(date) => setSelectedDate(date)}
+                    onChange={(date: Date | null) => date && setSelectedDate(date)}
                     inline
                     locale={ko}
                     dateFormat="yyyy/MM/dd"
-                    dayClassName={(date) => {
+                    dayClassName={(date: Date) => {
                         const today = new Date();
                         if (date.toDateString() === today.toDateString()) {
-                            return 'text-blue-600 font-bold'; // 오늘 날짜는 항상 파란색 굵은 글씨
+                            return 'text-blue-600 font-bold';
                         }
-                        return undefined;
+                        return '';  // 빈 문자열 반환
                     }}
                     renderDayContents={(day, date) => {
                         const hasSession = mentoringDates.some(
@@ -59,7 +58,7 @@ export default function UpcomingSessions() {
             {/* 멘토링 리스트 영역 */}
             <div className="space-y-4">
                 <h2 className="text-lg font-semibold">
-                    {selectedDate.toLocaleDateString()} 예정된 멘토링
+                    {selectedDate.toLocaleDateString()} Sessions
                 </h2>
                 <div className="space-y-3">
                     {filteredMentorings.length > 0 ? (
@@ -76,7 +75,7 @@ export default function UpcomingSessions() {
                                                 {mentoringWithSession.session?.title}
                                             </h3>
                                             <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-                                                <Clock className="w-4 h-4" />
+                                                <Clock className="w-4 h-4"/>
                                                 {mentoring.time} ·
                                                 {mentoringWithSession.session?.type === 'group'
                                                     ? `그룹 멘토링 (${mentoring.currentParticipantCount}/${mentoring.maxParticipantCount})`
@@ -84,8 +83,27 @@ export default function UpcomingSessions() {
                                                 }
                                             </p>
                                             <p className="text-sm text-gray-500 mt-1">
-                                                {mentoringWithSession.session?.method === 'online' ? '온라인' : '오프라인'}
-                                                {mentoringWithSession.session?.location && ` · ${mentoringWithSession.session.location}`}
+                                                {mentoringWithSession.session?.method === 'online'
+                                                    ? (
+                                                        <>
+                                                            온라인
+                                                            {mentoringWithSession.session?.link && (
+                                                                <>
+                                                                    {' · '}
+                                                                    <a
+                                                                        href={mentoringWithSession.session.link}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        className="text-blue-500 hover:text-blue-700 hover:underline"
+                                                                    >
+                                                                        회의 참여하기
+                                                                    </a>
+                                                                </>
+                                                            )}
+                                                        </>
+                                                    )
+                                                    : `오프라인${mentoringWithSession.session?.location ? ` · ${mentoringWithSession.session.location}` : ''}`
+                                                }
                                             </p>
                                         </div>
                                         <button className="text-sm text-blue-600 hover:text-blue-700">
